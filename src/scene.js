@@ -36,11 +36,11 @@ function wallTexture({ bright = 1, tiles = 4 } = {}) {
      photographer puts a light card behind a shower door. Dark above and below
      so the floor never out-glows the product. */
   const grd = g.createLinearGradient(0, 0, 0, h);
-  const top = mix([9, 14, 21], bright);
-  const upper = mix([40, 56, 70], bright);
-  const band = mix([206, 222, 232], bright);
-  const lower = mix([104, 126, 142], bright);
-  const bot = mix([20, 28, 36], bright);
+  const top = mix([163, 173, 181], bright);
+  const upper = mix([199, 208, 215], bright);
+  const band = mix([231, 236, 240], bright);
+  const lower = mix([193, 201, 208], bright);
+  const bot = mix([158, 167, 175], bright);
   grd.addColorStop(0, css(top));
   grd.addColorStop(0.30, css(upper));
   grd.addColorStop(0.58, css(band));
@@ -53,16 +53,16 @@ function wallTexture({ bright = 1, tiles = 4 } = {}) {
   const th = h / tiles, tw = w / tiles;
   g.lineWidth = 1.5;
   for (let i = 0; i <= tiles; i++) {
-    g.strokeStyle = `rgba(0,0,0,${0.16 * bright})`;
+    g.strokeStyle = `rgba(96,110,122,${0.22 * bright})`;
     g.beginPath(); g.moveTo(0, i * th); g.lineTo(w, i * th); g.stroke();
     g.beginPath(); g.moveTo(i * tw, 0); g.lineTo(i * tw, h); g.stroke();
-    g.strokeStyle = `rgba(255,255,255,${0.10 * bright})`;
+    g.strokeStyle = `rgba(255,255,255,${0.5 * bright})`;
     g.beginPath(); g.moveTo(0, i * th + 1.5); g.lineTo(w, i * th + 1.5); g.stroke();
   }
   /* a few tiles slightly off-tone */
   for (let y = 0; y < tiles; y++) {
     for (let x = 0; x < tiles; x++) {
-      g.fillStyle = `rgba(255,255,255,${(Math.random() - 0.5) * 0.07 * bright})`;
+      g.fillStyle = `rgba(${Math.random() > 0.5 ? '255,255,255' : '150,163,173'},${Math.abs(Math.random() - 0.5) * 0.09 * bright})`;
       g.fillRect(x * tw + 2, y * th + 2, tw - 4, th - 4);
     }
   }
@@ -76,7 +76,7 @@ function wallTexture({ bright = 1, tiles = 4 } = {}) {
 const mix = (rgb, k) => rgb.map((v) => Math.max(0, Math.min(255, Math.round(v * k))));
 const css = (rgb) => `rgb(${rgb[0]},${rgb[1]},${rgb[2]})`;
 
-function labelSprite(text, color = '#5FF3DC', scale = 0.3) {
+function labelSprite(text, color = '#0D4E6B', scale = 0.3) {
   const pad = 18, fs = 46;
   const probe = document.createElement('canvas').getContext('2d');
   probe.font = `700 ${fs}px "JetBrains Mono", ui-monospace, monospace`;
@@ -123,12 +123,14 @@ export function createScene(canvas, { onFail } = {}) {
   renderer.setPixelRatio(Math.min(devicePixelRatio || 1, weak ? 1.5 : 2));
   if ('transmissionResolutionScale' in renderer) renderer.transmissionResolutionScale = weak ? 0.3 : 0.75;
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 1.15;
+  renderer.toneMappingExposure = 1.02;
   renderer.outputColorSpace = THREE.SRGBColorSpace;
 
   const scene = new THREE.Scene();
-  scene.background = new THREE.Color(0x070a0f);
-  scene.fog = new THREE.Fog(0x070a0f, 6, 16);
+  /* white-cyclorama studio: the canvas sits on a white page, so the render
+     has to read as a light product shot rather than a dark room */
+  scene.background = new THREE.Color(0xeef1f3);
+  scene.fog = new THREE.Fog(0xeef1f3, 7, 19);
 
   const camera = new THREE.PerspectiveCamera(38, 1, 0.1, 60);
   camera.position.set(3.1, 2.0, 3.6);
@@ -162,17 +164,17 @@ export function createScene(canvas, { onFail } = {}) {
   });
 
   /* ------------------------------------------------------------- lights */
-  scene.add(new THREE.HemisphereLight(0x8fb6c9, 0x0a0d12, 0.5));
-  const key = new THREE.DirectionalLight(0xffffff, 2.1);
+  scene.add(new THREE.HemisphereLight(0xf4f8fb, 0xb9c2c9, 0.82));
+  const key = new THREE.DirectionalLight(0xffffff, 1.45);
   key.position.set(3.2, 5.2, 3.4);
   scene.add(key);
-  const fill = new THREE.DirectionalLight(0x9fc4ff, 0.75);
+  const fill = new THREE.DirectionalLight(0xe6eef6, 0.62);
   fill.position.set(-3.5, 2.2, 2.0);
   scene.add(fill);
-  const rim = new THREE.DirectionalLight(0x5ff3dc, 0.6);
+  const rim = new THREE.DirectionalLight(0xbcd4e4, 0.38);
   rim.position.set(0.4, 1.2, -4.0);
   scene.add(rim);
-  const strip = new THREE.PointLight(0xdfefff, 12, 7, 2);
+  const strip = new THREE.PointLight(0xffffff, 5, 7, 2);
   strip.position.set(0.2, 2.62, 0.35);
   scene.add(strip);
 
@@ -195,19 +197,19 @@ export function createScene(canvas, { onFail } = {}) {
     opacity: 1,
   });
 
-  const edgeMat = new THREE.LineBasicMaterial({ color: 0xeafffb, transparent: true, opacity: 0.6 });
+  const edgeMat = new THREE.LineBasicMaterial({ color: 0x0d4e6b, transparent: true, opacity: 0.45 });
   const metalMat = new THREE.MeshStandardMaterial({ color: 0xe2e8ec, metalness: 1, roughness: 0.08, envMapIntensity: 1.6 });
-  const sealMat = new THREE.MeshStandardMaterial({ color: 0x14181e, metalness: 0.1, roughness: 0.75 });
+  const sealMat = new THREE.MeshStandardMaterial({ color: 0x6b747b, metalness: 0.1, roughness: 0.75 });
 
   /* the lit backdrop — MeshBasic so it is unaffected by scene lighting and
      the glass tint always has a stable reference to read against */
   const backTex = wallTexture({ bright: 1 });
-  const sideTex = wallTexture({ bright: 0.34, tiles: 3 });
+  const sideTex = wallTexture({ bright: 0.86, tiles: 3 });
   const wallMat = new THREE.MeshBasicMaterial({ map: backTex });
   const wallMatSide = new THREE.MeshBasicMaterial({ map: sideTex });
 
-  const floorMat = new THREE.MeshStandardMaterial({ color: 0x171d26, roughness: 0.18, metalness: 0.35, envMapIntensity: 1.1 });
-  const panMat = new THREE.MeshStandardMaterial({ color: 0x8d9aa6, roughness: 0.45, metalness: 0.1 });
+  const floorMat = new THREE.MeshStandardMaterial({ color: 0xb9c0c6, roughness: 0.3, metalness: 0.12, envMapIntensity: 0.75 });
+  const panMat = new THREE.MeshStandardMaterial({ color: 0xd6dce1, roughness: 0.44, metalness: 0.06 });
   const curbMat = new THREE.MeshStandardMaterial({ color: 0xe4e9ee, roughness: 0.3, metalness: 0.05 });
 
   /* -------------------------------------------------------------- static */
@@ -349,7 +351,7 @@ export function createScene(canvas, { onFail } = {}) {
     /* a slim ceiling wash for an edge glint — not a lightbox */
     const stripLight = new THREE.Mesh(
       new THREE.BoxGeometry(W * 0.86, 0.018, 0.04),
-      new THREE.MeshBasicMaterial({ color: 0xcfe6f5, transparent: true, opacity: 0.5 })
+      new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.9 })
     );
     stripLight.position.set(W / 2, H + 0.34, 0.16);
     dyn.add(stripLight);
@@ -357,6 +359,25 @@ export function createScene(canvas, { onFail } = {}) {
     /* --- shower pan + curb --- */
     const panW = corner ? W + sideDepth : W;
     const panD = corner ? sideDepth + 0.02 : 0.34;
+
+    /* soft contact shadow so the unit sits on the floor instead of floating */
+    const shCanvas = document.createElement('canvas');
+    shCanvas.width = shCanvas.height = 128;
+    const sg = shCanvas.getContext('2d');
+    const sgrad = sg.createRadialGradient(64, 64, 4, 64, 64, 62);
+    sgrad.addColorStop(0, 'rgba(60,72,84,0.42)');
+    sgrad.addColorStop(0.55, 'rgba(60,72,84,0.16)');
+    sgrad.addColorStop(1, 'rgba(60,72,84,0)');
+    sg.fillStyle = sgrad;
+    sg.fillRect(0, 0, 128, 128);
+    const contact = new THREE.Mesh(
+      new THREE.PlaneGeometry(panW * 1.9, Math.max(panD, 0.5) * 3.2),
+      new THREE.MeshBasicMaterial({ map: new THREE.CanvasTexture(shCanvas), transparent: true, depthWrite: false })
+    );
+    contact.rotation.x = -Math.PI / 2;
+    contact.position.set(corner ? W / 2 - 0.02 : W / 2, 0.004, panD / 2);
+    dyn.add(contact);
+
     const pan = new THREE.Mesh(new THREE.BoxGeometry(panW, 0.05, panD), panMat);
     pan.position.set(corner ? W / 2 - 0.02 : W / 2, 0.022, panD / 2);
     dyn.add(pan);
@@ -370,7 +391,7 @@ export function createScene(canvas, { onFail } = {}) {
 
     /* --- room fixtures: the space around the glass has to read as a bathroom,
            otherwise the enclosure floats in an empty box. --- */
-    const chromeMat = new THREE.MeshStandardMaterial({ color: 0xd6dde3, metalness: 1, roughness: 0.14, envMapIntensity: 1.5 });
+    const chromeMat = new THREE.MeshStandardMaterial({ color: 0xcfd6db, metalness: 1, roughness: 0.16, envMapIntensity: 1.4 });
     const headX = W * 0.24;
 
     /* riser arm out of the back wall + rain head */
@@ -402,7 +423,7 @@ export function createScene(canvas, { onFail } = {}) {
     const nicheX = W * 0.70, nicheY = H * 0.62;
     const niche = new THREE.Mesh(
       new THREE.BoxGeometry(nicheW, nicheH, 0.055),
-      new THREE.MeshStandardMaterial({ color: 0x2a3540, roughness: 0.7, metalness: 0.05 })
+      new THREE.MeshStandardMaterial({ color: 0xc3cbd2, roughness: 0.72, metalness: 0.04 })
     );
     niche.position.set(nicheX, nicheY, -0.035);
     dyn.add(niche);
@@ -411,7 +432,7 @@ export function createScene(canvas, { onFail } = {}) {
     dyn.add(nicheLip);
     const bottle = new THREE.Mesh(
       new THREE.CylinderGeometry(0.022, 0.024, 0.11, 14),
-      new THREE.MeshStandardMaterial({ color: 0x5ff3dc, roughness: 0.35, metalness: 0.1 })
+      new THREE.MeshStandardMaterial({ color: 0x0d4e6b, roughness: 0.35, metalness: 0.1 })
     );
     bottle.position.set(nicheX - nicheW * 0.22, nicheY - nicheH / 2 + 0.055, -0.03);
     dyn.add(bottle);
@@ -419,7 +440,7 @@ export function createScene(canvas, { onFail } = {}) {
     /* linear floor drain */
     const drain = new THREE.Mesh(
       new THREE.BoxGeometry(Math.min(0.5, W * 0.4), 0.008, 0.045),
-      new THREE.MeshStandardMaterial({ color: 0x9aa6b0, metalness: 1, roughness: 0.22, envMapIntensity: 1.3 })
+      new THREE.MeshStandardMaterial({ color: 0xa8b2ba, metalness: 1, roughness: 0.24, envMapIntensity: 1.2 })
     );
     drain.position.set(W / 2, 0.006, panD - 0.06);
     dyn.add(drain);

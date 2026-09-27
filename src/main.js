@@ -5,23 +5,11 @@
 import './styles.css';
 import { createScene } from './scene.js';
 import { initTool, toast } from './quote-ui.js';
-import { initLeak, initMargin } from './tools.js';
+import { initLeak, initGate, initMarkup } from './calculators.js';
 
-const $ = (s, r = document) => r.querySelector(s);
+const $  = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-/* ------------------------------------------------------------- headline */
-(function headline() {
-  const el = $('#headline-swap');
-  if (!el) return;
-  const final = 'In 30 seconds.';
-  if (reduceMotion) { el.textContent = final; return; }
-  el.innerHTML = `<span class="old">In 3 minutes.</span>${final}`;
-  requestAnimationFrame(() => {
-    setTimeout(() => el.querySelector('.old')?.classList.add('strike'), 700);
-  });
-})();
 
 /* ------------------------------------------------------------------ nav */
 (function nav() {
@@ -36,147 +24,138 @@ const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
     const open = burger.getAttribute('aria-expanded') === 'true';
     burger.setAttribute('aria-expanded', String(!open));
     menu?.classList.toggle('open', !open);
-    document.body.classList.toggle('is-locked', !open);
   });
   menu?.addEventListener('click', (e) => {
     if (e.target.tagName !== 'A') return;
     burger?.setAttribute('aria-expanded', 'false');
     menu.classList.remove('open');
-    document.body.classList.remove('is-locked');
   });
 })();
 
 /* ----------------------------------------------------------- sticky cta */
 (function sticky() {
-  const el = $('.sticky-cta');
+  const el = $('#sticky-cta');
   const book = $('#book');
   if (!el || !book) return;
-  const io = new IntersectionObserver(
-    ([e]) => el.classList.toggle('show', !e.isIntersecting && scrollY > 620),
-    { threshold: 0.05 }
-  );
-  io.observe(book);
+
+  const set = () => {
+    const past = scrollY > 700;
+    const done = past && book.getBoundingClientRect().top < innerHeight * 0.5;
+    el.classList.toggle('on', past && !done);
+  };
+
+  addEventListener('scroll', set, { passive: true });
+  addEventListener('resize', set);
+  new IntersectionObserver(set).observe(book);
+  set();
 })();
 
 /* -------------------------------------------------------------- reveals */
 (function reveals() {
   const items = $$('[data-reveal]');
-  if (reduceMotion) { items.forEach((i) => i.classList.add('in')); return; }
-  const io = new IntersectionObserver(
-    (entries) => {
-      for (const e of entries) {
-        if (!e.isIntersecting) continue;
-        e.target.classList.add('in');
-        io.unobserve(e.target);
-      }
-    },
-    { rootMargin: '0px 0px -8% 0px', threshold: 0.08 }
-  );
-  items.forEach((i) => io.observe(i));
-})();
-
-/* ------------------------------------------------------------- counters */
-(function counters() {
-  const nodes = $$('[data-count]');
-  if (!nodes.length) return;
-  if (reduceMotion) {
-    nodes.forEach((n) => { n.textContent = (n.dataset.prefix || '') + n.dataset.count + (n.dataset.suffix || ''); });
+  if (reduceMotion || !('IntersectionObserver' in window)) {
+    items.forEach((i) => i.classList.add('in'));
     return;
   }
+
+  /* Kept pending until the panel has actually been reached, so the sweep
+     below can still catch it. */
+  const pending = new Set(items);
+  const show = (el) => { pending.delete(el); el.classList.add('in'); };
+
   const io = new IntersectionObserver(
-    (entries) => {
-      for (const e of entries) {
-        if (!e.isIntersecting) continue;
-        const n = e.target;
-        io.unobserve(n);
-        const to = +n.dataset.count;
-        const t0 = performance.now();
-        const dur = 1150;
-        const step = (now) => {
-          const k = Math.min(1, (now - t0) / dur);
-          const e2 = 1 - Math.pow(1 - k, 4);
-          const v = Math.round(to * e2);
-          n.textContent = `${n.dataset.prefix || ''}${v.toLocaleString('en-US')}${n.dataset.suffix || ''}`;
-          if (k < 1) requestAnimationFrame(step);
-        };
-        requestAnimationFrame(step);
+    (entries) => { for (const e of entries) if (e.isIntersecting) { show(e.target); io.unobserve(e.target); } },
+    { rootMargin: '0px 0px -6% 0px', threshold: 0 }
+  );
+  items.forEach((i) => io.observe(i));
+
+  /* IntersectionObserver can coalesce a fast scroll and step straight over a
+     tall panel, leaving it at opacity 0 forever. Sweep on scroll as a net. */
+  let queued = false;
+  const sweep = () => {
+    queued = false;
+    for (const el of [...pending]) {
+      if (el.getBoundingClientRect().top < window.innerHeight * 0.97) {
+        show(el);
+        io.unobserve(el);
       }
-    },
-    { threshold: 0.5 }
-  );
-  nodes.forEach((n) => io.observe(n));
+    }
+    if (!pending.size) window.removeEventListener('scroll', onScroll);
+  };
+  const onScroll = () => {
+    if (queued) return;
+    queued = true;
+    requestAnimationFrame(sweep);
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
 })();
 
-/* --------------------------------------------------------- strike marks */
-(function strikes() {
-  const nodes = $$('.strike');
-  if (!nodes.length) return;
-  const io = new IntersectionObserver(
-    (entries) => {
-      for (const e of entries) {
-        if (!e.isIntersecting) continue;
-        e.target.classList.add('on');
-        io.unobserve(e.target);
-      }
-    },
-    { threshold: 0.6 }
-  );
-  nodes.forEach((n) => io.observe(n));
+/* --------------------------------------------------- sticky hero tool --- */
+(function stickyHero() {
+  const col = $('.hero-right');
+  if (!col) return;
+  const fit = () => {
+    /* Only stick when the whole tool fits, otherwise the controls at the
+       bottom of the column end up below the fold and unreachable. */
+    const wide = window.matchMedia('(min-width: 1120px)').matches;
+    const roomy = col.scrollHeight + 108 < window.innerHeight;
+    col.classList.toggle('is-sticky', wide && roomy);
+  };
+  addEventListener('resize', fit, { passive: true });
+  fit();
+  setTimeout(fit, 400);
 })();
 
-/* ---------------------------------------------------------- value eq bars */
-(function valueEq() {
-  const root = $('#eq-rows');
-  if (!root) return;
-  const io = new IntersectionObserver(
-    ([e]) => {
-      if (!e.isIntersecting) return;
-      io.disconnect();
-      for (const fill of $$('.eq-fill', root)) fill.style.width = `${(+fill.dataset.fill * 100).toFixed(0)}%`;
-    },
-    { threshold: 0.35 }
-  );
-  io.observe(root);
+/* ----------------------------------------------------------------- faq */
+(function faq() {
+  for (const q of $$('[data-faq-q]')) {
+    q.addEventListener('click', () => {
+      const open = q.getAttribute('aria-expanded') === 'true';
+      q.setAttribute('aria-expanded', String(!open));
+      q.nextElementSibling?.classList.toggle('on', !open);
+    });
+  }
 })();
 
-/* ---------------------------------------------------------------- year */
-const yr = $('#yr');
-if (yr) yr.textContent = String(new Date().getFullYear());
+/* ------------------------------------------------------- free calculators
+   Both stand alone — no shared state, so a visitor can use either one without
+   the other being involved at all.
+   ------------------------------------------------------------------------- */
+/* The leak calculator is deliberately split: the inputs and the headline
+   number sit in the hero, the breakdown and the email gate sit in the panel
+   below it. So it is wired against the document, not a single root. */
+initLeak();
+initGate();
 
-/* ======================================================================
-   The tool
-   ====================================================================== */
+const markupRoot = $('#markup');
+if (markupRoot) initMarkup(markupRoot);
+
+/* ------------------------------------------------------------- the tool */
 const canvas = $('#scene');
-const fallback = $('#vp-fallback');
 let scene = null;
 
 if (canvas) {
-  scene = createScene(canvas, {
-    onFail() {
-      canvas.style.display = 'none';
-      if (fallback) fallback.hidden = false;
-    },
-  });
-  if (!scene && fallback) {
+  try {
+    scene = createScene(canvas, {
+      onFail: () => {
+        const fb = $('#vp-fallback');
+        if (fb) fb.hidden = false;
+        canvas.style.display = 'none';
+      },
+    });
+  } catch (err) {
+    const fb = $('#vp-fallback');
+    if (fb) fb.hidden = false;
     canvas.style.display = 'none';
-    fallback.hidden = false;
   }
 }
 
-const margin = initMargin({
-  onMargin(m) { tool?.setMargin(m); },
-});
+const tool = initTool({ scene, onQuote() {} });
 
-const tool = initTool({
-  scene,
-  onQuote(state, q) { margin?.render(state.margin, q); },
-});
-
-const leak = initLeak();
-
-/* wire the leak calculator's own margin-free state into nothing else —
-   it is deliberately standalone so both free tools work with no cross-talk. */
-if (leak) leak.render();
+/* ------------------------------------------------------------ year stamp */
+const yr = $('#yr');
+if (yr) yr.textContent = String(new Date().getFullYear());
 
 /* ------------------------------------------------------ form (no backend)
    TODO(owner): point this at your inbox.
@@ -192,13 +171,16 @@ form?.addEventListener('submit', (e) => {
   e.preventDefault();
   if (!form.reportValidity()) return;
   const data = Object.fromEntries(new FormData(form).entries());
-  // eslint-disable-next-line no-console
-  console.info('[COUNTER] booking form submit →', data);
-  form.querySelectorAll('input,textarea,select,button').forEach((el) => (el.disabled = true));
-  const ok = $('#bf-ok');
-  if (ok) ok.hidden = false;
+  window.dispatchEvent(new CustomEvent('booking_submit', { detail: data }));
+  form.querySelectorAll('input,textarea,select,button').forEach((el) => { el.disabled = true; });
+  $('#book-ok')?.classList.add('on');
   toast('<b>Sent.</b> I read these myself — expect an honest answer, not a brochure.');
 });
+
+/* the lead-magnet gate, same story: hand the email + model to your ESP */
+window.__onGate = ({ email, model }) => {
+  window.dispatchEvent(new CustomEvent('lead_gate_submit', { detail: { email, model } }));
+};
 
 /* ------------------------------------------------------ cta instrumentation
    Fires a `cta_click` event with the placement so you can plug in whatever
@@ -206,20 +188,13 @@ form?.addEventListener('submit', (e) => {
    ------------------------------------------------------------------------- */
 for (const a of $$('[data-cta]')) {
   a.addEventListener('click', () => {
-    document.dispatchEvent(new CustomEvent('cta_click', { detail: { placement: a.dataset.cta } }));
-    // eslint-disable-next-line no-console
-    console.info('[COUNTER] cta_click', a.dataset.cta);
+    window.dispatchEvent(new CustomEvent('cta_click', { detail: { placement: a.dataset.cta } }));
   });
 }
 
-/* ------------------------------------------------------------- deep links */
-if (location.hash === '#book-form') {
-  setTimeout(() => $('#book-form')?.scrollIntoView({ block: 'center' }), 400);
-}
-
-/* --------------------------------------------------------------- console */
+/* ------------------------------------------------------------- console */
 console.info(
-  '%cCOUNTER%c — the demo on this page is a real cost model, not a video.',
-  'background:#5FF3DC;color:#04100E;padding:3px 8px;border-radius:4px;font-weight:700',
-  'color:#5F6B7B'
+  '%cCOUNTER%c — the calculator and the demo on this page both run in your browser.',
+  'background:#0d4e6b;color:#fff;padding:3px 8px;border-radius:4px;font-weight:700',
+  'color:#66757f'
 );

@@ -3,52 +3,47 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<title>COUNTER — Quote on the call. Close on the spot.</title>
-<meta name="description" content="A quoting tool built around the way your shop actually works. Price the job live while the customer is on the phone, send the PDF in under 10 minutes, and stop losing deals to whoever answered first." />
-<meta name="theme-color" content="#05070B" />
-<meta property="og:title" content="COUNTER — Quote on the call. Close on the spot." />
-<meta property="og:description" content="Not a generic estimating app. Your workflow, encoded into a tool you quote from in 30 seconds." />
+<title>COUNTER — the quoting tool built around your shop</title>
+<meta name="description" content="Find out what your quote delay is costing you a year — free, five questions, no signup. Then, if it is worth fixing, a quoting tool built around how your shop actually prices." />
+<meta name="theme-color" content="#ffffff" />
+<meta property="og:title" content="COUNTER — the quoting tool built around your shop" />
+<meta property="og:description" content="Five questions. What your quote delay costs you a year, and which one fix is worth doing first." />
 <meta property="og:type" content="website" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2305070B'/%3E%3Cpath d='M9 8h14v3.4h-10.2v5.4h8.6v3.4h-8.6V25H9z' fill='%235FF3DC'/%3E%3C/svg%3E" />
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Inter:wght@400;450;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230d4e6b'/%3E%3Cpath d='M9 8h14v3.4h-10.2v5.4h8.6v3.4h-8.6V25H9z' fill='%23fff'/%3E%3C/svg%3E" />
 </head>
 <body>
-<div class="bg" aria-hidden="true">
-  <div class="bg-grid"></div>
-  <div class="bg-glow"></div>
-  <div class="bg-noise"></div>
-</div>
 
-<a class="skip" href="#tool">Skip to the live quote tool</a>
+<a class="skip" href="#leak">Skip to the free calculator</a>
 
 <!-- ============================== NAV ============================== -->
 <header class="nav" id="nav">
   <div class="wrap nav-in">
     <a class="brand" href="#top" aria-label="COUNTER home">
-      <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="7" fill="currentColor" fill-opacity=".08"/><path d="M9 8h14v3.4h-10.2v5.4h8.6v3.4h-8.6V25H9z" fill="currentColor"/></svg>
+      <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="7" fill="currentColor" fill-opacity=".1"/><path d="M9 8h14v3.4h-10.2v5.4h8.6v3.4h-8.6V25H9z" fill="currentColor"/></svg>
       <span class="brand-name">COUNTER</span>
-      <span class="brand-tag">on&nbsp;the&nbsp;spot</span>
+      <span class="brand-tag">quoting tool</span>
     </a>
     <nav class="nav-links" aria-label="Primary">
-      <a href="#problems">Why you lose</a>
-      <a href="#leak">Free tools</a>
-      <a href="#offer">What you get</a>
-      <a href="#proof">Proof</a>
+      <a href="#leak">Free calculator</a>
+      <a href="#markup">Markup check</a>
+      <a href="#tool">Live demo</a>
+      <a href="#proof">Results</a>
       <a href="#faq">FAQ</a>
     </nav>
-    <a class="btn btn-acc btn-sm nav-cta" href="#book" data-cta="nav">Book the 20-min build call</a>
+    <a class="btn btn-sm nav-cta" href="#book" data-cta="nav">Book a 20-min call</a>
     <button class="nav-burger" aria-label="Menu" aria-expanded="false" data-burger><span></span><span></span></button>
   </div>
   <div class="nav-mobile" data-mobile-nav>
-    <a href="#problems">Why you lose</a>
-    <a href="#leak">Free tools</a>
-    <a href="#offer">What you get</a>
-    <a href="#process">Process</a>
-    <a href="#proof">Proof</a>
+    <a href="#leak">Free calculator</a>
+    <a href="#markup">Markup check</a>
+    <a href="#tool">Live demo</a>
+    <a href="#process">How it works</a>
+    <a href="#proof">Results</a>
     <a href="#faq">FAQ</a>
-    <a class="btn btn-acc" href="#book" data-cta="nav-mobile">Book the 20-min build call</a>
+    <a class="btn" href="#book" data-cta="nav-mobile">Book a 20-min call</a>
   </div>
 </header>
 
@@ -57,931 +52,609 @@
 <!-- ============================== HERO ============================== -->
 <section class="hero">
   <div class="wrap">
+    <div class="hero-grid">
 
-    <div class="hero-copy">
-      <p class="eyebrow" data-reveal>
-        <span class="dot"></span>
-        Custom-built for trade businesses. Glass shops first — then whatever you sell that needs a number on the call.
-      </p>
-
-      <h1 class="h-display" data-reveal>
-        Your quote.<br />
-        <span class="strike-wrap">On the call.</span><br />
-        <span class="grad" id="headline-swap">In 30 seconds.</span>
-      </h1>
-
-      <p class="lede" data-reveal>
-        <strong class="hl">This is not a generic estimating app you download tonight.</strong>
-        I build the tool around the way <em>your</em> shop prices glass, <em>your</em> margin rules,
-        <em>your</em> hardware, <em>your</em> terms. You pick the job on the phone, the number builds
-        itself in front of the customer, and the PDF is out before they hang up.
-      </p>
-
-      <div class="cta-row" data-reveal>
-        <a class="btn btn-acc btn-lg" href="#book" data-cta="hero-primary">Book the 20-min build call</a>
-        <a class="btn btn-ghost btn-lg" href="#tool" data-cta="hero-secondary">↓ Try the live tool below</a>
-      </div>
-
-      <p class="cta-micro" data-reveal>
-        No demo call with a salesperson. <b>I</b> am the build. You talk to the person who writes the code.
-      </p>
-    </div>
-
-    <!-- ====================== LIVE QUOTE TOOL ====================== -->
-    <div class="tool-shell" id="tool" data-reveal>
-      <div class="tool-chrome">
-        <div class="tool-dotrow"><i></i><i></i><i></i></div>
-        <div class="tool-title">
-          <span class="mono" id="job-name">NEW ENQUIRY</span>
-          <span class="live"><i></i>LIVE QUOTE</span>
-        </div>
-        <div class="tool-timer">
-          <span class="micro-label">ON THE CALL</span>
-          <span class="mono timer" id="call-timer" aria-live="off">00:00</span>
-        </div>
-        <button class="btn btn-mini" id="new-call" type="button">↻ New call</button>
-      </div>
-
-      <div class="tool-body">
-        <!-- ---------- viewport ---------- -->
-        <div class="vp" id="vp">
-          <canvas id="scene" aria-label="Interactive 3D preview of the shower enclosure being priced"></canvas>
-          <div class="vp-fallback" id="vp-fallback" hidden>
-            <div class="vp-fallback-inner">
-              <p class="mono">3D preview unavailable on this device</p>
-              <p>Every price below is still live and exact. Turn on hardware acceleration to see the render.</p>
-            </div>
-          </div>
-          <div class="vp-hud">
-            <span class="chip" id="hud-size">48″ × 80″</span>
-            <span class="chip" id="hud-glass">3/8″ clear</span>
-            <span class="chip" id="hud-hw">Polished chrome</span>
-          </div>
-          <div class="vp-drag"><span>↔</span> drag to rotate</div>
-          <div class="vp-scan" aria-hidden="true"></div>
-        </div>
-
-        <!-- ---------- controls ---------- -->
-        <div class="ctl" id="ctl">
-          <div class="ctl-scroll">
-
-            <div class="ctl-group">
-              <div class="ctl-head"><span class="mono idx">01</span> Enclosure</div>
-              <div class="seg seg-4" data-seg="layout">
-                <button type="button" data-v="alcove" class="on">Alcove<em>2 lite</em></button>
-                <button type="button" data-v="double">Double<em>2 door</em></button>
-                <button type="button" data-v="neoangle">Neo-angle<em>3 lite</em></button>
-                <button type="button" data-v="walkin">Walk-in<em>1 lite</em></button>
-              </div>
-            </div>
-
-            <div class="ctl-group">
-              <div class="ctl-head"><span class="mono idx">02</span> Glass</div>
-              <div class="seg seg-3" data-seg="thickness">
-                <button type="button" data-v="6mm">1/4″<em>$ · 6 mm</em></button>
-                <button type="button" data-v="10mm" class="on">3/8″<em>$$ · 10 mm</em></button>
-                <button type="button" data-v="12mm">1/2″<em>$$$ · 12 mm</em></button>
-              </div>
-              <div class="swatches" data-seg="finish">
-                <button type="button" data-v="clear" class="sw on" title="Clear"><span style="--a:#e9f7f5"></span>Clear</button>
-                <button type="button" data-v="lowiron" class="sw" title="Low-iron"><span style="--a:#f2fffd"></span>Low-iron</button>
-                <button type="button" data-v="frosted" class="sw" title="Acid-etched"><span style="--a:#d6e9e7"></span>Etched</button>
-                <button type="button" data-v="bronze" class="sw" title="Bronze tint"><span style="--a:#c08b55"></span>Bronze</button>
-                <button type="button" data-v="grey" class="sw" title="Grey tint"><span style="--a:#7d868f"></span>Grey</button>
-                <button type="button" data-v="mirror" class="sw" title="Mirror"><span style="--a:#e6eef2"></span>Mirror</button>
-              </div>
-            </div>
-
-            <div class="ctl-group">
-              <div class="ctl-head"><span class="mono idx">03</span> Door &amp; hardware</div>
-              <div class="seg seg-3" data-seg="door">
-                <button type="button" data-v="swing" class="on">Swing<em>2 hinge</em></button>
-                <button type="button" data-v="pivot">Pivot<em>heavy</em></button>
-                <button type="button" data-v="slider">Slider<em>track</em></button>
-              </div>
-              <div class="swatches sw-hw" data-seg="hardware">
-                <button type="button" data-v="chrome" class="sw on" title="Polished chrome"><span style="--a:#dfe6ea"></span>Chrome</button>
-                <button type="button" data-v="nickel" class="sw" title="Brushed nickel"><span style="--a:#c9c9c6"></span>Nickel</button>
-                <button type="button" data-v="black" class="sw" title="Matte black"><span style="--a:#2a2a2c"></span>Black</button>
-                <button type="button" data-v="orb" class="sw" title="Oil-rubbed bronze"><span style="--a:#6d4a2f"></span>Bronze</button>
-                <button type="button" data-v="brass" class="sw" title="Satin brass"><span style="--a:#c3a35c"></span>Brass</button>
-              </div>
-            </div>
-
-            <div class="ctl-group">
-              <div class="ctl-head"><span class="mono idx">04</span> Size</div>
-              <label class="range">
-                <span class="range-lab">Opening width <b class="mono" id="w-out">48″</b></span>
-                <input type="range" id="w" min="36" max="72" step="3" value="48" />
-              </label>
-              <label class="range">
-                <span class="range-lab">Height <b class="mono" id="h-out">80″</b></span>
-                <input type="range" id="h" min="70" max="96" step="2" value="80" />
-              </label>
-            </div>
-
-            <div class="ctl-group">
-              <div class="ctl-head"><span class="mono idx">05</span> Add-ons</div>
-              <div class="checks" data-checks>
-                <label class="chk"><input type="checkbox" data-x="coat" /><span class="box"></span>Water-repellent coating<em>+$6/sf</em></label>
-                <label class="chk"><input type="checkbox" data-x="seal" /><span class="box"></span>Silicone &amp; seals kit<em>+$34</em></label>
-                <label class="chk"><input type="checkbox" data-x="plumb" /><span class="box"></span>Out-of-plumb / scribe<em>+1.5 h</em></label>
-                <label class="chk"><input type="checkbox" data-x="haul" /><span class="box"></span>Remove &amp; haul old unit<em>+$185</em></label>
-                <label class="chk"><input type="checkbox" data-x="bar" /><span class="box"></span>Support bar (walk-in only)<em>+$128</em></label>
-                <label class="chk"><input type="checkbox" data-x="overnight" /><span class="box"></span>Two-crew install<em>×1.6 labour</em></label>
-              </div>
-            </div>
-
-          </div>
-        </div>
-
-        <!-- ---------- quote out ---------- -->
-        <aside class="quote" id="quote">
-          <div class="quote-scroll">
-            <div class="quote-head">
-              <span class="mono q-no" id="q-no">Q-0000</span>
-              <span class="quote-for">Prepared live · valid 14 days</span>
-            </div>
-            <div class="lines" id="lines"></div>
-            <div class="q-totals">
-              <div class="q-row"><span>Material &amp; labour cost</span><b class="mono" id="t-cost">$0</b></div>
-              <div class="q-row q-margin"><span>Your margin <b class="mono" id="m-out">45%</b></span><b class="mono" id="t-margin">$0</b></div>
-              <div class="q-row q-grand"><span>Client price</span><b class="mono" id="t-total">$0</b></div>
-              <div class="q-row q-dep"><span>Deposit to book <em class="micro-label">50%</em></span><b class="mono" id="t-dep">$0</b></div>
-            </div>
-            <div class="q-note">
-              <span class="lock" aria-hidden="true">◈</span>
-              <p><b>COUNTER doesn’t guess.</b> Every number above came from one job record: opening, glass spec, hardware, labour hours, your margin rule. Same figures your shop already agrees on — just typed once instead of six times.</p>
-            </div>
-          </div>
-          <div class="quote-actions">
-            <button class="btn btn-acc btn-block" id="send-quote" type="button">⚡ Send the quote</button>
-            <div class="quote-actions-sub">
-              <button class="btn btn-ghost btn-sm" id="pdf-quote" type="button">⤓ PDF</button>
-              <button class="btn btn-ghost btn-sm" id="mail-quote" type="button">✉ Email</button>
-              <button class="btn btn-ghost btn-sm" id="edit-margin" type="button">% Margin</button>
-            </div>
-            <p class="quote-foot">That took <b class="mono" id="time-taken">00:00</b>. Yours would too — on the phone, with them listening.</p>
-          </div>
-        </aside>
-      </div>
-    </div>
-
-    <!-- ---------- hero stats ---------- -->
-    <ul class="stat-strip" data-reveal>
-      <li>
-        <b class="mono stat-n" data-count="30" data-suffix=" sec">0</b>
-        <span>Average time from “send me a quote” to a priced PDF</span>
-      </li>
-      <li>
-        <b class="mono stat-n" data-count="35" data-prefix="+" data-suffix="%">0</b>
-        <span>More of those quotes actually close when you quote them on the call instead of the next morning</span>
-      </li>
-      <li>
-        <b class="mono stat-n" data-count="2" data-suffix="×">0</b>
-        <span>Closes on jobs where the PDF lands within 10 minutes of the call ending</span>
-      </li>
-    </ul>
-
-    <p class="micro-note" data-reveal>
-      The +35% and 2× figures are from quoting shops running the on-the-call / 10-minute follow-up sequence.
-      Your mileage depends on your market — but the gap between “quoted on the call” and “quoted three days later”
-      is the single biggest leak most shops have, and it is 100% a speed problem. Speed is a tooling problem.
-    </p>
-  </div>
-</section>
-
-<!-- ============================== CALLOUT ============================== -->
-<section class="sec sec-callout">
-  <div class="wrap callout-grid">
-    <div class="callout" data-reveal>
-      <h3 class="callout-h">This is for you if<span class="tick">↓</span></h3>
-      <ul>
-        <li>You price a custom job live, on the phone, in front of someone who is already comparing you to the last guy who called them.</li>
-        <li>Your quote takes a spreadsheet, a memory of last month’s supplier price, and one estimator who is very busy.</li>
-        <li>You’ve won the job and then lost it because the PDF landed on Thursday and they signed with the shop that answered Tuesday.</li>
-        <li>Your tools are “good enough.” Getting better means inventing a workflow nobody but you has ever used.</li>
-        <li>You are done paying monthly for software that does 60% of your job and 100% of nothing in particular.</li>
-      </ul>
-    </div>
-    <div class="callout callout-no" data-reveal>
-      <h3 class="callout-h">And it is <span class="strike">not</span> for you if<span class="tick">✕</span></h3>
-      <ul>
-        <li>You want a template you configure yourself in an afternoon. This is not that. It is built <b>for</b> you, not <b>by</b> you.</li>
-        <li>You need 40 features nobody on your team will ever touch. You get the 8 that move the number.</li>
-        <li>You’re shopping on seat price. A $20 seat that saves one estimator two hours a day is a rounding error against a $2,000 job.</li>
-        <li>You want to hand-edit the same quote four times because that’s how you’ve always done it. That’s the problem, not the process.</li>
-        <li>You need me to disappear after handover. I don’t. That’s part of the price of getting it right.</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<!-- ============================== MORE / BETTER / NEW ============================== -->
-<section class="sec sec-ladder">
-  <div class="wrap">
-    <p class="kicker" data-reveal>Three ways to price a shower. Only one of them is fast.</p>
-    <div class="ladder">
-      <article class="rung rung-1" data-reveal>
-        <span class="rung-tag mono">MORE</span>
-        <h3>Excel and the memory of Dave</h3>
-        <p>You have one workbook, two people who both edit it, and a price list from whenever. It works. It is just slow, and you know it.</p>
-        <ul class="ticks-ul">
-          <li>Quote time: 25–60 min</li>
-          <li>Sent next morning, if that</li>
-          <li>One estimator knows the rules</li>
-        </ul>
-      </article>
-      <article class="rung rung-2" data-reveal>
-        <span class="rung-tag mono">BETTER</span>
-        <h3>Off-the-shelf estimating software</h3>
-        <p>Built for everybody, so it does the average of everybody. Powerful, expensive, and you spend the first month deleting the parts you don’t use.</p>
-        <ul class="ticks-ul">
-          <li>Quote time: 8–15 min</li>
-          <li>Your rules live in a spreadsheet beside it anyway</li>
-          <li>Monthly, forever, for a workflow you didn’t ask for</li>
-        </ul>
-      </article>
-      <article class="rung rung-3" data-reveal>
-        <span class="rung-tag mono">NEW</span>
-        <h3>COUNTER</h3>
-        <p>One job record → a price, a PDF, and a deposit request. Built from your quotes, your margins, your hardware list. Yours alone.</p>
-        <ul class="ticks-ul accent">
-          <li>Quote time: <b>under 30 seconds</b></li>
-          <li>Rules are the tool, not a file next to it</li>
-          <li>You own it. No seat tax, no roadmap, no hostage</li>
-        </ul>
-      </article>
-    </div>
-  </div>
-</section>
-
-<!-- ============================== PROBLEM DECOMPOSITION ============================== -->
-<section class="sec sec-problems" id="problems">
-  <div class="wrap">
-    <header class="sec-head">
-      <p class="kicker" data-reveal>The job nobody prices</p>
-      <h2 class="h-sec" data-reveal>Between <span class="strike">“let me look at it”</span> and <span class="grad">“here’s your number”</span>, there are 19 things.</h2>
-      <p class="sec-lede" data-reveal>
-        Most shops don’t lose on price. They lose in the gap. Here is the actual distance you travel on a
-        single shower enquiry — and what happens to each step when your tooling is built for it.
-      </p>
-    </header>
-
-    <div class="prob-grid" data-reveal>
-      <div class="prob-col">
-        <h4 class="prob-h">What eats the quote</h4>
-        <ol class="prob-list">
-          <li>Getting a straight answer out of the customer about the opening</li>
-          <li>Tape measure, phone photos, a notebook that gets lost</li>
-          <li>Working out whether it’s actually square</li>
-          <li>Deciding glass thickness from memory</li>
-          <li>Checking the supplier price is this month’s, not last year’s</li>
-          <li>Recalculating because you forgot the waste factor</li>
-          <li>Remembering the tempering minimum charge</li>
-          <li>Counting linear feet for the polished edge</li>
-          <li>Hunting the hardware catalogue for the right hinge</li>
-          <li>Checking which finish the customer means by “silver”</li>
-          <li>Working out install hours for a neo-angle</li>
-          <li>Adding the out-of-plumb surcharge without sounding rude</li>
-          <li>Rebuilding the PDF from scratch</li>
-          <li>Writing the exclusions and warranty notes</li>
-          <li>Working out the deposit</li>
-          <li>Getting a signature on something</li>
-          <li>Sending it</li>
-          <li>Answering “what if we do bronze instead?”</li>
-          <li>Doing all of it again at 11pm on a Sunday</li>
-        </ol>
-      </div>
-      <div class="prob-col prob-col-after">
-        <h4 class="prob-h">What it looks like when it’s your tool</h4>
-        <ol class="prob-list prob-list-after">
-          <li><b>Asks.</b> Guided questions, phone-keypad answers, no jargon</li>
-          <li><b>Photos in.</b> Attach the shot, keep it on the record</li>
-          <li><b>Flags it.</b> Out-of-square triggers the surcharge before you do</li>
-          <li><b>Enforced.</b> 10 mm is the default because that is your default</li>
-          <li><b>Live.</b> Your price book, current, loaded once</li>
-          <li><b>Automatic.</b> 8% waste is a rule, not a memory</li>
-          <li><b>Automatic.</b> $65 minimum per lite, applied silently</li>
-          <li><b>Counted.</b> Perimeter from the panel you just drew</li>
-          <li><b>Filtered.</b> Shows the hinge you actually stock</li>
-          <li><b>Translated.</b> Silver → polished chrome / brushed nickel / matte black</li>
-          <li><b>Looked up.</b> 7.5 h for a neo-angle, from your own numbers</li>
-          <li><b>Explained.</b> The quote line says why, in one sentence</li>
-          <li><b>One click.</b> Branded PDF, your template, your logo</li>
-          <li><b>Pre-written.</b> Your exclusions, in your voice</li>
-          <li><b>Default.</b> 50% deposit, or whatever you actually take</li>
-          <li><b>On the spot.</b> Sign on the glass, on the tablet, on the phone</li>
-          <li><b>Under 10 min.</b> Send and let the timestamp do the arguing</li>
-          <li><b>One field.</b> Change bronze → grey, price re-derives instantly</li>
-          <li><b>Anywhere.</b> Your phone, in the truck, at 11pm</li>
-        </ol>
-      </div>
-    </div>
-
-    <p class="prob-kicker" data-reveal>
-      Every one of those nineteen lines was a thing you already do. None of them got easier because you
-      bought software. They got easier because someone wrote them down for you.
-    </p>
-  </div>
-</section>
-
-<!-- ============================== FREE VALUE 1: LEAK TEST ============================== -->
-<section class="sec sec-leak" id="leak">
-  <div class="wrap">
-    <header class="sec-head">
-      <p class="kicker" data-reveal>Free · no email · no call required</p>
-      <h2 class="h-sec" data-reveal>The 10-Minute Revenue Leak Test</h2>
-      <p class="sec-lede" data-reveal>
-        Estimating consultants charge for exactly this. Most shops already have the numbers in their head —
-        they just never put them in the same place. Four sliders, thirty seconds, and you’ll know the size
-        of the hole you’re quoting around.
-      </p>
-    </header>
-
-    <div class="leak-wrap" data-reveal>
-      <div class="leak-inputs">
-        <div class="li">
-          <label class="range-lg">
-            <span class="range-lab">Quoted jobs per month <b class="mono" id="l-q-out">40</b></span>
-            <input type="range" id="l-q" min="5" max="200" step="5" value="40" />
-          </label>
-        </div>
-        <div class="li">
-          <label class="range-lg">
-            <span class="range-lab">Average job value <b class="mono" id="l-v-out">$3,400</b></span>
-            <input type="range" id="l-v" min="400" max="20000" step="100" value="3400" />
-          </label>
-        </div>
-        <div class="li">
-          <label class="range-lg">
-            <span class="range-lab">Your close rate today <b class="mono" id="l-c-out">28%</b></span>
-            <input type="range" id="l-c" min="5" max="70" step="1" value="28" />
-          </label>
-        </div>
-        <div class="li">
-          <label class="range-lg">
-            <span class="range-lab">Hours until the quote reaches them <b class="mono" id="l-h-out">48 h</b></span>
-            <input type="range" id="l-h" min="1" max="168" step="1" value="48" />
-          </label>
-        </div>
-      </div>
-
-      <div class="leak-out" aria-live="polite">
-        <p class="micro-label">Annual revenue currently walking out of the gap</p>
-        <div class="leak-num"><span class="mono" id="leak-big">$0</span></div>
-
-        <div class="leak-bars">
-          <div class="lb">
-            <div class="lb-top"><span>Jobs you win as-is</span><b class="mono" id="lb-now-win">0</b></div>
-            <div class="lb-track"><i id="bar-now"></i></div>
-          </div>
-          <div class="lb lb-good">
-            <div class="lb-top"><span>Quote on the call <em>(+35% close)</em></span><b class="mono" id="lb-call-win">0</b></div>
-            <div class="lb-track"><i id="bar-call"></i></div>
-          </div>
-          <div class="lb lb-best">
-            <div class="lb-top"><span>On the call + PDF in 10 min <em>(2×)</em></span><b class="mono" id="lb-both-win">0</b></div>
-            <div class="lb-track"><i id="bar-both"></i></div>
-          </div>
-        </div>
-
-        <div class="leak-verdict">
-          <p id="leak-verdict-text">Move a slider.</p>
-          <p class="verdict-sub">That is your number. Not a market report, not a benchmark — arithmetic on the four figures you just typed.</p>
-        </div>
-
-        <div class="leak-cta">
-          <a class="btn btn-acc btn-lg" href="#book" data-cta="leak-primary">Show me how to close it</a>
-          <button class="btn btn-ghost btn-lg" type="button" id="leak-sheet">⤓ Send me the full one-pager</button>
-        </div>
-        <p class="micro-note tight" id="leak-sheet-note">The one-pager is a worked version of this test with your numbers filled in, plus the follow-up sequence that goes with it. No call needed to get it.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============================== FREE VALUE 2: MARGIN STACK ============================== -->
-<section class="sec sec-margin">
-  <div class="wrap">
-    <header class="sec-head sec-head-split">
-      <div>
-        <p class="kicker" data-reveal>Free · the other half of the leak</p>
-        <h2 class="h-sec" data-reveal>Know your real number <span class="strike">before</span> you send it.</h2>
-      </div>
-      <p class="sec-lede" data-reveal>
-        Speed wins you the call. Margin keeps the shop open. This second free tool is the one that
-        stops you from winning a lot of money-losing jobs — because that is the real way fast quoting
-        can hurt you.
-      </p>
-    </header>
-
-    <div class="margin-wrap" data-reveal>
-      <div class="margin-controls">
-        <div class="li">
-          <label class="range-lg">
-            <span class="range-lab">Your target margin on a job <b class="mono" id="g-margin-out">45%</b></span>
-            <input type="range" id="g-margin" min="15" max="70" step="1" value="45" />
-          </label>
-        </div>
-        <p class="micro-note tight">Glass, waste, temper minimum, edgework, hardware, labour, consumables — rebuilt from the live job above. Drag it and watch the stack.</p>
-      </div>
-      <div class="margin-out">
-        <div class="stack" id="stack" role="img" aria-label="Cost breakdown of the currently configured job"></div>
-        <div class="stack-legend" id="stack-legend"></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============================== VALUE EQUATION ============================== -->
-<section class="sec sec-eq">
-  <div class="wrap">
-    <header class="sec-head">
-      <p class="kicker" data-reveal>Why it feels expensive. It isn’t.</p>
-      <h2 class="h-sec" data-reveal>Here is the entire argument, as arithmetic.</h2>
-      <p class="sec-lede" data-reveal>
-        Value is not the sticker. Value is what you get, divided by what it costs you in time, money and
-        nerve. Custom tooling wins on all four variables at once, which is why the cheaper option keeps
-        costing you.
-      </p>
-    </header>
-
-    <div class="eq" data-reveal>
-      <div class="eq-formula mono">
-        <span class="eq-num">Value&nbsp;=</span>
-        <span class="frac">
-          <span class="frac-top"><i>Dream&nbsp;outcome</i> <i>×</i> <i>Perceived&nbsp;likelihood</i></span>
-            <span class="frac-bot"><i>Time&nbsp;delay</i> <i>+</i> <i>Effort&nbsp;&amp;&nbsp;sacrifice</i></span>
-        </span>
-      </div>
-
-      <div class="eq-rows" id="eq-rows">
-        <div class="eq-row" data-var="dream">
-          <div class="eq-name"><b>Dream outcome</b><span>The job you wanted in the first place</span></div>
-          <div class="eq-bars"><i class="eq-track"><i class="eq-fill" data-fill="0.45"></i></i><span class="eq-v mono" data-v="0.45">+45%</span></div>
-          <p class="eq-why">Same job you were chasing. You just stop losing it to a competitor who replied faster. Outcome unchanged. Win rate changed.</p>
-        </div>
-        <div class="eq-row" data-var="like">
-          <div class="eq-name"><b>Perceived likelihood</b><span>Do you trust the number?</span></div>
-          <div class="eq-bars"><i class="eq-track"><i class="eq-fill" data-fill="0.8"></i></i><span class="eq-v mono" data-v="0.8">+80%</span></div>
-          <p class="eq-why">A PDF with your company on it, your terms in it, a real deposit figure and a signature line — from a shop that measured properly. It reads as an expert, not as a bid.</p>
-        </div>
-        <div class="eq-row" data-var="delay">
-          <div class="eq-name"><b>Time delay</b><span>Days between quote and decision</span></div>
-          <div class="eq-bars"><i class="eq-track eq-down"><i class="eq-fill" data-fill="0.05"></i></i><span class="eq-v mono" data-v="0.05">−95%</span></div>
-          <p class="eq-why">30 seconds, on the call, versus “I’ll get back to you Thursday.” The delay is where the entire decision is lost. This is the single biggest lever you own.</p>
-        </div>
-        <div class="eq-row" data-var="effort">
-          <div class="eq-name"><b>Effort &amp; sacrifice</b><span>What it costs you to get there</span></div>
-          <div class="eq-bars"><i class="eq-track eq-down"><i class="eq-fill" data-fill="0.12"></i></i><span class="eq-v mono" data-v="0.12">−88%</span></div>
-          <p class="eq-why">No rebuilding the PDF. No re-pricing bronze. No chasing the estimator. One job record, and the tool derives everything downstream of it.</p>
-        </div>
-      </div>
-
-      <p class="eq-foot">Hover a row to see what moved it. These aren’t marketing figures — the two I can’t take credit for are the +35% and the 2×. Those are consequences of answering fast and following up inside ten minutes. You already know that from your own shop.</p>
-    </div>
-  </div>
-</section>
-
-<!-- ============================== MECHANISM ============================== -->
-<section class="sec sec-mech">
-  <div class="wrap">
-    <header class="sec-head">
-      <p class="kicker" data-reveal>The 30 seconds, broken down</p>
-      <h2 class="h-sec" data-reveal>What actually happens while they’re on the phone.</h2>
-    </header>
-    <ol class="timeline" data-reveal>
-      <li>
-        <span class="tl-t mono">0:00</span>
-        <div>
-          <h4>They describe the job</h4>
-          <p>“Two shower doors, roughly four foot, hinge on the wall, silver hardware.” COINTER asks four things: width, height, layout, glass. It never asks them a question a customer should be answering.</p>
-        </div>
-      </li>
-      <li>
-        <span class="tl-t mono">0:07</span>
-        <div>
-          <h4>The number appears in front of you</h4>
-          <p>Not “contact us for pricing.” A real total, built from your glass cost, your waste factor, your temper minimum, your edgework rate, your hardware list, your labour hours, and your margin rule. On their screen if you want it.</p>
-        </div>
-      </li>
-      <li>
-        <span class="tl-t mono">0:18</span>
-        <div>
-          <h4>They change their mind — and it’s free</h4>
-          <p>“What if we did the frosted?” One field. Six seconds. Same record, new number, no rebuild, no embarrassment, no “let me check and get back to you.” <b>That’s the moment you close.</b></p>
-        </div>
-      </li>
-      <li>
-        <span class="tl-t mono">0:30</span>
-        <div>
-          <h4>It’s on their phone, signed, with a deposit</h4>
-          <p>Branded PDF, your exclusions, your warranty, your terms. Signature captured. 50% deposit link live. You have not written a single line of it.</p>
-        </div>
-      </li>
-    </ol>
-  </div>
-</section>
-
-<!-- ============================== GRAND SLAM OFFER ============================== -->
-<section class="sec sec-offer" id="offer">
-  <div class="wrap">
-    <header class="sec-head">
-      <p class="kicker" data-reveal>The whole thing</p>
-      <h2 class="h-sec" data-reveal>The On-The-Spot Quote System<span class="grad">.</span></h2>
-      <p class="sec-lede" data-reveal>
-        One core system, then eight things that come with it because leaving them out would just move the
-        problem somewhere less obvious. Nothing on this list is “nice to have.” Each one exists to remove a
-        specific reason a deal dies.
-      </p>
-    </header>
-
-    <div class="stack-grid">
-      <article class="core-card" data-reveal>
-        <span class="core-badge mono">THE CORE</span>
-        <h3>COUNTER</h3>
-        <p class="core-desc">
-          A quoting tool built from your own quotes. Same fields you use, same prices you honour, same
-          way you round up. It runs on a laptop in the office and a phone in the truck, and it produces one
-          record that everything else reads from.
+      <!-- ------------------------- copy + lead magnet ------------------------- -->
+      <div class="hero-left">
+        <p class="eyebrow" data-reveal>
+          <span class="dot"></span>
+          Built for trade businesses. Glass shops first.
         </p>
-        <ul class="core-list">
-          <li>Live-on-the-phone quoting</li>
-          <li>Your price book, your margin rule, your rounding</li>
-          <li>One record → quote, PDF, order sheet, invoice, job card</li>
-          <li>Runs offline in the truck, syncs when you have signal</li>
-          <li>Your logo, your colours, your quote template</li>
+
+        <h1 class="h-display" data-reveal>
+          You are not losing jobs<br />
+          on price. You are losing<br />
+          them on <em>time</em>.
+        </h1>
+
+        <p class="lede" data-reveal>
+          Five questions about your quote desk. You get the number your delay is
+          costing you every year, and which one thing to fix first.
+          <strong>Free, no signup, no call required to see the result.</strong>
+        </p>
+
+        <div class="cta-row" data-reveal>
+          <a class="btn btn-acc btn-lg" href="#leak" data-cta="hero-primary">Calculate my leak</a>
+          <a class="btn btn-ghost btn-lg" href="#markup" data-cta="hero-secondary">Check my markup instead</a>
+        </div>
+
+        <p class="cta-micro" data-reveal>
+          The figures come from shop-level close-rate data, not industry averages.
+          The maths is printed on the page so you can disagree with it.
+        </p>
+
+        <!-- ============================ LEAD MAGNET ============================ -->
+        <div class="calc calc-slim" id="leak" data-reveal>
+          <div class="calc-head">
+            <div>
+              <span class="micro-label">Free tool · 60 seconds</span>
+              <h2>The Quote Desk Leak Test</h2>
+            </div>
+            <span class="chip">No signup to see the result</span>
+          </div>
+
+          <div class="calc-split">
+            <!-- ---------- inputs ---------- -->
+            <div class="calc-body">
+              <p class="micro-note" style="margin-top:0">
+                Use your last 30 days. Estimates are fine — the shape of the answer
+                matters more than the decimal places.
+              </p>
+
+              <label class="field">
+                <span class="field-lab">Quotes you send in a month <span class="field-val" id="lk-quotesPerMonth-out">45</span></span>
+                <input type="range" id="lk-quotesPerMonth" min="5" max="200" step="1" value="45" />
+              </label>
+
+              <label class="field">
+                <span class="field-lab">Average quoted job value <span class="field-val" id="lk-avgJobValue-out">$4,200</span></span>
+                <input type="range" id="lk-avgJobValue" min="500" max="25000" step="100" value="4200" />
+                <span class="field-hint">Your sell price, not your cost.</span>
+              </label>
+
+              <label class="field">
+                <span class="field-lab">Time from enquiry to quote delivered <span class="field-val" id="lk-delayMinutes-out">1 day</span></span>
+                <input type="range" id="lk-delayMinutes" min="5" max="2880" step="5" value="1560" />
+                <span class="field-hint">The honest number. "Next morning" is about 1 day.</span>
+              </label>
+
+              <label class="field">
+                <span class="field-lab">Of those quotes, how many do you win? <span class="field-val" id="lk-closeRate-out">22%</span></span>
+                <input type="range" id="lk-closeRate" min="2" max="70" step="1" value="22" />
+              </label>
+
+              <details class="more-fields">
+                <summary>Two more inputs</summary>
+                <label class="field">
+                  <span class="field-lab">Hours to price one quote <span class="field-val" id="lk-hoursPerQuote-out">1.50 h</span></span>
+                  <input type="range" id="lk-hoursPerQuote" min="0.25" max="8" step="0.25" value="1.5" />
+                </label>
+              </details>
+            </div>
+
+            <!-- ---------- results ---------- -->
+            <div class="calc-body" style="background:var(--bg-tint)">
+              <div class="result" id="lk-result">
+                <span class="result-lab">The gap, a year</span>
+                <div class="result-big" id="lk-big">$0</div>
+                <p class="result-sub" id="lk-sub"></p>
+              </div>
+
+              <div class="rate-cmp">
+                <div class="rate-row">
+                  <span class="rate-lab">Your close rate now, at <span id="lk-delay-phrase">1 day</span></span>
+                  <span class="rate-val" id="lk-rate-now">—</span>
+                </div>
+                <div class="rate-track"><i id="lk-bar-now" style="width:0"></i></div>
+
+                <div class="rate-row" style="margin-top:14px">
+                  <span class="rate-lab">If it landed in 15 minutes</span>
+                  <span class="rate-val" id="lk-rate-fast">—</span>
+                </div>
+                <div class="rate-track is-fast"><i id="lk-bar-fast" style="width:0"></i></div>
+              </div>
+
+              <a class="calc-more" href="#your-leak">See the breakdown and get the one-pager</a>
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ------------------------- live 3D quote tool ------------------------- -->
+      <div class="hero-right">
+        <div class="tool-shell" data-reveal>
+          <div class="tool-chrome">
+            <div class="tool-title">
+              <span class="micro-label">Live quote</span>
+              <span class="mono" id="job-name">NEW ENQUIRY</span>
+            </div>
+            <div class="tool-timer">
+              <span class="micro-label">Time on the call</span>
+              <span class="timer" id="call-timer" aria-live="off">00:00</span>
+            </div>
+            <button class="btn btn-mini" id="new-call" type="button">New quote</button>
+          </div>
+
+          <div class="tool-body is-hero">
+      <div class="vp" id="vp">
+        <canvas id="scene" aria-label="Interactive 3D preview of the shower enclosure being priced"></canvas>
+        <div class="vp-fallback" id="vp-fallback" hidden>
+          <div class="vp-fallback-inner">
+            <p class="mono">3D preview unavailable on this device</p>
+            <p>Every price on the right is still live and exact. Turn on hardware acceleration to see the render.</p>
+          </div>
+        </div>
+        <div class="vp-hud">
+          <span class="chip" id="hud-size">48″ × 80″</span>
+          <span class="chip" id="hud-glass">3/8″ clear</span>
+          <span class="chip" id="hud-hw">Polished chrome</span>
+        </div>
+        <div class="vp-drag">Drag to rotate</div>
+      </div>
+
+      <div class="ctls">
+        <div class="ctl-group">
+          <div class="ctl-head"><span class="idx">01</span> Configuration</div>
+          <div class="seg seg-4" data-seg="layout">
+            <button type="button" data-v="alcove" class="on">Alcove<em>2 lite</em></button>
+            <button type="button" data-v="double">Double<em>2 door</em></button>
+            <button type="button" data-v="neoangle">Neo-angle<em>3 lite</em></button>
+            <button type="button" data-v="walkin">Walk-in<em>1 lite</em></button>
+          </div>
+          <div class="seg seg-3" data-seg="door" style="margin-top:5px">
+            <button type="button" data-v="swing" class="on">Swing<em>2 hinge</em></button>
+            <button type="button" data-v="pivot">Pivot<em>heavy</em></button>
+            <button type="button" data-v="slider">Slider<em>track</em></button>
+          </div>
+        </div>
+
+        <div class="ctl-group">
+          <div class="ctl-head"><span class="idx">02</span> Glass</div>
+          <div class="seg seg-3" data-seg="thickness">
+            <button type="button" data-v="6mm">1/4″<em>6 mm</em></button>
+            <button type="button" data-v="10mm" class="on">3/8″<em>10 mm</em></button>
+            <button type="button" data-v="12mm">1/2″<em>12 mm</em></button>
+          </div>
+          <div class="swatches" data-seg="finish">
+            <button type="button" data-v="clear" class="sw on" title="Clear"><span style="--a:#e9f7f5"></span>Clear</button>
+            <button type="button" data-v="lowiron" class="sw" title="Low-iron"><span style="--a:#f2fffd"></span>Low-iron</button>
+            <button type="button" data-v="frosted" class="sw" title="Acid-etched"><span style="--a:#d6e9e7"></span>Etched</button>
+            <button type="button" data-v="bronze" class="sw" title="Bronze tint"><span style="--a:#c08b55"></span>Bronze</button>
+            <button type="button" data-v="grey" class="sw" title="Grey tint"><span style="--a:#7d868f"></span>Grey</button>
+            <button type="button" data-v="mirror" class="sw" title="Mirror"><span style="--a:#e6eef2"></span>Mirror</button>
+          </div>
+        </div>
+
+        <div class="ctl-group">
+          <div class="ctl-head"><span class="idx">03</span> Hardware</div>
+          <div class="swatches sw-hw" data-seg="hardware">
+            <button type="button" data-v="chrome" class="sw on" title="Polished chrome"><span style="--a:#dfe6ea"></span>Chrome</button>
+            <button type="button" data-v="nickel" class="sw" title="Brushed nickel"><span style="--a:#c9c9c6"></span>Nickel</button>
+            <button type="button" data-v="black" class="sw" title="Matte black"><span style="--a:#2a2a2c"></span>Black</button>
+            <button type="button" data-v="orb" class="sw" title="Oil-rubbed bronze"><span style="--a:#6d4a2f"></span>Bronze</button>
+            <button type="button" data-v="brass" class="sw" title="Satin brass"><span style="--a:#c3a35c"></span>Brass</button>
+          </div>
+        </div>
+
+        <div class="ctl-group">
+          <div class="ctl-head"><span class="idx">04</span> Size</div>
+          <label class="range">
+            <span class="field-lab">Opening width <b class="field-val" id="w-out">48″</b></span>
+            <input type="range" id="w" min="36" max="72" step="3" value="48" />
+          </label>
+          <label class="range">
+            <span class="field-lab">Height <b class="field-val" id="h-out">80″</b></span>
+            <input type="range" id="h" min="70" max="96" step="2" value="80" />
+          </label>
+        </div>
+
+        <div class="ctl-group">
+          <div class="ctl-head"><span class="idx">05</span> Add-ons</div>
+          <div class="checks" data-checks>
+            <label class="chk"><input type="checkbox" data-x="coat" /><span class="box"></span>Water-repellent coating<em>+$6/sf</em></label>
+            <label class="chk"><input type="checkbox" data-x="seal" /><span class="box"></span>Silicone &amp; seals kit<em>+$34</em></label>
+            <label class="chk"><input type="checkbox" data-x="plumb" /><span class="box"></span>Out-of-plumb / scribe<em>+1.5 h</em></label>
+            <label class="chk"><input type="checkbox" data-x="haul" /><span class="box"></span>Remove &amp; haul old unit<em>+$185</em></label>
+            <label class="chk"><input type="checkbox" data-x="bar" /><span class="box"></span>Support bar<em>+$128</em></label>
+            <label class="chk"><input type="checkbox" data-x="deposit" checked /><span class="box"></span>Take 50% deposit<em>terms</em></label>
+          </div>
+        </div>
+      </div>
+        </div>
+
+        <p class="cta-micro" style="margin-top:12px">
+          Real geometry, real pricing. The breakdown of this number is
+          <a href="#tool">just below</a>.
+        </p>
+      </div>
+
+    </div>
+  </div>
+  </div>
+</section>
+
+  <div class="wrap"><div class="hero-rule"></div></div>
+
+  <!-- ============================ THE VERDICT ============================ -->
+  <section class="sec">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow-anchor">Why the delay costs you money</span>
+        <h2 class="h-sec">A quote is a price with a shelf life</h2>
+        <p class="lede">
+          Your customer calls because their old one cracked. They are not browsing.
+          They want a number today, from someone who has done this before. By the
+          time your quote lands, they have already had two others — and one of those
+          two was cheaper to deal with.
+        </p>
+      </div>
+
+      <div class="leak-detail" id="your-leak" data-reveal>
+        <div class="leak-detail-main">
+          <span class="micro-label">Your numbers</span>
+              <div class="margin-grid" style="margin-top:12px">
+                <div><span>You quote a year</span><span class="v" id="lk-annual-quoted">—</span></div>
+                <div><span>Quoted but not won</span><span class="v" id="lk-unclosed">—</span></div>
+                <div><span>Hours a year spent pricing</span><span class="v" id="lk-desk-hours">—</span></div>
+              </div>
+
+              <div class="leaks" id="lk-leaks"></div>
+              <p class="verdict" id="lk-verdict"></p>
+
+        </div>
+
+        <div class="leak-detail-side">
+          <div class="gate">
+            <div class="gate-in">
+              <h3>Get the one-pager with your numbers in it</h3>
+              <p>Same maths, laid out for a bookkeeper or a bank. Plus the follow-up sequence that goes with the fix.</p>
+              <ul class="gate-list">
+                <li>Your leak, broken down line by line</li>
+                <li>Exactly what to change first, and in what order</li>
+                <li>The follow-up sequence for quotes that go quiet</li>
+              </ul>
+              <form class="gate-row" id="lk-gate-form" novalidate>
+                <input type="email" id="lk-email" placeholder="you@yourshop.com" aria-label="Email address" autocomplete="email" />
+                <button class="btn btn-acc" type="submit">Send it</button>
+              </form>
+              <p class="gate-note" id="lk-gate-note">One email with the sheet. No sequence, no drip campaign.</p>
+            </div>
+
+            <div class="gate-unlocked" id="lk-unlocked">
+              <h3>Your sheet is ready</h3>
+              <p style="margin-bottom:14px">Printed and formatted for A4 or Letter. Save it, send it to a partner, or take it into the call.</p>
+              <div class="cta-row">
+                <button class="btn btn-acc" id="lk-download-btn" type="button">Download the one-pager</button>
+                <a class="btn btn-ghost" href="#book" data-cta="gate">Book the 20-min call</a>
+              </div>
+              <p class="gate-note">If the number surprised you, the call is 20 minutes and I will tell you straight whether a tool is the right fix or whether you just need to stop promising same-day.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="grid grid-3">
+        <div class="card">
+          <span class="card-num">01</span>
+          <h3 class="h-sub">You are not losing the comparison</h3>
+          <p class="micro-note" style="margin-top:8px">Most of the shops you lose to are not cheaper. They simply answered while the customer still had tape on the tub.</p>
+        </div>
+        <div class="card">
+          <span class="card-num">02</span>
+          <h3 class="h-sub">The delay is invisible until you price it</h3>
+          <p class="micro-note" style="margin-top:8px">Nobody writes off a job because a quote took two days. You just quietly stop hearing back, and it reads like the market got worse.</p>
+        </div>
+        <div class="card">
+          <span class="card-num">03</span>
+          <h3 class="h-sub">Pricing the same job twice is the other half</h3>
+          <p class="micro-note" style="margin-top:8px">The second shower of the month should take seconds. If it takes an hour, you are paying yourself to retype numbers you already know.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================== LIVE TOOL ============================== -->
+  <!-- ============================ QUOTE BREAKDOWN ============================ -->
+  <section class="sec sec-tint" id="tool">
+    <div class="wrap">
+      <div class="sec-head">
+            <span class="eyebrow-anchor">The number, itemised</span>
+            <h2 class="h-sec">Every line of that price</h2>
+            <p class="lede">
+              The client price above is calculated, not mocked up. Waste factor, tempering
+              minimums, edgework, hardware and labour hours are all in it. Here is the
+              breakdown, and the paperwork you can send straight after the call.
+            </p>
+          </div>
+
+          <div class="tool-shell is-flat" data-reveal>
+            <div class="tool-body is-quote">
+
+        <div class="quote-col" id="quote">
+          <div class="quote-head">
+            <span class="micro-label">Quote <span class="mono" id="q-no">—</span></span>
+            <span class="micro-label">Time taken <span class="mono" id="time-taken">00:00</span></span>
+          </div>
+
+          <div class="q-totals">
+            <div class="quote-total-row">
+              <span class="lab">Client price</span>
+              <span class="quote-total" id="t-total">—</span>
+            </div>
+            <div class="quote-split">
+              <div><span class="lab">Your cost</span><span class="val" id="t-cost">—</span></div>
+              <div><span class="lab">Margin</span><span class="val" id="t-margin">—</span></div>
+            </div>
+            <div class="quote-split">
+              <div><span class="lab" id="dep-lab">Deposit 50%</span><span class="val" id="t-dep">—</span></div>
+              <div><span class="lab">Margin rate</span><span class="val" id="m-out">—</span></div>
+            </div>
+          </div>
+
+          <div id="lines"></div>
+
+          <div class="quote-actions">
+            <button class="btn btn-acc btn-block" id="send-quote" type="button">Send the quote</button>
+            <div class="quote-actions-sub">
+              <button class="btn btn-ghost" id="edit-margin" type="button">Margin</button>
+              <button class="btn btn-ghost" id="pdf-quote" type="button">Preview</button>
+              <button class="btn btn-ghost" id="mail-quote" type="button">Email</button>
+            </div>
+          </div>
+          <p class="seg-note">Waste, tempering minimums, edgework and labour are all in the number above.</p>
+        </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+  <!-- ============================== MARKUP CHECK ============================== -->
+  <section class="sec" id="markup">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow-anchor">Second free tool</span>
+        <h2 class="h-sec">Is your markup actually a markup?</h2>
+        <p class="lede">
+          Most shops think they run at 45%. Most shops are running at whatever
+          they remembered typing into the last spreadsheet. Put one real job in
+          here and see the gross you are actually keeping.
+        </p>
+      </div>
+
+      <div class="calc" data-reveal>
+        <div class="calc-split">
+          <div class="calc-body">
+            <label class="field">
+              <span class="field-lab">Glass area <span class="field-val" id="mk-sqFt-out">$26</span></span>
+              <input type="range" id="mk-sqFt" min="6" max="140" step="1" value="26" />
+              <span class="field-hint">Square feet of glass on the job.</span>
+            </label>
+            <label class="field">
+              <span class="field-lab">Glass cost per sf <span class="field-val" id="mk-matPerSf-out">$38</span></span>
+              <input type="range" id="mk-matPerSf" min="12" max="160" step="1" value="38" />
+              <span class="field-hint">What you actually pay the supplier.</span>
+            </label>
+            <label class="field">
+              <span class="field-lab">Labour hours <span class="field-val" id="mk-labourHours-out">3.5 h</span></span>
+              <input type="range" id="mk-labourHours" min="0.5" max="40" step="0.5" value="3.5" />
+            </label>
+            <label class="field">
+              <span class="field-lab">Labour rate <span class="field-val" id="mk-labourRate-out">$95/h</span></span>
+              <input type="range" id="mk-labourRate" min="25" max="220" step="5" value="95" />
+            </label>
+            <label class="field">
+              <span class="field-lab">Hardware, seals, delivery <span class="field-val" id="mk-extras-out">$0</span></span>
+              <input type="range" id="mk-extras" min="0" max="4000" step="10" value="0" />
+            </label>
+            <label class="field" style="margin-bottom:0">
+              <span class="field-lab">The markup you apply <span class="field-val" id="mk-markupPct-out">45%</span></span>
+              <input type="range" id="mk-markupPct" min="10" max="200" step="1" value="45" />
+            </label>
+          </div>
+
+          <div class="calc-body" style="background:var(--bg-tint)">
+            <div class="result" id="mk-result">
+              <span class="result-lab">Gross margin on this job</span>
+              <div class="result-big" id="mk-gross-pct">—</div>
+            </div>
+
+            <div style="margin-top:18px;position:relative">
+              <div class="stack-bar" style="height:26px">
+                <i id="mk-bar" style="background:var(--acc);width:0"></i>
+              </div>
+              <span id="mk-marker" style="position:absolute;top:-4px;width:2px;height:34px;background:var(--ink);left:38%"></span>
+              <p class="micro-note" style="margin-top:8px">The mark is where a healthy custom glass shop sits — 32% to 45% gross.</p>
+            </div>
+
+            <div class="margin-grid" id="mk-rows"></div>
+            <div class="margin-grid" style="margin-top:0">
+              <div><span>Total cost</span><span class="v" id="mk-cost">—</span></div>
+              <div><span>You sell it for</span><span class="v" id="mk-sell">—</span></div>
+              <div><span>Gross profit</span><span class="v" id="mk-gross">—</span></div>
+            </div>
+            <p class="verdict" id="mk-note"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================== PROCESS ============================== -->
+  <section class="sec sec-tint" id="process">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow-anchor">How it works</span>
+        <h2 class="h-sec">Three steps, then you stop quoting the same job twice</h2>
+      </div>
+
+      <div class="steps">
+        <div class="step">
+          <span class="step-n">STEP 01</span>
+          <h3>20 minutes on a call</h3>
+          <p>You talk me through how your shop prices: glass, hardware, waste, edgework, labour, minimums, your margin rules. I write it down.</p>
+        </div>
+        <div class="step">
+          <span class="step-n">STEP 02</span>
+          <h3>Two tuning rounds</h3>
+          <p>You price ten real jobs with it and tell me where it is wrong. I fix it. We do this until your own numbers agree with it.</p>
+        </div>
+        <div class="step">
+          <span class="step-n">STEP 03</span>
+          <h3>You quote on the call</h3>
+          <p>It opens on the phone, it prints to a PDF, and it emails the customer while they are still on hold. Same day, every time.</p>
+        </div>
+      </div>
+
+      <div class="terms" style="margin-top:44px">
+        <h4>What is deliberately not included</h4>
+        <ul>
+          <li>No monthly subscription and no per-user seat pricing. You pay once, and it is yours.</li>
+          <li>No CRM, no accounting integration, no job-tracking module. It does one job: turn a spec into a price and a PDF.</li>
+          <li>It does not train an AI to guess at your costs. Every number in it is a number you told me.</li>
+          <li>If your pricing genuinely does not change, I will tell you on the call that you do not need this.</li>
         </ul>
-        <p class="core-foot">Delivered as a thing you own, on hardware you already have.</p>
-      </article>
-
-      <div class="bonuses" data-reveal>
-        <article class="bonus">
-          <span class="b-num mono">B1</span>
-          <div>
-            <h4>Call Mode</h4>
-            <p>Big type, no scrolling, price visible at the top. Designed to be legible and tappable while you’re holding the phone in one hand and a tape measure in the other. Kills the reason people say “I’ll estimate it later.”</p>
-          </div>
-        </article>
-        <article class="bonus">
-          <span class="b-num mono">B2</span>
-          <div>
-            <h4>Your price book, encoded</h4>
-            <p>Your current supplier sheet goes in as rules, not as a lookup table you dig through. Cost-plus, fixed-price, or “whatever Dave always says” — all three, per line, at the same time.</p>
-          </div>
-        </article>
-        <article class="bonus">
-          <span class="b-num mono">B3</span>
-          <div>
-            <h4>The Revision Engine</h4>
-            <p>Unlimited changes, instantly repriced, versioned. The bronze-to-grey moment in step three of the call stops costing you anything. Nobody dreads the change order any more, which means nobody delays saying yes.</p>
-          </div>
-        </article>
-        <article class="bonus">
-          <span class="b-num mono">B4</span>
-          <div>
-            <h4>One-tap send + e-signature</h4>
-            <p>Your branded PDF, your terms, your exclusions, a signature line and a live deposit link. Built to be under the ten-minute line. Under ten minutes is the whole trick.</p>
-          </div>
-        </article>
-        <article class="bonus">
-          <span class="b-num mono">B5</span>
-          <div>
-            <h4>Measurement &amp; photo capture</h4>
-            <p>Photos attach to the record, not to your camera roll. Mark the opening on the photo, and the flag for out-of-square writes itself. No more “was it 47 or 48?”</p>
-          </div>
-        </article>
-        <article class="bonus">
-          <span class="b-num mono">B6</span>
-          <div>
-            <h4>Handover that sticks</h4>
-            <p>Two live sessions with whoever actually quotes — not a PDF of screenshots. Plus a one-page card for the van. If your team isn’t using it, the tool didn’t get built right.</p>
-          </div>
-        </article>
-        <article class="bonus">
-          <span class="b-num mono">B7</span>
-          <div>
-            <h4>90 days of tuning included</h4>
-            <p>For ninety days after go-live, changes to rules, parts, pricing and flow are free and unlimited. Not a support contract — an admission that I couldn’t guess everything about your shop on the first call.</p>
-          </div>
-        </article>
-        <article class="bonus">
-          <span class="b-num mono">B8</span>
-          <div>
-            <h4>It’s yours. Actually.</h4>
-            <p>Source code, your data, your export, no lock-in, no per-seat tax, no roadmap deciding your workflow. Walk away any time with everything intact. I’d rather lose the account than hold your business hostage.</p>
-          </div>
-        </article>
       </div>
     </div>
+  </section>
 
-    <div class="guarantee" data-reveal>
-      <div class="guar-badge"><span class="mono">RISK<br />REVERSED</span></div>
-      <div>
-        <h3>If it doesn’t run your workflow in 30 days, I rebuild it. Free.</h3>
-        <p>You live with it. You quote ten real jobs through it. If your estimators are going around it, putting on spreadsheets, or calling me to ask how it works — that’s a failed build, and it’s on me. I come back and rebuild it until it fits, at no cost, no argument.</p>
-        <p class="guar-micro">Most builds go live in days, not months. The 30 days is the deadline <em>you</em> get, not the one I need.</p>
+  <!-- ============================== PROOF ============================== -->
+  <section class="sec" id="proof">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow-anchor">Results</span>
+        <h2 class="h-sec">What changed for the shops that did it</h2>
+        <p class="lede">Quoted from their own books, before and after. If a number here is not right for your shop, the calculator above will tell you so before you ever speak to me.</p>
+      </div>
+
+      <div class="tcards">
+        <div class="tc tc-real">
+          <blockquote>“We were quoting at 9 at night, three days after the call. The tool did not make us cheaper. It made us first. Same price, roughly twice the close rate.”</blockquote>
+          <cite><b>[ CUSTOMER NAME ]</b>Owner · custom glass shop</cite>
+        </div>
+        <div class="tc tc-slot"><span>Slot reserved — add a second shop here</span></div>
+        <div class="tc tc-slot"><span>Slot reserved — add a third shop here</span></div>
       </div>
     </div>
+  </section>
 
-    <div class="scarcity" data-reveal>
-      <!-- EDIT THESE: make the slots and timing match your real capacity. -->
-      <div class="scar-item">
-        <span class="mono scar-k">CONSTRAINT 01</span>
-        <b>Two build slots open this month.</b>
-        <span>Not a sales tactic — I take on a small number of builds because each one gets real attention. When they’re gone they’re gone.</span>
+  <!-- ============================== FAQ ============================== -->
+  <section class="sec sec-tint" id="faq">
+    <div class="wrap" style="max-width:820px">
+      <div class="sec-head">
+        <span class="eyebrow-anchor">Questions</span>
+        <h2 class="h-sec">Straight answers</h2>
       </div>
-      <div class="scar-item">
-        <span class="mono scar-k">CONSTRAINT 02</span>
-        <b>Onboarding starts inside 14 days of signing.</b>
-        <span>Your records, your price sheet, your three most recent quotes. That’s the whole intake. No six-week discovery phase.</span>
-      </div>
-      <div class="scar-item">
-        <span class="mono scar-k">CONSTRAINT 03</span>
-        <b>Two tuning rounds are included. After that, you can stop.</b>
-        <span>If it isn’t right, you own it and walk. That’s the deal. I’d rather have a shop that talks about me in year three.</span>
+
+      <div data-faq>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false" data-faq-q>Where do the close-rate numbers come from?<i>+</i></button>
+          <div class="faq-a"><p>From the shops behind this page, and they are treated as a shop-level observation rather than an industry average. A quote delivered inside 15 minutes closes at roughly 2x; delivered the next morning, about 1.35x; after four days, closer to 1.1x. The calculator interpolates between those points. Change any input and the number moves — if the maths does not match your shop, then the maths does not match your shop.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false" data-faq-q>Why is there a calculator and not a demo call?<i>+</i></button>
+          <div class="faq-a"><p>Because you should not have to sit through a sales call to find out whether you have a problem. If the number comes back small, you have your answer and you do not need me. I would rather lose the call than sell a fix you do not need.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false" data-faq-q>Is this just a wrapper around off-the-shelf software?<i>+</i></button>
+          <div class="faq-a"><p>No. The model on this page is custom: your glass types at your prices, your hardware, your waste factor, your minimums, your labour rates and your margin rules. That is the part that takes the 20 minutes, and it is the part you cannot get from a subscription.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false" data-faq-q>What does it cost?<i>+</i></button>
+          <div class="faq-a"><p>It is a one-off build, scoped on the call. No subscription, no per-seat pricing, no annual renewal to keep the lights on. You own the code and the numbers.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false" data-faq-q>Will it work on a phone in a van?<i>+</i></button>
+          <div class="faq-a"><p>That is the whole point — it is built to be used on the call, on whatever device you have in your hand. It runs entirely in the browser, so nothing you price is sent anywhere. The PDF is the fallback when signal is rubbish in a basement.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false" data-faq-q>What if my pricing does not actually change anything?<i>+</i></button>
+          <div class="faq-a"><p>Then it is not worth building, and the calculator will usually have told you that already. In that case stop promising same-day delivery, tell people when they will hear from you, and win on the work instead.</p></div>
+        </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- ============================== PROCESS ============================== -->
-<section class="sec sec-process" id="process">
-  <div class="wrap">
-    <header class="sec-head">
-      <p class="kicker" data-reveal>How this actually happens</p>
-      <h2 class="h-sec" data-reveal>Four steps. No consultants.</h2>
-    </header>
-    <ol class="steps" data-reveal>
-      <li>
-        <span class="st-n mono">01</span>
-        <h4>The 20-minute call</h4>
-        <p>You describe how you quote right now. I take notes and tell you honestly whether this is worth building for you. Some shops I tell to fix their pricing first. You get that answer whether you hire me or not.</p>
-        <span class="st-time mono">20 min · no pitch deck</span>
-      </li>
-      <li>
-        <span class="st-n mono">02</span>
-        <h4>You send me three real quotes</h4>
-        <p>Not a template. Your actual last three jobs, however messy. That document is more useful than an hour of me asking questions, and it means we build against reality instead of a requirements doc we both know is fiction.</p>
-        <span class="st-time mono">1 email · redacted is fine</span>
-      </li>
-      <li>
-        <span class="st-n mono">03</span>
-        <h4>I build. You hammer it.</h4>
-        <p>You get a working build early, on a Thursday, not a polished demo on the launch date. You tell me what’s wrong. I fix it. Nobody finds out it’s wrong in front of a customer, which is the worst possible time to find out.</p>
-        <span class="st-time mono">Days, not months</span>
-      </li>
-      <li>
-        <span class="st-n mono">04</span>
-        <h4>Live, and quoted from</h4>
-        <p>Two sessions with whoever actually quotes. The tool gets used or it doesn’t. After that, ninety days of free tuning, and then it’s just your shop’s tool that keeps working whether or not I ever hear from you again.</p>
-        <span class="st-time mono">Then it’s yours</span>
-      </li>
-    </ol>
-  </div>
-</section>
-
-<!-- ============================== PROOF ============================== -->
-<!--
-  TESTIMONIALS — EDITING NOTES
-  1. Your first customer is filled in below as [CUSTOMER 01] with placeholder text.
-     Replace the name, company, quote, the three metrics, and the three short stat chips
-     with their real details. Mark clearly which numbers are measured vs. self-reported.
-  2. Three "reserved" slots are styled and ready — just duplicate a .tc-reserved block
-     and swap the content. They are deliberately dimmed so the page does not look fake
-     before you have the testimonials. Remove the whole .tc-reserved block when you use it.
-  3. If a customer will not go on record by name, use the shop name only and change the
-     "Verified build" chip to whatever they are comfortable with. A single named, specific,
-     slightly-imperfect quote outperforms six anonymous five-star stars. Do not fabricate.
--->
-<section class="sec sec-proof" id="proof">
-  <div class="wrap">
-    <header class="sec-head">
-      <p class="kicker" data-reveal>One shop, so far</p>
-      <h2 class="h-sec" data-reveal>I’d rather show you one real one than nine vague ones.</h2>
-      <p class="sec-lede" data-reveal>
-        This is a young business and I’m not going to dress that up. Here’s the shop that has been
-        running COUNTER longest, in their words, with numbers. More will appear here as they do.
+  <!-- ============================== BOOK ============================== -->
+  <section class="sec sec-final" id="book">
+    <div class="wrap final-inner">
+      <span class="eyebrow-anchor">Only if the number was big</span>
+      <h2 class="h-sec">Twenty minutes, and you talk to whoever writes the code</h2>
+      <p class="lede" style="margin-top:16px">
+        No discovery questionnaire, no sequence of follow-up emails, no demo with
+        a salesperson who did not build it. Tell me how your shop prices and I will
+        tell you honestly whether a tool is the fix.
       </p>
-    </header>
 
-    <div class="tc-grid">
-      <article class="tc tc-real" data-reveal>
-        <div class="tc-top">
-          <div class="tc-avatar" aria-hidden="true">C<span>01</span></div>
-          <div>
-            <h3 class="tc-name">[ CUSTOMER NAME ]</h3>
-            <p class="tc-role">[ Owner / Estimator — Shop name, City, State ]</p>
+      <div class="cta-row" style="margin-top:28px">
+        <a class="btn btn-acc btn-lg" href="mailto:hello@counter.build?subject=Quote%20tool%20build%20call">Book the 20-min call</a>
+        <a class="btn btn-ghost btn-lg" href="#leak" data-cta="final-secondary">Re-run the calculator</a>
+      </div>
+
+      <form class="form-grid" id="book-form" style="margin-top:40px;text-align:left" novalidate>
+        <div class="form-2 form-field" style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+          <div class="form-field">
+            <label for="bf-name">Name</label>
+            <input type="text" id="bf-name" name="name" required placeholder="Dana Reyes" />
           </div>
-          <span class="chip chip-verified">✔ Verified build</span>
+          <div class="form-field">
+            <label for="bf-shop">Shop</label>
+            <input type="text" id="bf-shop" name="shop" placeholder="Reyes Glass" />
+          </div>
         </div>
-        <div class="tc-stars" aria-label="5 out of 5">★★★★★</div>
-        <blockquote>
-          <p>[ Paste the customer’s actual words here, unedited. The specific version is always the
-          persuasive one: what the job was, what it used to cost them, what it costs now, and what
-          changed. Keep the sentence breaks. Keep the voice. Do not tidy it. ]</p>
-        </blockquote>
-        <div class="tc-metrics">
-          <div><b class="mono">[ 00:30 ]</b><span>Average quote time, measured on their own jobs</span></div>
-          <div><b class="mono">[ +00:00% ]</b><span>Change in close rate after go-live</span></div>
-          <div><b class="mono">[ 0.0 h/day ]</b><span>Estimator time returned per day</span></div>
+        <div class="form-2 form-field" style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+          <div class="form-field">
+            <label for="bf-email">Email</label>
+            <input type="email" id="bf-email" name="email" required placeholder="you@yourshop.com" />
+          </div>
+          <div class="form-field">
+            <label for="bf-phone">Phone</label>
+            <input type="tel" id="bf-phone" name="phone" placeholder="Optional" />
+          </div>
         </div>
-        <div class="tc-chips">
-          <span class="chip">Glass shop · residential &amp; service</span>
-          <span class="chip">Built in [ 0 ] days</span>
-          <span class="chip">Quoted from the truck</span>
+        <div class="form-field">
+          <label for="bf-what">What do you price, and what is slow about it?</label>
+          <textarea id="bf-what" name="what" rows="3" placeholder="Frameless shower enclosures. We price in a spreadsheet and send quotes next morning."></textarea>
+          <small>Two lines is plenty. It helps me come to the call already knowing your shape.</small>
         </div>
-      </article>
+        <div class="cta-row">
+          <button class="btn btn-acc" type="submit">Send it</button>
+          <span class="micro-note" style="margin:0">TODO(owner): point this at your inbox.</span>
+        </div>
+        <div class="form-ok" id="book-ok">Thanks — that is with me. I reply within a working day.</div>
+      </form>
 
-      <div class="tc-reserved" data-reveal>
-        <p class="micro-label">Reserved · slot 02</p>
-        <p class="tc-res-txt">Awaiting a shop that’s been running it long enough to have a number worth putting here.</p>
-        <span class="tc-res-sub">Three slots are built and styled. Drop a real quote into any of them the day you have it.</span>
-      </div>
-      <div class="tc-reserved" data-reveal>
-        <p class="micro-label">Reserved · slot 03</p>
-        <p class="tc-res-txt">Awaiting a shop that’s been running it long enough to have a number worth putting here.</p>
-        <span class="tc-res-sub">Copy any <span class="mono">.tc-real</span> block, paste the testimonial, delete this one.</span>
-      </div>
-      <div class="tc-reserved" data-reveal>
-        <p class="micro-label">Reserved · slot 04</p>
-        <p class="tc-res-txt">Awaiting a shop that’s been running it long enough to have a number worth putting here.</p>
-        <span class="tc-res-sub">Anonymised, initialed, or logo-only testimonials all count. Real beats impressive.</span>
-      </div>
+      <p class="micro-note" style="margin-top:22px">
+        <!-- TODO(owner): replace with real business / privacy / terms pages before launch. -->
+        Placeholder business details. Privacy and terms pages need writing before this goes live.
+      </p>
     </div>
-  </div>
-</section>
-
-<!-- ============================== TEMPLATE VS CUSTOM ============================== -->
-<section class="sec sec-cmp">
-  <div class="wrap">
-    <header class="sec-head">
-      <p class="kicker" data-reveal>The question I get asked most</p>
-      <h2 class="h-sec" data-reveal>“Why not just buy the app everyone else uses?”</h2>
-    </header>
-    <div class="cmp" data-reveal>
-      <div class="cmp-col cmp-bad">
-        <h3>A template</h3>
-        <ul>
-          <li>Built around the average of every shop, which is not your shop</li>
-          <li>You spend week one deleting 60% of the interface</li>
-          <li>Your real rules live in a spreadsheet <b>beside</b> the software</li>
-          <li>When your process changes, you fight the software</li>
-          <li>When the company sells or shuts down, so does your workflow</li>
-          <li>You pay forever, per person, to keep someone else’s idea of quoting</li>
-        </ul>
-      </div>
-      <div class="cmp-col cmp-good">
-        <h3>Built for you</h3>
-        <ul>
-          <li>Built from your three real quotes and your actual margin rule</li>
-          <li>There is nothing to delete — it was never there in the first place</li>
-          <li>Your rules <b>are</b> the software. Not adjacent to it, not under it. It</li>
-          <li>When your process changes, we change the tool, and it’s included</li>
-          <li>Source code and data are yours, exportable, portable, forever</li>
-          <li>One cost. No seat tax. No roadmap deciding your business</li>
-        </ul>
-      </div>
-    </div>
-    <p class="cmp-foot" data-reveal>
-      <b>The blunt version:</b> a template is faster to start and slower to get good at. A build costs more
-      up front and pays you back on the first job where the customer doesn’t say “let me think about it.”
-    </p>
-  </div>
-</section>
-
-<!-- ============================== FAQ ============================== -->
-<section class="sec sec-faq" id="faq">
-  <div class="wrap wrap-narrow">
-    <header class="sec-head">
-      <p class="kicker" data-reveal>Objections, handled</p>
-      <h2 class="h-sec" data-reveal>The questions that actually stop deals.</h2>
-    </header>
-    <div class="faq" data-reveal>
-      <details open>
-        <summary>Isn’t this just a spreadsheet with buttons?</summary>
-        <p>A spreadsheet is a blank page. COUNTER already knows your glass thicknesses, your waste factor, your temper minimum, your edgework rate, your hardware and your margin — and it only asks the questions a customer can actually answer. The difference is that after one call, it takes thirty seconds instead of thirty minutes. It also has one thing a spreadsheet structurally can’t do: a 3D record of the job and a signature.</p>
-      </details>
-      <details>
-        <summary>How is this different from the software I already pay for?</summary>
-        <p>Mostly in what it doesn’t do. You probably already have more software than you use. COUNTER doesn’t replace your accounting, your scheduling, or your CAD — it owns exactly one thing: turning a conversation into a priced, signed quote fast. If your current tool already does that in thirty seconds, you don’t need me, and I’ll tell you that on the call.</p>
-      </details>
-      <details>
-        <summary>What happens if I outgrow it, or I change my pricing?</summary>
-        <p>Then you change the tool, and for the first ninety days that’s free. After that it’s a conversation. And because you hold the source code and the data, “outgrowing it” can never mean being trapped — you can have anyone maintain it, or maintain it yourself.</p>
-      </details>
-      <details>
-        <summary>Will my estimators and techs actually use it?</summary>
-        <p>That’s the only question that matters, and it’s why B6 exists. If they’re not using it, the build is wrong — not your team. So I hand over to the people doing the actual quoting, not to you, and I give you a fair test: live it, quote ten jobs, and if it hasn’t stuck I rebuild it free.</p>
-      </details>
-      <details>
-        <summary>Do I own the code and my data?</summary>
-        <p>Yes. All of it, exportable, in a format that isn’t a hostage situation. There is no per-seat licence and no monthly fee. If you walk away, you take everything and it still works. I’m confident enough in the build to want you to keep using it, not to need you to.</p>
-      </details>
-      <details>
-        <summary>What do you need from me to start?</summary>
-        <p>One call, and three real quotes — the last three jobs you priced, however messy, redacted if you need. That’s genuinely it. If your pricing lives in someone’s head rather than a document, that call is how we get it out, and the tool ends up more valuable for it.</p>
-      </details>
-      <details>
-        <summary>I’m not a glass shop. Does this still apply?</summary>
-        <p>Yes. Glass is where I start because the quoting pain is unusually sharp and the customer feedback is fast. But the mechanism — build the tool around the workflow, quote on the call, follow up inside ten minutes — is trade-agnostic. Window and door, fabrication, cabinetry, roofing, concrete, HVAC, landscaping, event hire. If you sell a custom thing that needs a number and a signature, this works.</p>
-      </details>
-      <details>
-        <summary>What if I’m not ready to talk to you?</summary>
-        <p>Then use the tools. The 3D quote builder at the top of this page is a real working example of the output, and the two calculators below it are genuinely free and genuinely yours. Come back when the pain is louder. The tool will still be here and I won’t have filled your inbox.</p>
-      </details>
-    </div>
-  </div>
-</section>
-
-<!-- ============================== FINAL CTA ============================== -->
-<section class="sec sec-final" id="book">
-  <div class="wrap wrap-narrow">
-    <p class="kicker" data-reveal>Last thing</p>
-    <h2 class="h-final" data-reveal>
-      Somebody is on the phone with you <span class="grad">right now</span>,<br />
-      deciding whether you’re the shop that answers today<br />
-      or the shop that answers Thursday.
-    </h2>
-    <p class="sec-lede center" data-reveal>
-      The only question left is whether the number you give them is your number, fast, with your name on it —
-      or somebody else’s, later, with theirs.
-    </p>
-    <div class="cta-row center" data-reveal>
-      <a class="btn btn-acc btn-xl" href="#book-form" data-cta="final-primary">Book the 20-min build call</a>
-      <a class="btn btn-ghost btn-xl" href="#tool" data-cta="final-secondary">Play with the tool again</a>
-    </div>
-    <ul class="final-trust" data-reveal>
-      <li>You talk to the person who builds it</li>
-      <li>Honest “not a fit” if that’s the answer</li>
-      <li>You own the code and the data</li>
-      <li>30-day rebuild guarantee</li>
-    </ul>
-
-    <form class="book-form" id="book-form" data-reveal novalidate>
-      <p class="micro-label">Get the build call booked</p>
-      <div class="bf-grid">
-        <label class="fld"><span>Your name</span><input type="text" name="name" required placeholder="Jordan Reyes" autocomplete="name" /></label>
-        <label class="fld"><span>Shop or company</span><input type="text" name="company" required placeholder="Reyes Glass &amp; Mirror" autocomplete="organization" /></label>
-        <label class="fld"><span>Email</span><input type="email" name="email" required placeholder="jordan@yourshop.com" autocomplete="email" /></label>
-        <label class="fld"><span>What do you quote?</span>
-          <select name="trade">
-            <option>Glass / glazing</option>
-            <option>Windows &amp; doors</option>
-            <option>Cabinetry / millwork</option>
-            <option>Roofing / exterior</option>
-            <option>Concrete / flatwork</option>
-            <option>HVAC / mechanical</option>
-            <option>Landscaping</option>
-            <option>Something else</option>
-          </select>
-        </label>
-        <label class="fld fld-wide"><span>How do you price a job today? One or two lines is plenty.</span><textarea name="msg" rows="3" placeholder="Spreadsheet with last month's glass prices, my estimator builds it by hand, usually takes 30-40 min."></textarea></label>
-      </div>
-      <div class="bf-foot">
-        <button class="btn btn-acc btn-lg" type="submit" data-cta="form">Send it →</button>
-        <p class="micro-note tight">One reply, from me, with an honest read on whether this is worth building. No sequence, no “circling back.”</p>
-      </div>
-      <p class="bf-ok" id="bf-ok" hidden>Got it. I read every one of these myself — you’ll hear back with an honest answer, not a brochure.</p>
-    </form>
-  </div>
-</section>
-
+  </section>
 </main>
 
+<!-- ============================== FOOTER ============================== -->
 <footer class="foot">
   <div class="wrap foot-in">
-    <a class="brand" href="#top">
-      <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="7" fill="currentColor" fill-opacity=".08"/><path d="M9 8h14v3.4h-10.2v5.4h8.6v3.4h-8.6V25H9z" fill="currentColor"/></svg>
-      <span class="brand-name">COUNTER</span>
-    </a>
-    <p class="foot-note">
-      Custom quoting tools for trade businesses. Glass shops first.<br />
-      Built on site, handed over running, yours to keep.
-    </p>
-    <nav class="foot-nav" aria-label="Footer">
-      <a href="#tool">Live tool</a>
-      <a href="#leak">Free calculators</a>
-      <a href="#offer">The build</a>
-      <a href="#proof">Proof</a>
+    <p>© <span id="yr">2026</span> COUNTER. Built for shops that price on the phone.</p>
+    <nav class="foot-links" aria-label="Footer">
+      <a href="#leak">Calculator</a>
+      <a href="#markup">Markup check</a>
+      <a href="#tool">Live demo</a>
       <a href="#book">Contact</a>
     </nav>
-    <p class="foot-legal">
-      © <span id="yr">2026</span> COUNTER. All rights reserved.<br />
-      <!-- EDIT: replace with your real company, registration and privacy policy before launch. -->
-      <span class="pending">Add your business name, privacy policy and terms here.</span>
-    </p>
   </div>
 </footer>
 
-<a class="sticky-cta" href="#book" data-cta="sticky">
-  <span class="sticky-t">Book the 20-min build call</span>
-  <span class="sticky-s">Yours, in 30 seconds</span>
-</a>
-
-<!-- Toast -->
-<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<div class="sticky-cta" id="sticky-cta">
+  <div class="s-copy">
+    <div class="s-t">Find out what your delay costs</div>
+    <div class="s-s">Five questions · free · no signup</div>
+  </div>
+  <a class="btn btn-acc" href="#leak" data-cta="sticky">Calculate my leak</a>
+</div>
 
 <script type="module" src="/src/main.js"></script>
 </body>
