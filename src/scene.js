@@ -8,10 +8,12 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js';
-import { THICKNESS, FINISH, HARDWARE, LAYOUTS, DOORS } from './quote.js';
+import { VERTICALS, GLASS, FINISH, HARDWARE } from './engine.js';
 
-const IN = 0.0254;
-const ACC = 0x5ff3dc;
+/* Everything in the scene is metres. The job record is millimetres, because
+   that is what a shop measures and what a cut list has to say. */
+const MM = 0.001;
+const ACC = 0x0e6b52;
 
 const isTouch = matchMedia('(hover: none)').matches;
 const small = matchMedia('(max-width: 900px)').matches;
@@ -76,7 +78,7 @@ function wallTexture({ bright = 1, tiles = 4 } = {}) {
 const mix = (rgb, k) => rgb.map((v) => Math.max(0, Math.min(255, Math.round(v * k))));
 const css = (rgb) => `rgb(${rgb[0]},${rgb[1]},${rgb[2]})`;
 
-function labelSprite(text, color = '#0D4E6B', scale = 0.3) {
+function labelSprite(text, color = '#0e6b52', scale = 0.3) {
   const pad = 18, fs = 46;
   const probe = document.createElement('canvas').getContext('2d');
   probe.font = `700 ${fs}px "JetBrains Mono", ui-monospace, monospace`;
@@ -313,14 +315,15 @@ export function createScene(canvas, { onFail } = {}) {
 
   function build(state) {
     clearDyn();
-    const L = LAYOUTS[state.layout];
-    const T = THICKNESS[state.thickness];
+    const V = VERTICALS.shower;
+    const L = V.layouts[state.layout];
+    const T = GLASS[state.thickness];
     const F = FINISH[state.finish];
     const HW = HARDWARE[state.hardware];
-    const D = L.door ? DOORS[state.door] : null;
+    const D = L.door ? V.doors[state.door] : null;
 
-    const W = state.width * IN;
-    const H = state.height * IN;
+    const W = state.width * MM;
+    const H = state.height * MM;
     const t = Math.max(T.scene, 0.008);
     const corner = !!L.corner;
     const sideDepth = corner ? Math.max(0.30, W * 0.42) : 0.34;
@@ -493,7 +496,7 @@ export function createScene(canvas, { onFail } = {}) {
       new THREE.Vector3(0, 0.02, zLine - 0.05), new THREE.Vector3(0, 0.02, zLine + 0.05),
       new THREE.Vector3(W, 0.02, zLine - 0.05), new THREE.Vector3(W, 0.02, zLine + 0.05),
     ], ACC));
-    const lw = labelSprite(`${state.width}″ wide`);
+    const lw = labelSprite(`${state.width} mm`);
     lw.position.set(W / 2, 0.16, zLine);
     dyn.add(lw);
 
@@ -503,7 +506,7 @@ export function createScene(canvas, { onFail } = {}) {
       new THREE.Vector3(xLine - 0.05, 0.05, 0), new THREE.Vector3(xLine + 0.05, 0.05, 0),
       new THREE.Vector3(xLine - 0.05, H + 0.05, 0), new THREE.Vector3(xLine + 0.05, H + 0.05, 0),
     ], ACC));
-    const lh = labelSprite(`${state.height}″ high`);
+    const lh = labelSprite(`${state.height} mm`);
     lh.position.set(xLine, H / 2 + 0.05, 0.16);
     dyn.add(lh);
 

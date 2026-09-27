@@ -1,68 +1,76 @@
 /* =============================================================================
    tools.js — the two calculators
 
-   The quote-desk leak model is deliberately built out of arithmetic the reader
-   can check by hand, and every assumed constant is named in ASSUMPTIONS and
-   printed on the page. Nothing here is a black box.
+   The quote-desk leak model is built out of arithmetic the reader can check by
+   hand, and every assumed constant is named in ASSUMPTIONS and printed on the
+   page. Nothing here is a black box.
    ========================================================================== */
 
-/* ------------------------------------------------------------------ money -- */
+import { getMarket, money, rate, toDisplayArea, areaUnit } from './market.js';
 
-export const money = (n, dp = 0) =>
-  '$' + Number(n || 0).toLocaleString('en-US', { minimumFractionDigits: dp, maximumFractionDigits: dp });
+const M = getMarket;
 
-export const num = (n, dp = 0) => Number(n || 0).toLocaleString('en-US', { maximumFractionDigits: dp });
+export { money, rate };
 
-/* ------------------------------------------------------------- assumptions --
+export const num = (n, dp = 0) =>
+  Number(n || 0).toLocaleString('en-GB', { maximumFractionDigits: dp, minimumFractionDigits: dp });
 
-   Stated on the page so nobody has to take the maths on faith. The two speed
-   anchors are the shop-level figures behind this page, not industry research,
-   and the copy says so.
+export const area = (m2) => toDisplayArea(m2);
+
+/* ------------------------------------------------------------------ assumptions
+
+   The first two multipliers are not research and the page says so. They are
+   what happened in the founder's own glass shop: quotes finished before the
+   customer got off the phone, and PDFs out inside ten minutes, against the
+   same customer base. Everything below "next morning" is interpolation between
+   that and doing nothing, not a claim about the trade.
    ------------------------------------------------------------------------- */
 
 export const ASSUMPTIONS = {
-  /* close-rate multiplier once the priced quote is in the customer's hands */
-  speedAtFast: 2.0,
-  speedAt24h: 1.35,
-  speedAt4d: 1.12,
+  /* measured, own shop */
+  speedOnCall: 3.0,
+  speedTenMin: 2.0,
+  /* interpolated, and labelled as interpolated on the page */
+  speedNextDay: 1.35,
+  speedThreeDays: 1.12,
 
-  /* what an hour of quoting desk time actually costs the business */
-  loadedRate: 65,
+  /* what an hour of quoting-desk time actually costs the business */
+  loadedRate: 48,
 
   /* share of desk time that is re-typing, lookup and rebuilding the same
      quote — the part a real cost model removes */
   avoidableShare: 0.4,
 
   /* the shop sends quotes at this speed; the calculator prices the gap */
-  fastTargetMin: 15,
+  fastTargetMin: 10,
 
   /* gross margin band for a custom glass shop, used by the markup check */
   glassGrossBand: [0.32, 0.45],
 };
 
-/* ---------------------------------------------------------- speed curve --
+/* ------------------------------------------------------------- speed curve --
 
-   Monotone, anchored on the two measured points, interpolated in log space so
-   the penalty for 2h -> 4h is not absurdly larger than 20h -> 22h.
-   ------------------------------------------------------------------------- */
+   Monotone, anchored on the measured points, interpolated in log space so the
+   penalty for 2h → 4h is not absurdly larger than 20h → 22h.
+   ------------------------------------------------------------------------ */
 
 const lerp = (a, b, t) => a + (b - a) * t;
 
 export function speedMult(hours) {
-  const h = Math.max(1 / 12, Number(hours) || 0);
+  const h = Math.max(1 / 60, Number(hours) || 0);
   const A = ASSUMPTIONS;
   const T = A.fastTargetMin / 60;
-  if (h <= T) return A.speedAtFast;                            // 15 min or better
-  if (h <= 1) return lerp(A.speedAtFast, 1.7, (h - T) / (1 - T));
+  if (h <= T) return A.speedTenMin;                    // 10 minutes or better
+  if (h <= 1) return lerp(A.speedTenMin, 1.7, (h - T) / (1 - T));
   if (h <= 24) {
     const t = (Math.log(h) - Math.log(1)) / (Math.log(24) - Math.log(1));
-    return lerp(1.7, A.speedAt24h, t);
+    return lerp(1.7, A.speedNextDay, t);
   }
   if (h <= 96) {
     const t = (Math.log(h) - Math.log(24)) / (Math.log(96) - Math.log(24));
-    return lerp(A.speedAt24h, A.speedAt4d, t);
+    return lerp(A.speedNextDay, A.speedThreeDays, t);
   }
-  return A.speedAt4d;
+  return A.speedThreeDays;
 }
 
 const hrs = (mins) => mins / 60;
@@ -100,8 +108,8 @@ export function leakModel(v) {
       key: 'speed',
       name: 'Speed gap',
       value: speedGain,
-      why: `Your quotes take ${fmtDelay(delayMins)} to reach the customer. On the shop figures behind this page, a quote delivered inside 15 minutes closes at ${fastMult.toFixed(2)}x your current rate instead of ${nowMult.toFixed(2)}x.`,
-      fix: `<b>Fix:</b> build the quote during the call, not after it. The gap is ${money(fastRate * 100 - nowRate * 100, 1)} points of close rate on ${money(annualQuoted)} quoted.`,
+      why: `Your quotes take ${fmtDelay(delayMins)} to reach the customer. In the shop this page was built from, a quote finished before the customer got off the phone closed at ${A.speedOnCall}× the rate of one sent the next day. Inside ten minutes it was ${A.speedTenMin}×.`,
+      fix: `<b>Fix:</b> build the quote during the call, not after it. That is ${money(annualQuoted * (fastRate - nowRate))} of extra close rate on ${money(annualQuoted)} you already quote.`,
       top: true,
     },
     {
@@ -109,7 +117,7 @@ export function leakModel(v) {
       name: 'Re-pricing the same job from scratch',
       value: deskRecovery,
       why: `${num(annualDeskHours)} hours a year go into pricing ${num(annualQuotes)} quotes at ${deskHrs.toFixed(2)}h each. Roughly ${Math.round(A.avoidableShare * 100)}% of that is typing, looking up hardware and rebuilding a quote you priced last month.`,
-      fix: `<b>Fix:</b> a cost model that remembers your glass, your hardware and your margin rules, so the second shower takes seconds. Worth about ${money(A.loadedRate)}/h against ${money(deskRecovery)} a year.`,
+      fix: `<b>Fix:</b> a cost model that remembers your glass, your hardware and your margin rule, so the second shower takes seconds. Worth about ${rate(A.loadedRate)}/h against ${money(deskRecovery)} a year.`,
       top: false,
     },
   ].filter((l) => l.value > 0);
@@ -143,7 +151,7 @@ function fmtDelay(mins) {
     return `${h < 1.5 ? h.toFixed(1) : Math.round(h)} hours`;
   }
   const d = mins / 1440;
-  return `${d < 1.5 ? d.toFixed(1) : Math.round(d)} days`;
+  return d < 1.5 ? `${d.toFixed(1)} days` : `${Math.round(d)} days`;
 }
 
 export const delayLabel = fmtDelay;
@@ -154,14 +162,15 @@ const clamp = (n, lo, hi) => Math.min(hi, Math.max(lo, Number(n) || 0));
 
 export function markupModel(v) {
   const A = ASSUMPTIONS;
-  const sf = clamp(v.sqFt, 1, 2000);
-  const matPerSf = clamp(v.matPerSf, 1, 400);
+  const m2 = clamp(v.glassM2, 0.5, 400);
+  const matPerUnit = clamp(v.matPerUnit, 1, 900);
   const hours = clamp(v.labourHours, 0.1, 400);
-  const rate = clamp(v.labourRate, 10, 400);
+  const ratePerHour = clamp(v.labourRate, 5, 500);
   const extra = clamp(v.extras, 0, 200000);
+  const shown = toDisplayArea(m2);
 
-  const material = sf * matPerSf;
-  const labour = hours * rate;
+  const material = shown * matPerUnit;
+  const labour = hours * ratePerHour;
   const cost = material + labour + extra;
   const sell = cost * (1 + clamp(v.markupPct, 0, 500) / 100);
 
@@ -169,28 +178,25 @@ export function markupModel(v) {
   const grossPct = sell > 0 ? gross / sell : 0;
   const [lo, hi] = A.glassGrossBand;
 
-  /* A markup percentage fixes the margin rate, so the rate alone cannot tell you
-     whether the price is big enough. What matters is the gap between the price
-     you are asking and the price this job needs for a healthy margin. */
+  /* A markup percentage fixes the margin rate, so the rate alone cannot tell
+     you whether the price is big enough. What matters is the gap between the
+     price you are asking and the price this job needs for a healthy margin. */
   const needed = cost / (1 - lo);
   const gap = needed - sell;
 
   let verdict, tone, band;
   if (grossPct < lo) {
-    band = lo;
-    tone = 'loss';
-    verdict = `You keep ${(grossPct * 100).toFixed(1)}% of each sale. A good glass shop keeps ${(lo * 100).toFixed(0)}% to ${(hi * 100).toFixed(0)}%. To keep ${(lo * 100).toFixed(0)}% on this job you need to ask ${money(needed)} — that is ${money(gap)} more than now.`;
+    band = lo; tone = 'loss';
+    verdict = `You keep ${(grossPct * 100).toFixed(1)}% of each sale. A shop running well keeps ${(lo * 100).toFixed(0)}% to ${(hi * 100).toFixed(0)}%. To keep ${(lo * 100).toFixed(0)}% on this job you need to ask ${money(needed)} — that is ${money(gap)} more than you charge now.`;
   } else if (grossPct > hi) {
-    band = hi;
-    tone = 'good';
-    verdict = `You keep ${(grossPct * 100).toFixed(1)}% of each sale. That is above the ${(lo * 100).toFixed(0)}-${(hi * 100).toFixed(0)}% band. Good prices, or you are losing jobs. Worth knowing which one.`;
+    band = hi; tone = 'good';
+    verdict = `You keep ${(grossPct * 100).toFixed(1)}% of each sale. That is above the ${(lo * 100).toFixed(0)}–${(hi * 100).toFixed(0)}% band. Good prices, or you are losing jobs. Worth knowing which one.`;
   } else {
-    band = null;
-    tone = 'ok';
-    verdict = `You keep ${(grossPct * 100).toFixed(1)}% of each sale. That is inside the ${(lo * 100).toFixed(0)}-${(hi * 100).toFixed(0)}% band. On this job you could ask ${money(gap)} more and still be in the band.`;
+    band = null; tone = 'ok';
+    verdict = `You keep ${(grossPct * 100).toFixed(1)}% of each sale. That is inside the ${(lo * 100).toFixed(0)}–${(hi * 100).toFixed(0)}% band. On this job you could ask ${money(gap)} more and still be in the band.`;
   }
 
-  return { sf, matPerSf, hours, rate, extra, material, labour, cost, sell, gross, grossPct, needed, gap, band, tone, verdict };
+  return { m2, shown, matPerUnit, hours, rate: ratePerHour, extra, material, labour, cost, sell, gross, grossPct, needed, gap, band, tone, verdict };
 }
 
 /* ------------------------------------------------------------- the sheet -- */
@@ -211,7 +217,7 @@ export function sheet(model) {
     '-'.repeat(52),
     `Quoted a year              ${money(model.annualQuoted)}`,
     `Won a year (at your rate)  ${money(model.revenueNow)}`,
-    `If you delivered in 15 min ${money(model.revenueIfFast)}`,
+    `If you delivered in 10 min ${money(model.revenueIfFast)}`,
     '',
     '-'.repeat(52),
     'WHERE IT LEAKS',
@@ -227,14 +233,17 @@ export function sheet(model) {
     '',
     `If ${fmtDelay(ASSUMPTIONS.fastTargetMin)} became your norm, you would`,
     `close ${(model.fastRate * 100).toFixed(1)}% instead of ${(model.nowRate * 100).toFixed(1)}%,`,
-    `on the same pipeline you already have.`,
+    'on the same pipeline you already have.',
     '',
     '='.repeat(52),
-    'Modelled on the shop-level figures behind this page:',
-    `a quote delivered inside ${ASSUMPTIONS.fastTargetMin} minutes closes at ${ASSUMPTIONS.speedAtFast}x,`,
-    `next morning at ${ASSUMPTIONS.speedAt24h}x, after four days at ${ASSUMPTIONS.speedAt4d}x.`,
-    `Desk time is priced at $${ASSUMPTIONS.loadedRate}/h loaded, ${Math.round(ASSUMPTIONS.avoidableShare * 100)}% avoidable.`,
-    'These are not industry averages. Change any input and the maths moves.',
+    'Where the multipliers come from:',
+    'the shop this page was built from, where a quote finished on',
+    `the call closed at ${ASSUMPTIONS.speedOnCall}x and one out inside`,
+    `${ASSUMPTIONS.fastTargetMin} minutes at ${ASSUMPTIONS.speedTenMin}x, against`,
+    'the same customers. Next-day and beyond are interpolated, not measured.',
+    `Desk time is priced at ${rate(ASSUMPTIONS.loadedRate)}/h loaded,`,
+    `${Math.round(ASSUMPTIONS.avoidableShare * 100)}% avoidable.`,
+    'Change any input and the maths moves.',
   ].join('\n');
 }
 

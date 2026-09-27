@@ -1,187 +1,281 @@
 /* =========================================================================
-   COUNTER — boot
+   SQUAREFOOT — boot
+
+   One place for the things that are true about the business, so the rest of
+   the code never has to know them: the inbox, the booking link, the seller
+   identity that goes on a quote, and the domain.
+
+   Nothing on this page is sent anywhere. The calculators and the configurator
+   run in the visitor's browser, and the only outbound action is a mailto the
+   visitor has to click themselves.
    ========================================================================= */
 
 import './styles.css';
+import { initMarket, setMarket, getMarket, MARKET_IDS, money } from './market.js';
+import { createHeroGlass } from './hero-glass.js';
 import { createScene } from './scene.js';
-import { initTool, toast } from './quote-ui.js';
+import { initTool } from './quote-ui.js';
 import { initLeak, initMarkup } from './calculators.js';
-import { money, delayLabel } from './tools.js';
+import { initScroll } from './scroll.js';
 
 const $  = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];
-const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-/* ------------------------------------------------------------------ nav */
+/* ====================================================== business constants ==
+   TODO(owner): replace every value here. Nothing else needs editing to go live.
+   ------------------------------------------------------------------------ */
+
+export const CONFIG = {
+  domain:    'squarefoot.build',
+  email:     'hello@squarefoot.build',
+  /* A real scheduling link, if you have one. Left empty, the call to action
+     opens the visitor's mail client with their own numbers already written in,
+     which is better than a fake calendar page. */
+  bookingURL: '',
+
+  /* Goes on the quotation the visitor generates. */
+  seller: {
+    name:  'SQUAREFOOT',
+    terms: 'Custom quoting desk — built on your own price book',
+  },
+
+  /* Printed under the offer, next to the calculator that produced it. */
+  buildShareOfGap: 0.35,
+};
+
+/* ==================================================================== nav */
+
 (function nav() {
   const burger = $('[data-burger]');
   const menu = $('[data-mobile-nav]');
+  if (!burger || !menu) return;
 
-  burger?.addEventListener('click', () => {
+  const close = () => {
+    burger.setAttribute('aria-expanded', 'false');
+    menu.classList.remove('open');
+  };
+
+  burger.addEventListener('click', () => {
     const open = burger.getAttribute('aria-expanded') === 'true';
     burger.setAttribute('aria-expanded', String(!open));
-    menu?.classList.toggle('open', !open);
+    menu.classList.toggle('open', !open);
   });
-  menu?.addEventListener('click', (e) => {
-    if (e.target.tagName !== 'A') return;
-    burger?.setAttribute('aria-expanded', 'false');
-    menu.classList.remove('open');
-  });
+  menu.addEventListener('click', (e) => { if (e.target.tagName === 'A') close(); });
+  addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); });
 })();
 
-/* ----------------------------------------------------------- sticky cta */
+/* =============================================================== market ==
+   Three buttons, one saved preference, and everything on the page re-stated
+   in the new currency and units.
+   ------------------------------------------------------------------------ */
+
+function initMarketSwitch() {
+  initMarket();
+  const M = getMarket();
+  document.documentElement.dataset.currency = M.id;
+
+  const paint = () => {
+    const cur = getMarket();
+    for (const b of $$('[data-market]')) {
+      b.setAttribute('aria-pressed', String(b.dataset.market === cur.id));
+    }
+    document.documentElement.dataset.currency = cur.id;
+  };
+
+  for (const b of $$('[data-market]')) {
+    b.addEventListener('click', () => {
+      const before = getMarket().id;
+      setMarket(b.dataset.market);
+      if (getMarket().id === before) return;
+      paint();
+    });
+  }
+
+  if (!MARKET_IDS.includes(M.id)) setMarket('gbp');
+  paint();
+}
+
+/* ============================================================ sticky cta */
+
 (function sticky() {
   const el = $('#sticky-cta');
   const book = $('#book');
+  const txt = $('#sticky-txt');
   if (!el) return;
   document.body.classList.add('has-cta');
 
+  let queued = false;
   const set = () => {
-    const past = scrollY > 620;
-    const done = book && book.getBoundingClientRect().top < innerHeight * 0.6;
+    queued = false;
+    const past = scrollY > 560;
+    const done = book ? book.getBoundingClientRect().top < innerHeight * 0.55 : false;
     el.classList.toggle('on', past && !done);
+
+    /* the sticky line reports the visitor's own number once they have one */
+    const leak = document.__leak?.model;
+    if (txt && leak) {
+      txt.textContent = leak.recoverable > 0
+        ? `That is ${money(leak.recoverable)} a year. One call to see if it is real.`
+        : 'Twenty minutes. One quote. A straight answer.';
+    }
   };
 
-  addEventListener('scroll', set, { passive: true });
+  addEventListener('scroll', () => { if (!queued) { queued = true; requestAnimationFrame(set); } }, { passive: true });
   addEventListener('resize', set);
   if (book) new IntersectionObserver(set).observe(book);
   set();
 })();
 
-/* -------------------------------------------------------------- reveals */
-(function reveals() {
-  const items = $$('[data-reveal]');
-  if (reduceMotion || !('IntersectionObserver' in window)) {
-    items.forEach((i) => i.classList.add('in'));
-    return;
-  }
+/* =================================================================== faq */
 
-  /* Kept pending until the panel has actually been reached, so the sweep
-     below can still catch it. */
-  const pending = new Set(items);
-  const show = (el) => { pending.delete(el); el.classList.add('in'); };
-
-  const io = new IntersectionObserver(
-    (entries) => { for (const e of entries) if (e.isIntersecting) { show(e.target); io.unobserve(e.target); } },
-    { rootMargin: '0px 0px -6% 0px', threshold: 0 }
-  );
-  items.forEach((i) => io.observe(i));
-
-  /* IntersectionObserver can coalesce a fast scroll and step straight over a
-     tall panel, leaving it at opacity 0 forever. Sweep on scroll as a net. */
-  let queued = false;
-  const sweep = () => {
-    queued = false;
-    for (const el of [...pending]) {
-      if (el.getBoundingClientRect().top < window.innerHeight * 0.97) {
-        show(el);
-        io.unobserve(el);
-      }
-    }
-    if (!pending.size) window.removeEventListener('scroll', onScroll);
-  };
-  const onScroll = () => {
-    if (queued) return;
-    queued = true;
-    requestAnimationFrame(sweep);
-  };
-  window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
-})();
-
-/* ----------------------------------------------------------------- faq */
 (function faq() {
   for (const q of $$('[data-faq-q]')) {
     q.addEventListener('click', () => {
       const open = q.getAttribute('aria-expanded') === 'true';
+      const panel = q.nextElementSibling;
+      for (const other of $$('[data-faq-q]')) {
+        if (other === q) continue;
+        other.setAttribute('aria-expanded', 'false');
+        other.nextElementSibling?.classList.remove('on');
+      }
       q.setAttribute('aria-expanded', String(!open));
-      q.nextElementSibling?.classList.toggle('on', !open);
+      panel?.classList.toggle('on', !open);
     });
   }
 })();
 
-/* ------------------------------------------------------- free calculators
-   Both stand alone — no shared state, so a visitor can use either one without
-   the other being involved at all.
-   ------------------------------------------------------------------------- */
-/* The leak bench splits its inputs and its result across two columns, so both
-   halves are wired against the document rather than one root. */
-initLeak();
+/* ====================================================== the money section ==
+   The offer is priced against the number the visitor just produced, so the
+   section reads their gap back to them rather than a figure we invented.
+   ------------------------------------------------------------------------ */
 
-const markupRoot = $('#markup-calc');
-if (markupRoot) initMarkup(markupRoot);
+function initMoneyLink() {
+  const gapEl   = $('#money-gap');
+  const aEl     = $('#money-share-a');
+  const bEl     = $('#money-share-b');
+  const cEl     = $('#money-share-c');
+  if (!gapEl || !aEl) return;
 
-/* ------------------------------------------------------------- the tool */
-const canvas = $('#scene');
-let scene = null;
+  const round = (n) => {
+    const step = n > 40000 ? 2500 : n > 8000 ? 500 : n > 1500 ? 100 : 50;
+    return Math.round(n / step) * step;
+  };
 
-if (canvas) {
+  const set = (m) => {
+    const gap = m?.recoverable || 0;
+    gapEl.textContent = money(gap);
+    aEl.textContent = money(gap);
+    bEl.textContent = money(gap / 2);
+    cEl.textContent = money(round(gap * CONFIG.buildShareOfGap));
+  };
+
+  addEventListener('leak:update', (e) => set(e.detail));
+  set(document.__leak?.model);
+}
+
+/* ============================================================== the 3d ==
+   Two independent scenes. Either one failing takes nothing else with it:
+   the hero falls back to a static gradient, the configurator to its drawing.
+   ------------------------------------------------------------------------ */
+
+function safeScene(create, canvasSel, onFail) {
+  const canvas = $(canvasSel);
+  if (!canvas) return null;
   try {
-    scene = createScene(canvas, {
+    return create(canvas, {
       onFail: () => {
-        const fb = $('#vp-fallback');
-        if (fb) fb.hidden = false;
-        canvas.style.display = 'none';
+        onFail?.();
+        canvas.hidden = true;
       },
     });
   } catch (err) {
-    const fb = $('#vp-fallback');
-    if (fb) fb.hidden = false;
-    canvas.style.display = 'none';
+    console.warn('[SQUAREFOOT] 3D unavailable, carrying on without it', err);
+    onFail?.();
+    canvas.hidden = true;
+    return null;
   }
 }
 
-const tool = initTool({ scene, onQuote() {} });
+/* ================================================================ boot */
 
-/* ------------------------------------------------------------ year stamp */
-const yr = $('#yr');
-if (yr) yr.textContent = String(new Date().getFullYear());
+initMarketSwitch();
+initScroll();
 
-/* ------------------------------------------------------------- booking CTA
-   No backend, so the button opens the visitor's mail app with their own
-   numbers already filled in. Point BOOK_EMAIL at a real inbox, or set
-   BOOK_URL to a scheduling link and the button becomes that link instead.
-   ------------------------------------------------------------------------- */
-const BOOK_EMAIL = 'hello@counter.build';   // TODO(owner): real inbox
-const BOOK_URL   = '';                      // TODO(owner): calendar link, if any
+safeScene(createHeroGlass, '#hero-canvas', () => {
+  $('.hero-fallback')?.classList.add('on');
+});
+
+const scene = safeScene(createScene, '#scene', () => {
+  const fb = $('#vp-fallback');
+  if (fb) fb.hidden = false;
+});
+
+initLeak();
+const markupRoot = $('#markup-calc');
+if (markupRoot) initMarkup(markupRoot);
+
+initTool({ scene, onQuote() {} });
+initMoneyLink();
+
+/* ============================================================= booking ==
+   The call to action carries the visitor's own numbers into the conversation,
+   so the first message is already specific.
+   ------------------------------------------------------------------------ */
 
 function bookingLink() {
-  const leak = document.__leak || {};
-  const m = leak.model;
-  const v = leak.inputs || {};
-  const rows = ['Hi,', '', 'I used the quote leak tool on your site.', ''];
-  if (m) {
+  const leak = document.__leak?.model;
+  const v = document.__leak?.inputs || {};
+
+  const rows = ['Hi,', '', 'I used the quote leak tool on your site.'];
+  if (leak) {
     rows.push(
+      '',
       `Quotes I send each month: ${v.quotesPerMonth}`,
       `Price of one job: ${money(v.avgJobValue)}`,
-      `Time to send a quote: ${delayLabel(v.delayMinutes)}`,
+      `Time to get the quote out: ${leak.delayMins ? Math.round(leak.delayMins / 60) + ' h' : '—'}`,
       `How many I win: ${v.closeRate}%`,
       '',
-      `You worked out I lose ${money(m.unclosed)} a year by being slow.`
+      `The tool worked out I lose ${money(leak.recoverable)} a year by being slow.`
     );
   }
   rows.push('', 'I would like to talk about fixing it.', '', 'Thanks,');
 
-  if (BOOK_URL) return BOOK_URL;
-  return `mailto:${BOOK_EMAIL}?subject=${encodeURIComponent('Quote desk leak - 20 min call')}` +
+  if (CONFIG.bookingURL) return CONFIG.bookingURL;
+  return `mailto:${CONFIG.email}?subject=${encodeURIComponent('Quote desk — 20 min call')}` +
          `&body=${encodeURIComponent(rows.join('\n'))}`;
 }
 
 for (const b of $$('[data-book]')) b.setAttribute('href', bookingLink());
 
-/* ------------------------------------------------------ cta instrumentation
-   Fires a `cta_click` event with the placement so you can plug in whatever
-   analytics you use without touching the markup.
-   ------------------------------------------------------------------------- */
+/* ====================================================== small page chores */
+
+const yr = $('#yr');
+if (yr) yr.textContent = String(new Date().getFullYear());
+
+for (const a of $$('[data-mail]')) a.textContent = CONFIG.email;
+
 for (const a of $$('[data-cta]')) {
   a.addEventListener('click', () => {
     window.dispatchEvent(new CustomEvent('cta_click', { detail: { placement: a.dataset.cta } }));
   });
 }
 
-/* ------------------------------------------------------------- console */
+/* Smooth in-page movement, but never for someone who has asked for none. */
+if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  document.addEventListener('click', (e) => {
+    const a = e.target.closest('a[href^="#"]');
+    if (!a) return;
+    const id = a.getAttribute('href').slice(1);
+    const el = id && document.getElementById(id);
+    if (!el) return;
+    e.preventDefault();
+    el.scrollIntoView({ behavior: 'smooth', block: id === 'top' ? 'start' : 'start' });
+    history.replaceState(null, '', `#${id}`);
+  });
+}
+
 console.info(
-  '%cCOUNTER%c — the calculator and the demo on this page both run in your browser.',
-  'background:#0d4e6b;color:#fff;padding:3px 8px;border-radius:4px;font-weight:700',
-  'color:#66757f'
+  '%cSQUAREFOOT%c — the calculators and the configurator on this page all run in your browser. Nothing is sent.',
+  'background:#0b1a20;color:#63e3bd;padding:3px 8px;border-radius:4px;font-weight:700',
+  'color:#6b7f88'
 );

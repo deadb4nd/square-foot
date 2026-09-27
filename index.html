@@ -1,66 +1,155 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-currency="gbp">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>COUNTER — Quote your shower on the call</title>
-<meta name="description" content="See how much money slow quotes cost your shop each year. Free. Then book 20 minutes." />
-<meta name="theme-color" content="#ffffff" />
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230d4e6b'/%3E%3Cpath d='M9 21V11h4.4a3.4 3.4 0 010 6.8H12' stroke='%23fff' stroke-width='2.4' fill='none' stroke-linecap='round'/%3E%3C/svg%3E" />
+<title>SQUAREFOOT — quoting tools for glass shops</title>
+<meta name="description" content="You are not losing jobs on price. You are losing them on time. See what slow quotes cost your shop each year, then price a real job on the same engine your tool would run." />
+<meta name="theme-color" content="#050e12" />
+<meta name="color-scheme" content="light dark" />
+
+<link rel="canonical" href="https://squarefoot.build/" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230b1a20'/%3E%3Cpath d='M7 7h18v18H7z' fill='none' stroke='%2363e3bd' stroke-width='2'/%3E%3Cpath d='M7 25 25 7' stroke='%2363e3bd' stroke-width='1.4' opacity='.55'/%3E%3C/svg%3E" />
+
+<meta property="og:type" content="website" />
+<meta property="og:title" content="SQUAREFOOT — quoting tools for glass shops" />
+<meta property="og:description" content="You are not losing jobs on price. You are losing them on time. Price a real shower, shopfront, splashback or balustrade in the browser." />
+<meta property="og:url" content="https://squarefoot.build/" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="SQUAREFOOT — quoting tools for glass shops" />
+<meta name="twitter:description" content="You are not losing jobs on price. You are losing them on time." />
+
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="/src/styles.css" />
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": "SQUAREFOOT",
+  "description": "Custom quoting tools for glass shops and glazing contractors. A cost model loaded with your own glass, hardware and margin rules, so a rep can price a job while the customer is on the phone.",
+  "areaServed": "Worldwide",
+  "serviceType": "Custom quoting software",
+  "founder": { "@type": "Person", "jobTitle": "Founder" },
+  "knowsAbout": ["Glass quoting", "Shower enclosures", "Shopfront estimating", "Balustrades", "Splashbacks", "Glazing"],
+  "offers": { "@type": "Offer", "description": "A custom quoting desk built on the buyer's own price book. Fixed milestones, fixed timeline, source code transferred." }
+}
+</script>
 </head>
 <body>
 
+<!-- ============================================================== progress -->
+<div class="progress" aria-hidden="true"><i id="progress-fill"></i></div>
+
+<!-- ================================================================== nav -->
 <header class="nav">
   <div class="wrap nav-in">
-    <a class="brand" href="#top">
-      <span class="brand-mark" aria-hidden="true"></span>
-      <span class="brand-name">COUNTER</span>
+    <a class="brand" href="#leak" aria-label="SQUAREFOOT, back to top">
+      <span class="brand-mark" aria-hidden="true"><i></i></span>
+      <span class="brand-name">SQUARE<b>FOOT</b><sup>2</sup></span>
     </a>
+
     <nav class="nav-links" aria-label="Main">
-      <a href="#leak">Your leak</a>
-      <a href="#tool">The tool</a>
-      <a href="#markup">Markup</a>
-      <a href="#book" data-book class="btn btn-acc btn-sm" data-cta="nav">Book 20 min</a>
+      <a href="#desk" data-spy>The desk</a>
+      <a href="#stack" data-spy>What you get</a>
+      <a href="#money" data-spy>The money</a>
+      <a href="#faq" data-spy>Questions</a>
     </nav>
+
+    <div class="nav-right">
+      <div class="market" role="group" aria-label="Country and currency">
+        <button type="button" class="market-btn" data-market="gbp" aria-pressed="true"><span>🇬🇧</span> £</button>
+        <button type="button" class="market-btn" data-market="eur" aria-pressed="false"><span>🇪🇺</span> €</button>
+        <button type="button" class="market-btn" data-market="usd" aria-pressed="false"><span>🇺🇸</span> $</button>
+      </div>
+      <a class="btn btn-acc btn-sm" href="#book" data-book data-cta="nav">Book 20 min</a>
+    </div>
   </div>
 </header>
 
+<!-- =========================================================== section rail -->
+<nav class="rail" id="rail" aria-label="Page sections">
+  <span class="rail-count" id="rail-count" aria-hidden="true">01</span>
+  <a href="#leak"     data-rail class="on"><i></i><b>The leak</b></a>
+  <a href="#desk"     data-rail><i></i><b>The desk</b></a>
+  <a href="#markup"   data-rail><i></i><b>Your margin</b></a>
+  <a href="#stack"    data-rail><i></i><b>What you get</b></a>
+  <a href="#how"      data-rail><i></i><b>How it runs</b></a>
+  <a href="#money"    data-rail><i></i><b>The money</b></a>
+  <a href="#proof"    data-rail><i></i><b>Proof</b></a>
+  <a href="#faq"      data-rail><i></i><b>Questions</b></a>
+  <a href="#book"     data-rail><i></i><b>Book</b></a>
+</nav>
+
 <main id="top">
 
-<!-- ============================================================ HERO + LEAK -->
+<!-- ================================================================= hero -->
 <section class="hero" id="leak">
-  <div class="wrap">
+  <canvas id="hero-canvas" aria-hidden="true"></canvas>
+  <div class="hero-fallback" aria-hidden="true"></div>
 
-    <div class="hero-top">
-      <h1 class="h1">You are not losing jobs on price. You are losing them on&nbsp;time.</h1>
-      <p class="lede">Answer 5 quick questions. See how much money slow quotes cost you each year.</p>
-      <a class="btn btn-acc btn-lg" href="#book" data-book data-cta="hero">Book the 20-min call</a>
+  <div class="wrap hero-in" id="hero-layer">
+    <p class="eyebrow" data-depth="6">
+      <span class="eyebrow-dot"></span>
+      Built for glass shops and glazing contractors · showers, shopfronts, splashbacks, balustrades
+    </p>
+
+    <h1 class="h1" data-depth="14">
+      You are not losing jobs on <em>price</em>.<br />
+      You are losing them on&nbsp;<em>time</em>.
+    </h1>
+
+    <p class="lede lede-hero" data-depth="20">
+      Your customer hangs up and phones the next shop. Nobody ever tells you that.
+      Answer five questions and see what a slow quote costs your shop every year —
+      in your own currency, on your own numbers.
+    </p>
+
+    <div class="hero-cta" data-depth="26">
+      <a class="btn btn-acc btn-lg" href="#leak-bench" data-cta="hero">See what it costs you</a>
+      <a class="btn btn-ghost btn-lg" href="#desk" data-cta="hero-2">Or watch it price a job</a>
     </div>
 
-    <div class="leak-bench">
+    <ul class="hero-trust" data-depth="30">
+      <li>Runs on the PC in your office</li>
+      <li>Your glass, your rates, your margin</li>
+      <li>Nothing to install but a folder</li>
+    </ul>
+  </div>
 
-      <!-- ---------- ask ---------- -->
+  <a class="cue" id="scroll-cue" href="#leak-bench">
+    <span class="cue-txt">Below this — five questions, about ninety seconds</span>
+    <span class="cue-rail" aria-hidden="true"><i></i></span>
+  </a>
+</section>
+
+<!-- =========================================================== leak bench -->
+<section class="bench-sec" aria-label="What slow quotes cost you">
+  <div class="wrap">
+    <div class="bench" data-reveal>
+
       <div class="leak-ask">
-        <h2 class="bench-h">Your numbers</h2>
-        <p class="bench-sub">Use your last 30 days. A rough guess is fine.</p>
+        <div class="ask-head">
+          <span class="lab-sm">The leak</span>
+          <h2 class="bench-h">Your numbers</h2>
+          <p class="bench-sub">Last 30 days. A rough guess is fine — it moves as you drag.</p>
+        </div>
 
         <label class="field">
-          <span class="field-lab">Quotes you send each month <b class="field-val" id="lk-quotesPerMonth-out">45</b></span>
-          <input type="range" id="lk-quotesPerMonth" min="5" max="200" step="1" value="45" />
+          <span class="field-lab">Quotes you send each month <b class="field-val" id="lk-quotesPerMonth-out">40</b></span>
+          <input type="range" id="lk-quotesPerMonth" min="5" max="200" step="1" value="40" />
         </label>
 
         <label class="field">
-          <span class="field-lab">Price of one job <b class="field-val" id="lk-avgJobValue-out">$4,200</b></span>
-          <input type="range" id="lk-avgJobValue" min="500" max="25000" step="100" value="4200" />
-          <span class="field-hint">The price you charge. Not what it costs you.</span>
+          <span class="field-lab">Price of one job <b class="field-val" id="lk-avgJobValue-out">£3,200</b></span>
+          <input type="range" id="lk-avgJobValue" min="500" max="25000" step="100" value="3200" />
+          <span class="field-hint">What you charge. Not what it costs you.</span>
         </label>
 
         <label class="field">
-          <span class="field-lab">Time to send a quote <b class="field-val" id="lk-delayMinutes-out">1 day</b></span>
+          <span class="field-lab">Time to get the quote out <b class="field-val" id="lk-delayMinutes-out">1 day</b></span>
           <input type="range" id="lk-delayMinutes" min="5" max="2880" step="5" value="1560" />
           <span class="field-hint">Be honest. Most shops take about a day.</span>
         </label>
@@ -79,14 +168,14 @@
         </details>
 
         <div class="ask-foot">
-          <p class="micro-note">No sign up. Nothing is sent. Your answers stay in this browser.</p>
+          <button class="btn btn-ghost btn-mini" id="send-sheet" type="button">Copy the whole calculation</button>
+          <p class="micro-note">No sign-up. Nothing is sent. It all runs in this browser.</p>
         </div>
       </div>
 
-      <!-- ---------- show ---------- -->
       <div class="leak-show" id="lk-result">
-        <span class="show-lab">You lose this each year</span>
-        <div class="show-big" id="lk-big">$0</div>
+        <span class="show-lab">This is what you lose each year</span>
+        <div class="show-big" id="lk-big">£0</div>
         <p class="show-sub" id="lk-sub"></p>
 
         <div class="rates">
@@ -96,7 +185,7 @@
           </div>
           <div class="rate-track"><i id="lk-bar-now"></i></div>
           <div class="rate-row">
-            <span class="rate-lab">If you sent it in 15 minutes</span>
+            <span class="rate-lab">If it went out in <span id="lk-fast-phrase">10 minutes</span></span>
             <span class="rate-val" id="lk-rate-fast">—</span>
           </div>
           <div class="rate-track is-fast"><i id="lk-bar-fast"></i></div>
@@ -113,112 +202,72 @@
       </div>
 
     </div>
+
+    <p class="bench-src" data-reveal>
+      <span class="lab-sm">Where the multipliers come from</span>
+      The 3× and 2× figures are not industry research. They are what happened in
+      <strong>my own glass shop</strong> when quotes stopped going out the next day.
+      Next-day and beyond are interpolated, not measured. Every constant is on this page —
+      change any slider and the maths moves with it.
+    </p>
   </div>
 </section>
 
-<!-- ================================================================= TOOL -->
-<section class="sec sec-tint" id="tool">
+<!-- ================================================================= desk -->
+<section class="sec sec-desk" id="desk">
   <div class="wrap">
-    <div class="sec-head">
-      <h2 class="h2">See the price before you say it out loud</h2>
-      <p class="lede">This is the real tool. Change the glass, the parts, or the size. The price moves.</p>
+    <div class="sec-head" data-reveal>
+      <span class="lab-sm">02 — The desk</span>
+      <h2 class="h2">This is the actual engine. Not a video of one.</h2>
+      <p class="lede">
+        Pick your job type. Change the glass, the fixings, the size. The price, the
+        margin and the cut list all move together — because they are the same number
+        calculated once.
+      </p>
     </div>
 
-    <div class="tool-shell" data-reveal>
+    <div class="tool-shell" id="tool" data-reveal>
       <div class="tool-chrome">
-        <div class="tool-title">
-          <span class="mono" id="job-name">NEW JOB</span>
-        </div>
+        <div class="tool-title"><span class="mono" id="job-name">RESIDENCE — SHOWER REFIT</span></div>
         <div class="tool-timer">
           <span class="lab-sm">Time on the call</span>
-          <span class="timer" id="call-timer" aria-live="off">00:00</span>
+          <span class="timer" id="call-timer">00:00</span>
         </div>
         <button class="btn btn-mini" id="new-call" type="button">New quote</button>
       </div>
 
-      <div class="tool-body is-hero">
+      <div class="vert-tabs" id="vert-switch" role="tablist" aria-label="Job type">
+        <button type="button" data-vert="shower" class="on" role="tab" aria-selected="true">Shower enclosure</button>
+        <button type="button" data-vert="shopfront" role="tab" aria-selected="false">Shopfront</button>
+        <button type="button" data-vert="splashback" role="tab" aria-selected="false">Splashback / mirror</button>
+        <button type="button" data-vert="balustrade" role="tab" aria-selected="false">Balustrade</button>
+      </div>
 
-        <div class="vp" id="vp">
-          <canvas id="scene" aria-label="3D view of the shower you are pricing"></canvas>
-          <div class="vp-fallback" id="vp-fallback" hidden>
-            <p class="mono">3D view is off</p>
-            <p>Turn on hardware to see it. The price still works.</p>
+      <div class="tool-body">
+
+        <div class="vp-col">
+          <div class="vp" id="vp">
+            <canvas id="scene" aria-label="3D view of the shower enclosure you are pricing"></canvas>
+            <div class="vp-fallback" id="vp-fallback" hidden>
+              <p class="mono">3D is off</p><p>Turn on hardware to see it. The price still works.</p>
+            </div>
+            <div class="vp-hud">
+              <span class="hud"><i>Size</i><b id="hud-size">—</b></span>
+              <span class="hud"><i>Glass</i><b id="hud-glass">—</b></span>
+              <span class="hud"><i>Fittings</i><b id="hud-hw">—</b></span>
+            </div>
+            <div class="vp-chips" id="v-meta"></div>
+            <div class="vp-drag">Drag to turn it</div>
           </div>
-          <div class="vp-hud">
-            <span class="chip" id="hud-size">48″ × 80″</span>
-            <span class="chip" id="hud-glass">3/8″ clear</span>
-            <span class="chip" id="hud-hw">Chrome</span>
-          </div>
-          <div class="vp-drag">Drag to turn it</div>
+
+          <figure class="drawing-wrap" hidden>
+            <div class="drawing" id="drawing" data-ink="#0d2430" data-acc="#0e6b52" data-bg="#ffffff"></div>
+            <figcaption>Live technical elevation, drawn from the same lite list that prices the job.</figcaption>
+          </figure>
         </div>
 
-        <div class="ctls">
-          <div class="ctl-group">
-            <div class="ctl-head"><span class="idx">01</span> Shape</div>
-            <div class="seg seg-4" data-seg="layout">
-              <button type="button" data-v="alcove" class="on">Alcove<em>2 panels</em></button>
-              <button type="button" data-v="double">Double<em>2 doors</em></button>
-              <button type="button" data-v="neoangle">Corner<em>3 panels</em></button>
-              <button type="button" data-v="walkin">Walk-in<em>1 panel</em></button>
-            </div>
-            <div class="seg seg-3" data-seg="door">
-              <button type="button" data-v="swing" class="on">Swing<em>2 hinges</em></button>
-              <button type="button" data-v="pivot">Pivot<em>heavy</em></button>
-              <button type="button" data-v="slider">Slide<em>on a track</em></button>
-            </div>
-          </div>
-
-          <div class="ctl-group">
-            <div class="ctl-head"><span class="idx">02</span> Glass</div>
-            <div class="seg seg-3" data-seg="thickness">
-              <button type="button" data-v="6mm">1/4″<em>6 mm</em></button>
-              <button type="button" data-v="10mm" class="on">3/8″<em>10 mm</em></button>
-              <button type="button" data-v="12mm">1/2″<em>12 mm</em></button>
-            </div>
-            <div class="swatches" data-seg="finish">
-              <button type="button" data-v="clear" class="sw on"><span style="--a:#e9f7f5"></span>Clear</button>
-              <button type="button" data-v="lowiron" class="sw"><span style="--a:#f2fffd"></span>Low-iron</button>
-              <button type="button" data-v="frosted" class="sw"><span style="--a:#d6e9e7"></span>Etched</button>
-              <button type="button" data-v="bronze" class="sw"><span style="--a:#c08b55"></span>Bronze</button>
-              <button type="button" data-v="grey" class="sw"><span style="--a:#7d868f"></span>Grey</button>
-              <button type="button" data-v="mirror" class="sw"><span style="--a:#e6eef2"></span>Mirror</button>
-            </div>
-          </div>
-
-          <div class="ctl-group">
-            <div class="ctl-head"><span class="idx">03</span> Parts</div>
-            <div class="swatches sw-hw" data-seg="hardware">
-              <button type="button" data-v="chrome" class="sw on"><span style="--a:#dfe6ea"></span>Chrome</button>
-              <button type="button" data-v="nickel" class="sw"><span style="--a:#c9c9c6"></span>Nickel</button>
-              <button type="button" data-v="black" class="sw"><span style="--a:#2a2a2c"></span>Black</button>
-              <button type="button" data-v="orb" class="sw"><span style="--a:#6d4a2f"></span>Bronze</button>
-              <button type="button" data-v="brass" class="sw"><span style="--a:#c3a35c"></span>Brass</button>
-            </div>
-          </div>
-
-          <div class="ctl-group">
-            <div class="ctl-head"><span class="idx">04</span> Size</div>
-            <label class="range">
-              <span class="range-lab">Width <b id="w-out">48″</b></span>
-              <input type="range" id="w" min="36" max="72" step="3" value="48" />
-            </label>
-            <label class="range">
-              <span class="range-lab">Height <b id="h-out">80″</b></span>
-              <input type="range" id="h" min="70" max="96" step="2" value="80" />
-            </label>
-          </div>
-
-          <div class="ctl-group">
-            <div class="ctl-head"><span class="idx">05</span> Extra jobs</div>
-            <div class="checks" data-checks>
-              <label class="chk"><input type="checkbox" data-x="coat" /><span class="box"></span>Coating<em>+$6/sf</em></label>
-              <label class="chk"><input type="checkbox" data-x="seal" /><span class="box"></span>Seals kit<em>+$34</em></label>
-              <label class="chk"><input type="checkbox" data-x="plumb" /><span class="box"></span>Out of plumb<em>+1.5 h</em></label>
-              <label class="chk"><input type="checkbox" data-x="haul" /><span class="box"></span>Take old one<em>+$185</em></label>
-              <label class="chk"><input type="checkbox" data-x="bar" /><span class="box"></span>Support bar<em>+$128</em></label>
-              <label class="chk"><input type="checkbox" data-x="deposit" checked /><span class="box"></span>50% deposit<em>up front</em></label>
-            </div>
-          </div>
+        <div class="ctls" id="ctls">
+          <noscript><p class="micro-note">The configurator needs JavaScript. The calculators above do too.</p></noscript>
         </div>
 
         <div class="quote-col" id="quote">
@@ -230,11 +279,14 @@
           <div class="q-grid">
             <div><span>It costs you</span><b id="t-cost">—</b></div>
             <div><span>You keep</span><b id="t-margin">—</b></div>
-            <div><span id="dep-lab">Deposit</span><b id="t-dep">—</b></div>
+            <div><span>Deposit</span><b id="t-dep">—</b></div>
             <div><span>Margin rate</span><b id="m-out">—</b></div>
           </div>
 
+          <p class="q-rate">Works out at <b id="t-rate">—</b></p>
           <div class="q-market" id="t-market"></div>
+
+          <div class="q-spec" id="t-spec"></div>
 
           <div class="q-lines-wrap">
             <span class="lab-sm q-lines-h">What makes up the price</span>
@@ -251,7 +303,7 @@
             <button class="btn btn-acc btn-block" id="send-quote" type="button">Copy the quote</button>
             <div class="quote-actions-sub">
               <button class="btn btn-ghost" id="edit-margin" type="button">Change margin</button>
-              <button class="btn btn-ghost" id="pdf-quote" type="button">Print</button>
+              <button class="btn btn-ghost" id="pdf-quote" type="button">Print / PDF</button>
               <button class="btn btn-ghost" id="mail-quote" type="button">Email</button>
             </div>
           </div>
@@ -260,15 +312,27 @@
 
       </div>
     </div>
+
+    <p class="desk-note" data-reveal>
+      The price book above is a sample. Yours gets loaded — your glass, your labour rate,
+      your cutting waste, your margin floor, your customer rate cards. Same engine,
+      <strong>your shop's arithmetic</strong>.
+    </p>
   </div>
 </section>
 
-<!-- =============================================================== MARKUP -->
-<section class="sec" id="markup">
+<!-- =============================================================== markup -->
+<section class="sec sec-tint" id="markup">
   <div class="wrap">
-    <div class="sec-head">
-      <h2 class="h2">Is your markup too low?</h2>
-      <p class="lede">Most shops that think they have a speed problem have a margin problem. Check it here.</p>
+    <div class="sec-head" data-reveal>
+      <span class="lab-sm">03 — Your margin</span>
+      <h2 class="h2">The second leak is the one you never see</h2>
+      <p class="lede">
+        Most shops that think they have a speed problem have a margin problem.
+        A markup percentage fixes your margin rate no matter what you sell, so the
+        rate alone tells you nothing. What matters is the gap between the price you
+        ask and the price the job needs.
+      </p>
     </div>
 
     <div class="calc calc-slim" id="markup-calc" data-reveal>
@@ -277,30 +341,30 @@
           <span class="lab-sm">Free tool</span>
           <h3>The Markup Reality Check</h3>
         </div>
-        <span class="chip">No sign up</span>
+        <span class="chip">No sign-up</span>
       </div>
 
       <div class="calc-split">
         <div class="calc-body">
           <label class="field">
-            <span class="field-lab">Glass you need <b class="field-val" id="mk-sqFt-out">26 sf</b></span>
-            <input type="range" id="mk-sqFt" min="10" max="120" step="1" value="26" />
+            <span class="field-lab">Glass you need <b class="field-val" id="mk-glassM2-out">6.0 m²</b></span>
+            <input type="range" id="mk-glassM2" min="1" max="60" step="0.5" value="6" />
           </label>
           <label class="field">
-            <span class="field-lab">Glass price <b class="field-val" id="mk-matPerSf-out">$38</b></span>
-            <input type="range" id="mk-matPerSf" min="12" max="140" step="1" value="38" />
-            <span class="field-hint">What you pay per square foot.</span>
+            <span class="field-lab">Glass price <b class="field-val" id="mk-matPerUnit-out">£38</b></span>
+            <input type="range" id="mk-matPerUnit" min="8" max="300" step="1" value="38" />
+            <span class="field-hint">What you pay per unit.</span>
           </label>
           <label class="field">
             <span class="field-lab">Hours to build <b class="field-val" id="mk-labourHours-out">3.5 h</b></span>
             <input type="range" id="mk-labourHours" min="1" max="20" step="0.5" value="3.5" />
           </label>
           <label class="field">
-            <span class="field-lab">You pay per hour <b class="field-val" id="mk-labourRate-out">$95</b></span>
-            <input type="range" id="mk-labourRate" min="25" max="250" step="5" value="95" />
+            <span class="field-lab">You pay per hour <b class="field-val" id="mk-labourRate-out">£46</b></span>
+            <input type="range" id="mk-labourRate" min="15" max="200" step="1" value="46" />
           </label>
           <label class="field">
-            <span class="field-lab">Parts and other costs <b class="field-val" id="mk-extras-out">$0</b></span>
+            <span class="field-lab">Parts and other costs <b class="field-val" id="mk-extras-out">£0</b></span>
             <input type="range" id="mk-extras" min="0" max="6000" step="25" value="0" />
           </label>
           <label class="field">
@@ -316,10 +380,10 @@
 
           <div class="mk-band">
             <div class="mk-track"><i id="mk-bar"></i><span class="mk-marker" id="mk-marker"></span></div>
-            <div class="mk-scale"><span>0%</span><span>A good shop is 32–45%</span><span>70%</span></div>
+            <div class="mk-scale"><span>0%</span><span>A shop running well is 32–45%</span><span>70%</span></div>
           </div>
 
-          <div class="facts">
+          <div class="facts facts-3">
             <div><span>Total cost</span><b id="mk-cost">—</b></div>
             <div><span>You charge</span><b id="mk-sell">—</b></div>
             <div><span>You keep</span><b id="mk-gross">—</b></div>
@@ -338,108 +402,401 @@
   </div>
 </section>
 
-<!-- =============================================================== PROCESS -->
+<!-- ================================================================ stack -->
+<section class="sec" id="stack">
+  <div class="wrap">
+    <div class="sec-head" data-reveal>
+      <span class="lab-sm">04 — What you get</span>
+      <h2 class="h2">The Quote Desk Build</h2>
+      <p class="lede">
+        One thing, done properly, priced against what the calculator at the top of this
+        page just told you. Every item below is a line on the invoice and a reason the
+        thing keeps working after the novelty wears off.
+      </p>
+    </div>
+
+    <div class="stack">
+      <article class="item" data-reveal data-sheen>
+        <span class="item-n">01</span>
+        <h3>Your price book, loaded</h3>
+        <p>You send me your glass prices, your hardware list, your labour rate and your cutting waste. I load them in. That is week one and it is the reason the number is right.</p>
+        <span class="item-kills">Answers: <em>“they will never understand my prices”</em></span>
+      </article>
+
+      <article class="item" data-reveal data-sheen>
+        <span class="item-n">02</span>
+        <h3>Pricing while the customer is on the phone</h3>
+        <p>Change the glass, the fixings, the size. The price updates as you say it. Nobody hangs up and waits, so nobody phones the shop down the road.</p>
+        <span class="item-kills">Answers: <em>“I cannot get a number up in front of them”</em></span>
+      </article>
+
+      <article class="item" data-reveal data-sheen>
+        <span class="item-n">03</span>
+        <h3>One click to a PDF that looks like yours</h3>
+        <p>Your logo, your terms, your VAT line, your lead time, your signature block. It prints, it emails, it gets signed in the room.</p>
+        <span class="item-kills">Answers: <em>“the quote never looks like it came from us”</em></span>
+      </article>
+
+      <article class="item" data-reveal data-sheen>
+        <span class="item-n">04</span>
+        <h3>The margin guard</h3>
+        <p>Set your floor once. The tool will not let anyone send a quote under it — not on a bad day, not for a mate, not by accident. Most shops find something in there from the first week.</p>
+        <span class="item-kills">Answers: <em>“I have been under my own price for years”</em></span>
+      </article>
+
+      <article class="item" data-reveal data-sheen>
+        <span class="item-n">05</span>
+        <h3>Customer rate cards</h3>
+        <p>Your designer clients, your builder clients and your retail customers all get their own multiplier, stored against the customer. Not in your head, and not on a Post-it.</p>
+        <span class="item-kills">Answers: <em>“I do that discount from memory”</em></span>
+      </article>
+
+      <article class="item" data-reveal data-sheen>
+        <span class="item-n">06</span>
+        <h3>The job board</h3>
+        <p>Quoted, ordered, in production, ready, delivered. You can see what is still out there and what is still owed. Most shops have this on a whiteboard and a gut feeling.</p>
+        <span class="item-kills">Answers: <em>“I do not know what is still out”</em></span>
+      </article>
+
+      <article class="item" data-reveal data-sheen>
+        <span class="item-n">07</span>
+        <h3>It runs on your own PC</h3>
+        <p>A program in a folder on the machine already on your desk. No server, no login, no cloud bill, and it still works when the internet does not. Nothing to install but itself.</p>
+        <span class="item-kills">Answers: <em>“this needs an IT department”</em></span>
+      </article>
+
+      <article class="item" data-reveal data-sheen>
+        <span class="item-n">08</span>
+        <h3>You own it outright</h3>
+        <p>Source code and database handed over. No licence, no per-seat fee, no renewal, nothing expires. If you decide to stop talking to me, it keeps working and you can pay someone else to change it.</p>
+        <span class="item-kills">Answers: <em>“what happens if you disappear”</em></span>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- =============================================================== process -->
 <section class="sec sec-tint" id="how">
   <div class="wrap">
-    <div class="sec-head">
-      <h2 class="h2">How it works</h2>
+    <div class="sec-head" data-reveal>
+      <span class="lab-sm">05 — How it runs</span>
+      <h2 class="h2">Two to three weeks, in four payments</h2>
+      <p class="lede">
+        One shop at a time, because I load every price book myself. You are never
+        waiting behind a queue of people who have not paid me yet.
+      </p>
     </div>
-    <div class="grid grid-3">
-      <div class="card">
-        <span class="card-num">01</span>
-        <h3>We set up your prices</h3>
-        <p class="micro-note">Send us your glass costs, your parts, and how you mark up. We load them in. Usually a week.</p>
+
+    <div class="timeline" id="timeline">
+      <svg class="tl-svg" aria-hidden="true" preserveAspectRatio="none">
+        <path class="tl-line" d="M 2 0 L 2 400" />
+      </svg>
+
+      <div class="tl-stop" data-reveal>
+        <span class="tl-dot" data-at="0.05"></span>
+        <div class="tl-card">
+          <span class="tl-n">Milestone 1</span>
+          <h3>Your numbers, in your tool</h3>
+          <p>You send the price book. I load it. You open the tool and it produces <em>your</em> prices on <em>your</em> job types — not my samples. Nothing else happens until this is true.</p>
+          <span class="tl-pay">Paid on handover of the price book</span>
+        </div>
       </div>
-      <div class="card">
-        <span class="card-num">02</span>
-        <h3>You price on the call</h3>
-        <p class="micro-note">The customer is on the phone. You pick the glass and the parts. The price shows up while you talk.</p>
+
+      <div class="tl-stop" data-reveal>
+        <span class="tl-dot" data-at="0.4"></span>
+        <div class="tl-card">
+          <span class="tl-n">Milestone 2</span>
+          <h3>Live on the call</h3>
+          <p>We price ten real jobs side by side: your old way and the new one. If the tool is not faster, or not right, we fix it here. This is the part that decides whether the rest is worth anything.</p>
+          <span class="tl-pay">Paid when it beats the spreadsheet</span>
+        </div>
       </div>
-      <div class="card">
-        <span class="card-num">03</span>
-        <h3>You send it right away</h3>
-        <p class="micro-note">No typing it out later. No second price to remember. The quote goes out before they ask.</p>
+
+      <div class="tl-stop" data-reveal>
+        <span class="tl-dot" data-at="0.72"></span>
+        <div class="tl-card">
+          <span class="tl-n">Milestone 3</span>
+          <h3>Documents, customers, board</h3>
+          <p>Your PDF, your customer records and rate cards, the job board, the history. Then we sit down with whoever actually quotes — usually that is the whole staff meeting.</p>
+          <span class="tl-pay">Paid at training</span>
+        </div>
+      </div>
+
+      <div class="tl-stop" data-reveal>
+        <span class="tl-dot" data-at="0.95"></span>
+        <div class="tl-card tl-card-key">
+          <span class="tl-n">Milestone 4</span>
+          <h3>Thirty days, then it is yours</h3>
+          <p>Source code, database, everything. A month of fixes included. <strong>Milestone 4 is not paid until the tool has priced your real jobs to your real numbers for thirty days.</strong> If it has not, you keep it anyway and stop paying. That is the whole guarantee and it goes in the contract.</p>
+          <span class="tl-pay">Paid at day thirty, if it worked</span>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ============================================ WHAT A SHOP SAYS + ANSWERS -->
-<section class="sec" id="proof">
+<!-- ================================================================ money -->
+<section class="sec" id="money">
   <div class="wrap">
-    <div class="sec-head">
-      <h2 class="h2">One shop, before and after</h2>
+    <div class="sec-head" data-reveal>
+      <span class="lab-sm">06 — The money</span>
+      <h2 class="h2">I am not going to put a number on this page</h2>
+      <p class="lede">
+        The honest reason: it depends how many job types you quote, how many people
+        quote them, and how gnarly your price book is. A single shopfront rate and a
+        trade counter with eleven glass types are not the same build.
+      </p>
     </div>
 
-    <figure class="quote-block">
-      <blockquote>
-        <p>Pricing a job used to take us ten minutes. Now it takes two. Our customers can see the price right away. They like that we can turn a hard job around fast.</p>
-      </blockquote>
-      <figcaption>
-        <span class="who">GlassNow</span>
-        <span class="what">Custom glass shop</span>
-      </figcaption>
-    </figure>
+    <div class="money-grid">
+      <div class="money-live" data-reveal data-sheen>
+        <span class="show-lab">Your shop, from the calculator above</span>
+        <div class="money-big" id="money-gap">£0</div>
+        <p class="money-sub">
+          is the gap a year, on the pipeline you already have. The build is priced
+          against that number — as a share of the first year back, not as a day rate.
+        </p>
+        <div class="money-share">
+          <div class="money-share-row">
+            <span>Your gap, a year</span><b id="money-share-a">—</b>
+          </div>
+          <div class="money-share-row">
+            <span>Half of it, in your pocket</span><b id="money-share-b">—</b>
+          </div>
+          <div class="money-share-row">
+            <span>A price for the build</span><b id="money-share-c">—</b>
+          </div>
+        </div>
+        <p class="micro-note" id="money-note">
+          On the call you get one number, in writing, before you pay anything —
+          worked from this, not from a rate card.
+        </p>
+      </div>
 
-    <div class="faq" id="faq">
-      <h3 class="faq-h">Straight answers</h3>
+      <div class="money-fixed" data-reveal>
+        <span class="lab-sm">What does not change, whatever the number is</span>
+        <ul class="tick">
+          <li><b>One build fee.</b> Not a subscription. No per-seat, no renewal, nothing expires.</li>
+          <li><b>Four milestones.</b> The last one is only paid if it works on your jobs.</li>
+          <li><b>Two to three weeks</b> from price book to handover, start to finish.</li>
+          <li><b>You own the source code</b> and the database on day one of the last payment.</li>
+          <li><b>It runs on your own PC.</b> No server for me to pay for, no cloud bill for you.</li>
+          <li><b>A month of fixes</b> after handover. After that, support when you want it, cancelled by email.</li>
+        </ul>
+        <div class="capacity">
+          <span class="lab-sm">Why there is a wait</span>
+          <p>Two builds a month. I load every price book myself and test it against real
+          jobs, and that is the number of hours there are. It is a capacity limit,
+          not a sales tactic — but it is a real one.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
+<!-- ================================================================= proof -->
+<section class="sec sec-tint" id="proof">
+  <div class="wrap">
+    <div class="sec-head" data-reveal>
+      <span class="lab-sm">07 — Proof</span>
+      <h2 class="h2">The honest version</h2>
+      <p class="lede">
+        Cold emails get ignored, and mostly they should. So here is exactly what
+        exists, including the part that is not impressive.
+      </p>
+    </div>
+
+    <div class="proof-grid">
+      <div class="proof-stats" data-reveal>
+        <div class="pstat">
+          <b data-count="3" data-count-fmt="dec">3</b>
+          <span>× the close rate on quotes finished <em>before the customer got off the phone</em>, against the same customers.</span>
+        </div>
+        <div class="pstat">
+          <b data-count="2" data-count-fmt="dec">2</b>
+          <span>× the close rate on quotes whose PDF was out <em>inside ten minutes</em>.</span>
+        </div>
+        <div class="pstat">
+          <b data-count="10" data-count-fmt="plain">10</b>
+          <span>seconds is how long a quote takes now. It used to take five minutes and I got it wrong more than I would like to admit.</span>
+        </div>
+        <div class="pstat pstat-honest">
+          <b data-count="1">1</b>
+          <span>shop I have built this for, as a paid customer. One. I would rather you heard that here than found out on the call.</span>
+        </div>
+        <p class="pstat-src">The 3× and 2× are from <strong>my own glass shop</strong>, not from clients. That is the whole of my measured data.</p>
+      </div>
+
+      <div class="proof-quote" data-reveal data-sheen>
+        <figure class="quote-block">
+          <blockquote>
+            <p>Pricing a job used to take us ten minutes. Now it takes two. Our customers
+            can see the price right away. They like that we can turn a hard job around fast.</p>
+          </blockquote>
+          <figcaption>
+            <span class="who">A glass shop</span>
+            <span class="what">Running the tool in production</span>
+          </figcaption>
+        </figure>
+
+        <div class="limits">
+          <span class="lab-sm">What I have not done</span>
+          <ul>
+            <li><b>One customer, not ten.</b> It works. One is still one.</li>
+            <li><b>No accounts-package integration.</b> It prices; it does not talk to your bookkeeping. If you need a two-way sync, say so on the call and I will tell you straight whether I will do it.</li>
+            <li><b>I do not cut glass and I do not install.</b> I write the thing that does your pricing, and that is all I am claiming.</li>
+            <li><b>I have not sold to a shop bigger than about fifty people.</b> Past that the answer is a proper ERP and you should be talking to them, not me.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ not for you -->
+<section class="sec" id="notfor">
+  <div class="wrap">
+    <div class="sec-head" data-reveal>
+      <span class="lab-sm">— Before you read on</span>
+      <h2 class="h2">Four ways this is a waste of your money</h2>
+      <p class="lede">I would rather turn you away than take a build that is going to sit unused on a shelf.</p>
+    </div>
+
+    <div class="grid grid-4">
+      <div class="card card-no" data-reveal data-sheen>
+        <span class="card-x" aria-hidden="true">×</span>
+        <h3>You sell one price</h3>
+        <p>If every job is the same number, a spreadsheet is the correct tool and buying software to solve a problem you do not have is just expensive.</p>
+      </div>
+      <div class="card card-no" data-reveal data-sheen>
+        <span class="card-x" aria-hidden="true">×</span>
+        <h3>Your reps already use something</h3>
+        <p>If they use it, trust it and it gives the right number, keep it. I build a cost model. I am not replacing your job management system and I will not pretend to.</p>
+      </div>
+      <div class="card card-no" data-reveal data-sheen>
+        <span class="card-x" aria-hidden="true">×</span>
+        <h3>You need it Friday</h3>
+        <p>Two to three weeks, because a price book has to be loaded and tested against your real jobs. Anyone who promises Friday is guessing at your prices, and you will find out at handover.</p>
+      </div>
+      <div class="card card-no" data-reveal data-sheen>
+        <span class="card-x" aria-hidden="true">×</span>
+        <h3>You want more customers</h3>
+        <p>I write quoting tools. I am not doing your marketing, and this will not make anyone ring you. It makes the ones who already ring you say yes more often.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =================================================================== faq -->
+<section class="sec sec-tint" id="faq">
+  <div class="wrap">
+    <div class="sec-head" data-reveal>
+      <span class="lab-sm">08 — Questions</span>
+      <h2 class="h2">Straight answers</h2>
+    </div>
+
+    <div class="faq" id="faq-list">
       <div class="faq-item">
-        <button type="button" data-faq-q aria-expanded="false">Where do the numbers come from?<span class="faq-i" aria-hidden="true"></span></button>
-        <div class="faq-a"><p>From shops like yours. Not from the whole trade. We show every step, so you can check the maths and disagree with it.</p></div>
+        <button type="button" data-faq-q aria-expanded="false">Is this just another subscription with a nicer name?<span class="faq-i" aria-hidden="true"></span></button>
+        <div class="faq-a"><p>No. You pay once for the build, and then it is yours. There is no licence, no per-seat fee, no renewal and nothing that stops working. The only recurring thing I sell is support, and you can cancel that with an email.</p></div>
       </div>
 
       <div class="faq-item">
-        <button type="button" data-faq-q aria-expanded="false">Is the big number real?<span class="faq-i" aria-hidden="true"></span></button>
-        <div class="faq-a"><p>It is the most you could get. It assumes every quote wins like your best ones do. No shop gets all of it. Half of it is still a lot of money.</p></div>
+        <button type="button" data-faq-q aria-expanded="false">My glass prices change every month. Then what?<span class="faq-i" aria-hidden="true"></span></button>
+        <div class="faq-a"><p>You edit one table and every quote from that day on uses the new price. That is the entire update. It is a spreadsheet-shaped thing, not a sealed database, because I have watched shops get caught out by software that will not let you change a price.</p></div>
       </div>
 
       <div class="faq-item">
-        <button type="button" data-faq-q aria-expanded="false">Do I need new software?<span class="faq-i" aria-hidden="true"></span></button>
-        <div class="faq-a"><p>It runs in the browser you already use. Nothing to install. Nothing to learn. You can still use your own system if you want.</p></div>
+        <button type="button" data-faq-q aria-expanded="false">Will my reps actually use it?<span class="faq-i" aria-hidden="true"></span></button>
+        <div class="faq-a"><p>They will not, if it is slower than the spreadsheet. That is the whole risk and it is why milestone 2 is ten of your real jobs priced both ways. If it does not beat your current way, we fix it or I tell you to stop. I would rather refund than be the reason your office quietly went back to pen and paper.</p></div>
       </div>
 
       <div class="faq-item">
-        <button type="button" data-faq-q aria-expanded="false">What about my prices?<span class="faq-i" aria-hidden="true"></span></button>
-        <div class="faq-a"><p>Your glass, your parts, your markup. We do not set them for you. The tool just does the sum.</p></div>
+        <button type="button" data-faq-q aria-expanded="false">Do I need someone technical on staff?<span class="faq-i" aria-hidden="true"></span></button>
+        <div class="faq-a"><p>No. It is a program in a folder on a Windows PC. If you can use Excel you can use this, and the handover is with the person who actually quotes, not with whoever owns the computer.</p></div>
       </div>
 
       <div class="faq-item">
-        <button type="button" data-faq-q aria-expanded="false">Who is this not for?<span class="faq-i" aria-hidden="true"></span></button>
-        <div class="faq-a"><p>If you send every job the same price, you do not need this. If you lose jobs by being slow to answer, you do need it.</p></div>
+        <button type="button" data-faq-q aria-expanded="false">What if you just stop?<span class="faq-i" aria-hidden="true"></span></button>
+        <div class="faq-a"><p>Then it keeps working, because you have the source code and the data. That is the point of putting it in milestone 4 rather than hiding it. Any competent local developer can pick it up, or you can keep using it exactly as it is.</p></div>
+      </div>
+
+      <div class="faq-item">
+        <button type="button" data-faq-q aria-expanded="false">How is this different from Jobber, ServiceM8 or a glass package?<span class="faq-i" aria-hidden="true"></span></button>
+        <div class="faq-a"><p>Those are job management systems with a price list attached. You add the job, and you still do the pricing yourself, in your head or on a spreadsheet. This is only the pricing, and it does the whole arithmetic: glass, cutting waste, the toughening minimum, polished edge, fixings, labour, your margin, the VAT line. Plenty of shops run both — one for the jobs, one for the price.</p></div>
+      </div>
+
+      <div class="faq-item">
+        <button type="button" data-faq-q aria-expanded="false">Can it handle the work I actually do?<span class="faq-i" aria-hidden="true"></span></button>
+        <div class="faq-a"><p>Bring your list to the call. If your job types are rule-based — which is most custom glass work, because the price comes from size, glass, fixings and labour — it will price them. If they are not rule-based, I will say so on the call rather than after an invoice.</p></div>
+      </div>
+
+      <div class="faq-item">
+        <button type="button" data-faq-q aria-expanded="false">What does it cost?<span class="faq-i" aria-hidden="true"></span></button>
+        <div class="faq-a"><p>One number, in writing, on the call, before you pay anything. It comes out of the calculator at the top of this page — the annual gap between what you quote and what you would win at speed. I would rather give you the real number than a round one on a web page that excites you about the wrong thing.</p></div>
+      </div>
+
+      <div class="faq-item">
+        <button type="button" data-faq-q aria-expanded="false">Where do the numbers on this page come from?<span class="faq-i" aria-hidden="true"></span></button>
+        <div class="faq-a"><p>The 3× and the 2× are from my own shop. The rest is arithmetic on the figures you type, with every constant printed next to the answer. Nothing is measured against a third-party benchmark, because I could not find one that meant anything for a shop of your size.</p></div>
       </div>
 
       <div class="faq-item">
         <button type="button" data-faq-q aria-expanded="false">What happens on the call?<span class="faq-i" aria-hidden="true"></span></button>
-        <div class="faq-a"><p>Twenty minutes. You show me a quote you priced the slow way. I tell you straight if a tool would help, or if you just need to stop promising same-day.</p></div>
+        <div class="faq-a"><p>Twenty minutes, no slides. You bring one quote you priced the slow way and tell me how you got there. I will tell you straight whether a tool fixes it, or whether you just need to stop promising same-day. If the answer is no, that is a fine outcome and I will say so.</p></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ================================================================= BOOK -->
+<!-- ================================================================== book -->
 <section class="sec sec-final" id="book">
   <div class="wrap wrap-narrow">
-    <h2 class="h2">Book 20 minutes</h2>
-    <p class="lede">Bring one quote you priced the slow way. That is all I need.</p>
-    <a class="btn btn-acc btn-lg" href="#book" data-book id="book-btn" data-cta="book">Book the 20-min call</a>
-    <p class="book-note">Twenty minutes. No slides. You talk to whoever writes the code.</p>
+    <span class="lab-sm" data-reveal>09 — Book</span>
+    <h2 class="h2" data-reveal>Bring one quote you priced the slow way</h2>
+    <p class="lede" data-reveal>
+      That is all I need. Twenty minutes, no slides, and you talk to whoever
+      writes the code.
+    </p>
+    <a class="btn btn-acc btn-lg" href="#book" data-book id="book-btn" data-cta="book" data-reveal>Book the 20-minute call</a>
+    <ul class="book-takes" data-reveal>
+      <li><b>I need</b> one real quote and how long it took you</li>
+      <li><b>You get</b> a straight yes or no, in writing, afterwards</li>
+      <li><b>It costs</b> nothing and you do not have to buy anything</li>
+    </ul>
   </div>
 </section>
 
 </main>
 
+<!-- ================================================================ footer -->
 <footer class="foot">
   <div class="wrap foot-in">
-    <p class="foot-line">© <span id="yr">2026</span> COUNTER. Built for shops that price on the phone.</p>
-    <!-- TODO(owner): replace with the real business name, address, contact email,
-         and add real privacy and terms pages before this goes live. -->
-    <p class="foot-todo">TODO before launch: this is a test site. Add the real name and email. Add a privacy page and a terms page.</p>
+    <div class="foot-brand">
+      <span class="brand-mark" aria-hidden="true"><i></i></span>
+      <span class="brand-name">SQUARE<b>FOOT</b><sup>2</sup></span>
+    </div>
+    <p class="foot-line">
+      Custom quoting desks for glass shops and glazing contractors. Built by one person,
+      who runs a glass shop. Prices shown exclude VAT.
+    </p>
+    <nav class="foot-links" aria-label="Legal">
+      <a href="/privacy.html">Privacy</a>
+      <a href="/terms.html">Terms</a>
+      <a href="mailto:hello@squarefoot.build" data-mail>hello@squarefoot.build</a>
+    </nav>
+    <p class="foot-legal">
+      © <span id="yr">2026</span> SQUAREFOOT. The calculators and the configurator on this page
+      run entirely in your browser. Nothing you type is transmitted or stored.
+    </p>
   </div>
 </footer>
 
 <div class="sticky-cta" id="sticky-cta">
-  <a class="btn btn-acc btn-block" href="#book" data-book data-cta="sticky">Book the 20-min call</a>
+  <div class="sticky-in">
+    <span class="sticky-txt" id="sticky-txt">Twenty minutes. One quote. A straight answer.</span>
+    <a class="btn btn-acc btn-sm" href="#book" data-book data-cta="sticky">Book 20 min</a>
+  </div>
 </div>
 
 <div id="toast" role="status" aria-live="polite"></div>
