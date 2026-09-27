@@ -5,7 +5,8 @@
 import './styles.css';
 import { createScene } from './scene.js';
 import { initTool, toast } from './quote-ui.js';
-import { initLeak, initGate, initMarkup } from './calculators.js';
+import { initLeak, initMarkup } from './calculators.js';
+import { money, delayLabel } from './tools.js';
 
 const $  = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];
@@ -13,12 +14,8 @@ const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 /* ------------------------------------------------------------------ nav */
 (function nav() {
-  const bar = $('#nav');
   const burger = $('[data-burger]');
   const menu = $('[data-mobile-nav]');
-  onScroll();
-  addEventListener('scroll', onScroll, { passive: true });
-  function onScroll() { bar?.classList.toggle('stuck', scrollY > 12); }
 
   burger?.addEventListener('click', () => {
     const open = burger.getAttribute('aria-expanded') === 'true';
@@ -36,17 +33,18 @@ const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
 (function sticky() {
   const el = $('#sticky-cta');
   const book = $('#book');
-  if (!el || !book) return;
+  if (!el) return;
+  document.body.classList.add('has-cta');
 
   const set = () => {
-    const past = scrollY > 700;
-    const done = past && book.getBoundingClientRect().top < innerHeight * 0.5;
+    const past = scrollY > 620;
+    const done = book && book.getBoundingClientRect().top < innerHeight * 0.6;
     el.classList.toggle('on', past && !done);
   };
 
   addEventListener('scroll', set, { passive: true });
   addEventListener('resize', set);
-  new IntersectionObserver(set).observe(book);
+  if (book) new IntersectionObserver(set).observe(book);
   set();
 })();
 
@@ -91,22 +89,6 @@ const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
   onScroll();
 })();
 
-/* --------------------------------------------------- sticky hero tool --- */
-(function stickyHero() {
-  const col = $('.hero-right');
-  if (!col) return;
-  const fit = () => {
-    /* Only stick when the whole tool fits, otherwise the controls at the
-       bottom of the column end up below the fold and unreachable. */
-    const wide = window.matchMedia('(min-width: 1120px)').matches;
-    const roomy = col.scrollHeight + 108 < window.innerHeight;
-    col.classList.toggle('is-sticky', wide && roomy);
-  };
-  addEventListener('resize', fit, { passive: true });
-  fit();
-  setTimeout(fit, 400);
-})();
-
 /* ----------------------------------------------------------------- faq */
 (function faq() {
   for (const q of $$('[data-faq-q]')) {
@@ -122,13 +104,11 @@ const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
    Both stand alone — no shared state, so a visitor can use either one without
    the other being involved at all.
    ------------------------------------------------------------------------- */
-/* The leak calculator is deliberately split: the inputs and the headline
-   number sit in the hero, the breakdown and the email gate sit in the panel
-   below it. So it is wired against the document, not a single root. */
+/* The leak bench splits its inputs and its result across two columns, so both
+   halves are wired against the document rather than one root. */
 initLeak();
-initGate();
 
-const markupRoot = $('#markup');
+const markupRoot = $('#markup-calc');
 if (markupRoot) initMarkup(markupRoot);
 
 /* ------------------------------------------------------------- the tool */
@@ -157,30 +137,37 @@ const tool = initTool({ scene, onQuote() {} });
 const yr = $('#yr');
 if (yr) yr.textContent = String(new Date().getFullYear());
 
-/* ------------------------------------------------------ form (no backend)
-   TODO(owner): point this at your inbox.
-   Options, cheapest first:
-     - Formspree / Basin / Web3Forms drop-in (paste the endpoint URL)
-     - mailto: fallback (works with zero setup, less pretty)
-     - a tiny serverless function
-   Everything below is the client-side half and already handles validation,
-   the success state and the analytics hook.
+/* ------------------------------------------------------------- booking CTA
+   No backend, so the button opens the visitor's mail app with their own
+   numbers already filled in. Point BOOK_EMAIL at a real inbox, or set
+   BOOK_URL to a scheduling link and the button becomes that link instead.
    ------------------------------------------------------------------------- */
-const form = $('#book-form');
-form?.addEventListener('submit', (e) => {
-  e.preventDefault();
-  if (!form.reportValidity()) return;
-  const data = Object.fromEntries(new FormData(form).entries());
-  window.dispatchEvent(new CustomEvent('booking_submit', { detail: data }));
-  form.querySelectorAll('input,textarea,select,button').forEach((el) => { el.disabled = true; });
-  $('#book-ok')?.classList.add('on');
-  toast('<b>Sent.</b> I read these myself — expect an honest answer, not a brochure.');
-});
+const BOOK_EMAIL = 'hello@counter.build';   // TODO(owner): real inbox
+const BOOK_URL   = '';                      // TODO(owner): calendar link, if any
 
-/* the lead-magnet gate, same story: hand the email + model to your ESP */
-window.__onGate = ({ email, model }) => {
-  window.dispatchEvent(new CustomEvent('lead_gate_submit', { detail: { email, model } }));
-};
+function bookingLink() {
+  const leak = document.__leak || {};
+  const m = leak.model;
+  const v = leak.inputs || {};
+  const rows = ['Hi,', '', 'I used the quote leak tool on your site.', ''];
+  if (m) {
+    rows.push(
+      `Quotes I send each month: ${v.quotesPerMonth}`,
+      `Price of one job: ${money(v.avgJobValue)}`,
+      `Time to send a quote: ${delayLabel(v.delayMinutes)}`,
+      `How many I win: ${v.closeRate}%`,
+      '',
+      `You worked out I lose ${money(m.unclosed)} a year by being slow.`
+    );
+  }
+  rows.push('', 'I would like to talk about fixing it.', '', 'Thanks,');
+
+  if (BOOK_URL) return BOOK_URL;
+  return `mailto:${BOOK_EMAIL}?subject=${encodeURIComponent('Quote desk leak - 20 min call')}` +
+         `&body=${encodeURIComponent(rows.join('\n'))}`;
+}
+
+for (const b of $$('[data-book]')) b.setAttribute('href', bookingLink());
 
 /* ------------------------------------------------------ cta instrumentation
    Fires a `cta_click` event with the placement so you can plug in whatever

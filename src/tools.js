@@ -169,23 +169,28 @@ export function markupModel(v) {
   const grossPct = sell > 0 ? gross / sell : 0;
   const [lo, hi] = A.glassGrossBand;
 
+  /* A markup percentage fixes the margin rate, so the rate alone cannot tell you
+     whether the price is big enough. What matters is the gap between the price
+     you are asking and the price this job needs for a healthy margin. */
+  const needed = cost / (1 - lo);
+  const gap = needed - sell;
+
   let verdict, tone, band;
   if (grossPct < lo) {
     band = lo;
     tone = 'loss';
-    const atBand = cost / (1 - lo);
-    verdict = `You are running at ${(grossPct * 100).toFixed(1)}% gross. A custom glass shop in this band should be between ${(lo * 100).toFixed(0)}% and ${(hi * 100).toFixed(0)}%. Pricing the same job to the bottom of the band is ${money(atBand - sell)} more, and it is the same job on the same day.`;
+    verdict = `You keep ${(grossPct * 100).toFixed(1)}% of each sale. A good glass shop keeps ${(lo * 100).toFixed(0)}% to ${(hi * 100).toFixed(0)}%. To keep ${(lo * 100).toFixed(0)}% on this job you need to ask ${money(needed)} — that is ${money(gap)} more than now.`;
   } else if (grossPct > hi) {
     band = hi;
     tone = 'good';
-    verdict = `You are running at ${(grossPct * 100).toFixed(1)}% gross — above the ${(lo * 100).toFixed(0)}-${(hi * 100).toFixed(0)}% band. That is either real pricing discipline or you are losing jobs on the quote. Worth knowing which.`;
+    verdict = `You keep ${(grossPct * 100).toFixed(1)}% of each sale. That is above the ${(lo * 100).toFixed(0)}-${(hi * 100).toFixed(0)}% band. Good prices, or you are losing jobs. Worth knowing which one.`;
   } else {
     band = null;
     tone = 'ok';
-    verdict = `You are running at ${(grossPct * 100).toFixed(1)}% gross, inside the ${(lo * 100).toFixed(0)}-${(hi * 100).toFixed(0)}% band for custom glass work. Your markup is not the problem.`;
+    verdict = `You keep ${(grossPct * 100).toFixed(1)}% of each sale. That is inside the ${(lo * 100).toFixed(0)}-${(hi * 100).toFixed(0)}% band. On this job you could ask ${money(gap)} more and still be in the band.`;
   }
 
-  return { sf, matPerSf, hours, rate, extra, material, labour, cost, sell, gross, grossPct, band, tone, verdict };
+  return { sf, matPerSf, hours, rate, extra, material, labour, cost, sell, gross, grossPct, needed, gap, band, tone, verdict };
 }
 
 /* ------------------------------------------------------------- the sheet -- */

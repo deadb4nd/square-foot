@@ -277,3 +277,36 @@ export function quoteToText(state, q, ref) {
     `  Price per linear/square foot: ${money(q.perSf)} / sf`,
   ].join('\n');
 }
+
+/* --------------------------------------------------------------- market band
+   A plain installed-price band for the same job, worked out from the spec
+   rather than from our own cost model, so it can be read as a second opinion.
+
+   It is a "does this look about right" check, not a quote. The spread is
+   deliberately wide, and a job only gets flagged once it lands well outside it
+   -- most shops are far enough apart that a small difference means nothing. */
+export function marketBand(state) {
+  const T = THICKNESS[state.thickness];
+  const F = FINISH[state.finish];
+  const L = LAYOUTS[state.layout];
+
+  /* Measure the glass the job actually needs, not the footprint: a corner or a
+     double covers more than width x height, and pricing the band off the
+     footprint would understate every multi-panel layout. */
+  const area = panelsFor(state).reduce((t, p) => t + (p.w * p.h) / 144, 0);
+
+  /* installed $/sf, anchored on a standard 3/8" alcove */
+  let per = 90;
+  per *= 0.34 + 0.66 * (T.sqft / THICKNESS['10mm'].sqft);
+  per *= 1 + (F.price / 100) * 0.85;
+  per *= 1 + (L.hours - 2.5) * 0.05;
+  if (L.corner) per *= 1.05;
+  if (area > 34) per *= 1 - Math.min(0.09, (area - 34) * 0.005);
+  /* Small jobs still carry a tempering minimum, an edge and a visit, so the
+     per-sf rate climbs as the glass gets smaller. */
+  if (area < 30) per *= 1 + (30 - area) * 0.02;
+
+  const mid = Math.max(per * area, 1700);
+  const round = (n) => Math.round(n / 25) * 25;
+  return { low: round(mid * 0.80), high: round(mid * 1.22), mid: round(mid) };
+}

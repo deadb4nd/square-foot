@@ -3,7 +3,7 @@
    Controls → one job record → a priced PDF you can print from the browser.
    ========================================================================= */
 
-import { DEFAULT_STATE, priceQuote, quoteToText, LAYOUTS, THICKNESS, FINISH, HARDWARE, money } from './quote.js';
+import { DEFAULT_STATE, priceQuote, quoteToText, marketBand, LAYOUTS, THICKNESS, FINISH, HARDWARE, money } from './quote.js';
 
 const $ = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];
@@ -111,7 +111,7 @@ export function initTool({ scene, onQuote } = {}) {
       <span class="range-lab">Your target margin <b class="mono" id="me-out">45%</b></span>
       <input type="range" id="me" min="10" max="75" step="1" value="45" />
     </label>`;
-  $('#quote .q-totals').after(marginWrap);
+  $('#quote .quote-actions').after(marginWrap);
   const me = marginWrap.querySelector('#me');
   const meOut = marginWrap.querySelector('#me-out');
   const syncMe = () => {
@@ -132,6 +132,7 @@ export function initTool({ scene, onQuote } = {}) {
   /* ------------------------------------------------------------ render */
   const linesEl = $('#lines');
   const tCost = $('#t-cost'), tMargin = $('#t-margin'), tTotal = $('#t-total'), tDep = $('#t-dep'), mOut = $('#m-out');
+  const tMarket = $('#t-market');
   const hud = { size: $('#hud-size'), glass: $('#hud-glass'), hw: $('#hud-hw') };
 
   let shownTotal = 0, animRaf = 0, last = null;
@@ -180,6 +181,23 @@ export function initTool({ scene, onQuote } = {}) {
       row.className = 'ln ln-sub';
       row.innerHTML = `<span><i style="margin:0">two-crew multiplier ×1.6 applied</i></span><b>auto</b>`;
       linesEl.appendChild(row);
+    }
+
+    /* market sanity band for the same spec */
+    if (tMarket) {
+      const b = marketBand(state);
+      const sell = q.sell;
+      /* Only worth saying something when the gap is big enough to matter. */
+      const off = sell < b.low ? (b.low - sell) / b.low : sell > b.high ? (sell - b.high) / b.high : 0;
+      const verdict = off === 0
+        ? ` Yours sits in that range.`
+        : off < 0.09
+          ? ` Yours is close to it.`
+          : sell < b.low
+            ? ` <span class="q-market-flag">Yours is under the band. Check you are not leaving money on the table.</span>`
+            : ` <span class="q-market-flag">Yours is over the band. Be ready to say why.</span>`;
+      tMarket.innerHTML =
+        `Most shops charge <b>${money0.format(b.low)} – ${money0.format(b.high)}</b> for this one.` + verdict;
     }
 
     tCost.textContent = money0.format(Math.round(q.cost));
@@ -309,15 +327,35 @@ Excludes removal of obstructions, wall repair and any work outside the enclosure
     toast('Opened in your mail client with the quote already written out.');
   });
 
-  $('#send-quote')?.addEventListener('click', () => {
+  /* Nothing is sent anywhere from this page — the button just puts the whole
+     quote on the clipboard so the shop can paste it wherever it works. */
+  async function copyText(text) {
+    try {
+      await navigator.clipboard.writeText(text);
+      return true;
+    } catch { /* older browsers, or a page served without a secure context */ }
+    try {
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      ta.setAttribute('readonly', '');
+      ta.style.cssText = 'position:fixed;left:-9999px;top:0';
+      document.body.appendChild(ta);
+      ta.select();
+      const ok = document.execCommand('copy');
+      ta.remove();
+      return ok;
+    } catch {
+      return false;
+    }
+  }
+
+  $('#send-quote')?.addEventListener('click', async () => {
     startTimer();
-    timeTaken.textContent = fmt(elapsed());
-    const mins = Math.max(0.5, Math.round(elapsed() / 600) / 10);
-    toast(
-      `<b>${ref()} sent.</b> ${money0.format(Math.round(last.sell))} to the customer, ` +
-      `deposit link live, valid 14 days. Total time on the call: ${fmt(elapsed())}.<br>` +
-      `<span style="color:#5F6B7B;font-size:.82em">That is the whole job. Nothing left to do tonight.</span>`
-    );
+    const text = quoteToText(state, last, ref());
+    toast(await copyText(text)
+      ? `<b>Copied.</b> ${ref()} is on your clipboard — ${money0.format(Math.round(last.sell))}, ` +
+        `priced in ${fmt(elapsed())}. Paste it into a text or email and send it on.`
+      : 'Your browser would not copy that. Use Print or Email instead.');
     stopTimer();
   });
 

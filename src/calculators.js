@@ -56,9 +56,9 @@ export function initLeak(root = document) {
     box.classList.toggle('result-good', m.recoverable <= 0);
     const ceiling = m.revenueIfFast - m.revenueNow;
     sub.innerHTML =
-      `is the <b>ceiling</b> on the ${money(m.annualQuoted)} you already quote — if every quote ` +
-      `closed the way your fastest ones do. Nobody captures all of it. Half of this gap, done ` +
-      `properly, is <b>${money(ceiling / 2)}</b> a year without a single new customer.`;
+      `is what you could win on the ${money(m.annualQuoted)} you already send out. It is the ` +
+      `top end, if every quote closed like your best ones. You will not get all of it. Half of ` +
+      `that gap is <b>${money(ceiling / 2)}</b> a year. You get it from the jobs you already have.`;
 
     const pctNow  = (m.nowRate * 100).toFixed(1);
     const pctFast = (m.fastRate * 100).toFixed(1);
@@ -73,22 +73,21 @@ export function initLeak(root = document) {
     unclosed.textContent = money(m.unclosed);
 
     leaksEl.innerHTML = m.leaks.map((l) => `
-      <div class="leak${l.top ? ' leak-top' : ''}">
-        <span class="leak-name">${l.name}${l.top ? ' <span class="micro-label">biggest</span>' : ''}</span>
-        <span class="leak-val">${money(l.value)}</span>
-        <span class="leak-why">${l.why}</span>
-        <span class="leak-fix">${l.fix}</span>
+      <div class="leak">
+        <div class="leak-top">
+          <span class="leak-name">${l.name}</span>
+          <span class="leak-val">${money(l.value)} a year</span>
+        </div>
+        <p class="leak-why">${l.why}</p>
+        <p class="leak-fix">${l.fix}</p>
       </div>`).join('');
 
     verdict.innerHTML = m.top
-      ? `Start with the <b>${m.top.name.toLowerCase()}</b>. It is worth <b>${money(m.top.value)}</b> a year, ` +
-        `and you are currently ${delayLabel(inputs.delayMinutes)} between "I'll send a quote" and the customer having one.`
-      : `Nothing is leaking on these numbers. Either your desk is already fast, or these figures are optimistic — worth checking.`;
+      ? `Start with the <b>${m.top.name.toLowerCase()}</b>. It costs you <b>${money(m.top.value)}</b> a year. ` +
+        `Right now you wait ${delayLabel(inputs.delayMinutes)} before the customer has a price.`
+      : `Nothing is leaking on these numbers. Either your desk is already fast, or your answers are too good. Worth a check.`;
 
-    /* keep the emailed sheet in sync with whatever is on screen */
     current = m;
-    const dl = $('#lk-download', root);
-    if (dl) dl.onclick = () => downloadSheet(m, inputs.closeRate);
   }
 
   let current = null;
@@ -96,58 +95,7 @@ export function initLeak(root = document) {
   run();
 }
 
-/* ============================================================ the one-pager */
-
-function downloadSheet(m, closePct) {
-  const body = sheet(m);
-  const w = window.open('', '_blank');
-  if (!w) return;
-  w.document.write(`<!doctype html><meta charset="utf-8"><title>Your quote desk leak</title>
-  <style>
-    body{font:13px/1.6 ui-monospace,SFMono-Regular,Menlo,monospace;color:#0d1117;
-         background:#fff;max-width:760px;margin:0 auto;padding:48px 28px;white-space:pre-wrap}
-    @media print{body{padding:0}}
-  </style><body>${escapeHtml(body)}</body>`);
-  w.document.close();
-  setTimeout(() => w.print(), 250);
-}
-
-const escapeHtml = (s) => s.replace(/[&<>]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]));
-
-/* --------------------------------------------------------- the email gate -- */
-
-export function initGate(root = document) {
-  const form = $('#lk-gate-form', root);
-  if (!form) return;
-  const unlocked = $('#lk-unlocked', root);
-  const email = $('#lk-email', root);
-  const btn = form.querySelector('button[type="submit"]');
-  const note = $('#lk-gate-note', root);
-
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const val = email.value.trim();
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(val)) {
-      note.textContent = 'That address does not look complete — check for a typo.';
-      note.style.color = 'var(--loss)';
-      return;
-    }
-    const m = root.__leak.model;
-    unlocked.classList.add('on');
-    form.closest('.gate-in').style.display = 'none';
-
-    /* TODO(owner): POST { email, m } to your ESP / CRM. See main.js form handler. */
-    if (window.__onGate) window.__onGate({ email: val, model: m });
-
-    const dl = $('#lk-download-btn', root);
-    if (dl && m) {
-      dl.onclick = () => downloadSheet(m, root.__leak.inputs.closeRate);
-      unlocked.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    }
-  });
-}
-
-/* ========================================================== markup reality == */
+/* ================================================== the markup calculator */
 
 export function initMarkup(root) {
   const inputs = { sqFt: 26, matPerSf: 38, labourHours: 3.5, labourRate: 95, extras: 0, markupPct: 45 };
@@ -160,7 +108,7 @@ export function initMarkup(root) {
       const v = Number(el.value);
       out.textContent = key === 'extras' ? money(v)
         : key === 'sqFt' ? `${num(v)} sf`
-        : key === 'labourRate' ? money(v) + '/h'
+        : key === 'labourRate' ? `${money(v)}/h`
         : key === 'labourHours' ? `${v.toFixed(1)} h`
         : key === 'markupPct' ? `${v}%`
         : money(v);
@@ -169,7 +117,6 @@ export function initMarkup(root) {
     paint();
   }
 
-  const res  = $('#mk-result', root);
   const big  = $('#mk-gross-pct', root);
   const cost = $('#mk-cost', root);
   const sell = $('#mk-sell', root);
@@ -178,14 +125,20 @@ export function initMarkup(root) {
   const note = $('#mk-note', root);
   const bar  = $('#mk-bar', root);
   const mark = $('#mk-marker', root);
+  const need = $('#mk-needed', root);
+  const gap  = $('#mk-gap', root);
 
   function run() {
     const m = markupModel(inputs);
-    res.className = 'result' + (m.tone === 'loss' ? '' : ' result-good');
+
     big.textContent = `${(m.grossPct * 100).toFixed(1)}%`;
     cost.textContent  = money(m.cost);
     sell.textContent  = money(m.sell);
     gross.textContent = money(m.gross);
+    need.textContent  = money(m.needed);
+    gap.textContent   = m.gap > 0
+      ? `That is ${money(m.gap)} more than you charge now.`
+      : `You already clear that, with ${money(-m.gap)} to spare.`;
     note.innerHTML = m.verdict;
 
     rows.innerHTML = `
@@ -194,12 +147,16 @@ export function initMarkup(root) {
       ${m.extra > 0 ? `<div><span>Hardware, seals, delivery</span><span class="v">${money(m.extra)}</span></div>` : ''}
       <div><span>Total cost</span><span class="v">${money(m.cost)}</span></div>
       <div><span>You sell at ${inputs.markupPct}% markup</span><span class="v">${money(m.sell)}</span></div>
-      <div><span>Gross profit</span><span class="v">${money(m.gross)}</span></div>`;
+      <div><span>Gross profit</span><span class="v">${money(m.gross)}</span></div>
+      <div><span>Price to keep ${Math.round(ASSUMPTIONS.glassGrossBand[0] * 100)}%</span><span class="v">${money(m.needed)}</span></div>`;
 
-    bar.style.width = `${Math.min(100, m.grossPct * 100)}%`;
     const [lo, hi] = ASSUMPTIONS.glassGrossBand;
-    mark.style.left = `${(lo + hi) / 2 * 100}%`;
+    const good = m.tone !== 'loss';
+    bar.style.width = `${Math.min(100, m.grossPct * 100)}%`;
+    bar.style.background = good ? 'var(--acc)' : 'var(--bad)';
+    mark.style.left = `${((lo + hi) / 2) * 100}%`;
   }
 
+  root.__markup = { inputs };
   run();
 }
